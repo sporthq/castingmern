@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  overflow-y:hidden 
+@media screen and (max-width: 768px) {
+  html, body {
+    /* overflow-y: hidden; */
+  }
 }

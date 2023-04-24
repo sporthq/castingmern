@@ -21,6 +21,7 @@ import { FaCameraRetro } from 'react-icons/fa';
 import NavMobile from './NavMobile';
 import MovieSvg from '../assets/images/movie-clapperboard-svgrepo-com.svg';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
 
 const links = [
 	{
@@ -40,7 +41,13 @@ const links = [
 const Navbar = () => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const { colorMode, toggleColorMode } = useColorMode();
-
+	useEffect(() => {
+		if (isOpen) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = 'auto';
+		}
+	}, [isOpen]);
 	const NavLink = ({ path, children }) => {
 		return (
 			<Link
@@ -58,39 +65,45 @@ const Navbar = () => {
 
 	return (
 		<>
-			{/* <Flex direction={'column'} position={"relative"} > */}
 			<Box
-				overflow={'hidden'}
+				overflowY='hidden'
 				zIndex={1}
-				// position={'relative'}
-				w='full'
-				// maxH={'full'}
+				w=''
 				bg={useColorModeValue('gray.100', 'gray.900')}
 				px={4}
+				className='overflow-hidden'
 			>
-				<Flex h={16} alignItems='center' justify='space-between'>
-					<Box
+				<Flex h={16} className='' alignItems='center' justify='space-between'>
+					{/* // SVG BOX  */}
+					{/* <Box
 						as='div'
 						position='absolute'
 						top='50%'
-						left='50%'
-						transform='translate(-50%, -50%)'
+						left='2%'
+						transform='translateY( -50%)'
 						bg={useColorModeValue('gray.100', 'gray.900')}
-						w='200px'
+						w='140px'
 						h={{ base: 0, md: '200px' }}
 						rounded={{ base: 'none', md: 'full' }}
 						zIndex={-1}
-					></Box>
+					>
+						
+						<Image   className="-rotate-12" src={MovieSvg}></Image>
+					</Box> */}
 					<HStack>
 						<Link as={ReactLink} to='/'>
 							<Flex alignItems='center'>
 								<Icon
 									p={2}
+									zIndex={333}
 									boxSize={8}
 									color={useColorModeValue('black.600', 'orange.200')}
 									as={colorMode === 'light' ? MoonIcon : SunIcon}
 									alignSelf='center'
-									onClick={() => toggleColorMode()}
+									onClick={(e) => {
+										e.preventDefault();
+										toggleColorMode();
+									}}
 									display={{ base: 'inline-flex', md: 'none' }}
 								/>
 								<Icon
@@ -102,7 +115,7 @@ const Navbar = () => {
 								/>
 								<Text display={{ base: 'none', md: 'inline-flex' }} className='ml-1' fontWeight='extrabold'>
 									Casting
-									<Text color={useColorModeValue('teal.600', 'teal.200')} as='span'>
+									<Text className='mr-8' color={useColorModeValue('teal.600', 'teal.200')} as='span'>
 										&
 									</Text>
 								</Text>
@@ -134,11 +147,12 @@ const Navbar = () => {
 								display={{ base: 'none', md: 'inline-flex' }}
 								p={2}
 								boxSize={8}
+								zIndex={333}
 								color={useColorModeValue('black.600', 'orange.200')}
 								as={colorMode === 'light' ? MoonIcon : SunIcon}
 								alignSelf='center'
 								onClick={() => toggleColorMode()}
-							/>
+							></Icon>
 						</NavLink>
 						<Button
 							color={colorMode === 'light' ? 'black.800' : 'white'}
@@ -178,9 +192,7 @@ const Navbar = () => {
 					/>
 				</Flex>
 			</Box>
-			<AnimatePresence>
-				{isOpen ? <NavMobile  links={links} /> : null}
-			</AnimatePresence>
+			<AnimatePresence>{isOpen ? <NavMobile onClose={onClose} links={links} /> : null}</AnimatePresence>
 		</>
 	);
 };
