@@ -15,7 +15,7 @@ import {
 	useColorModeValue,
 	Divider,
 } from '@chakra-ui/react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
 import { MdCameraRoll } from 'react-icons/md';
 import { Link as ReactLink } from 'react-router-dom';
 
@@ -28,26 +28,33 @@ const MAX_WORDS_LONG = 15;
 const CastingCard = ({ casting }) => {
 	const imageRef = useRef();
 	const [maxWords, setMaxWords] = useState(MAX_WORDS_SHORT);
-	const [imageWidth, setImageWidth] = useState('');
+	const [imageWidth, setImageWidth] = useState();
+
+	const widthFrom = imageRef.current?.getBoundingClientRect().width;
+
 
 	const bgProvider = useColorModeValue('orange.800', 'orange.800');
+
 	useEffect(() => {
 		const handleSizeWordBox = () => {
-			const width = imageRef.current.getBoundingClientRect().width;
-			setImageWidth(width);
+			const width = imageRef.current?.getBoundingClientRect().width;
+			
+			setImageWidth(width );
 			console.log(width);
-
 			if (width < 400) {
 				setMaxWords(MAX_WORDS_SHORT);
 			} else {
 				setMaxWords(MAX_WORDS_LONG);
 			}
 		};
-		window.addEventListener('resize', handleSizeWordBox);
-		handleSizeWordBox(); // pierwsze wywołanie
-		return () => window.removeEventListener('resize', handleSizeWordBox);
-	}, [imageWidth]);
 
+		handleSizeWordBox(); // pierwsze wywołanie
+		window.addEventListener('resize', handleSizeWordBox);
+		return () => window.removeEventListener('resize', handleSizeWordBox);
+	}, [maxWords, imageRef, imageWidth]);
+
+
+	
 	return (
 		<Stack
 			p={2}
@@ -74,7 +81,7 @@ const CastingCard = ({ casting }) => {
 					className='overflow-hidden mb-1'
 				></FramerImage>
 			</Link>
-			<Flex alignItems='baseline' className='w-full   pb-1'>
+			<Flex alignItems='baseline' className='w-full pb-1'>
 				<Box flex={1} maxH={'5'} alignItems='' className='my-1'>
 					{casting.isNew && (
 						<Badge rounded='full' px='2' colorScheme='green' className=''>
@@ -85,9 +92,7 @@ const CastingCard = ({ casting }) => {
 				<Text className={`font-semibold ${maxWords <= MAX_WORDS_SHORT ? 'text-sm' : 'text-lg'}`}>{casting.town}</Text>
 			</Flex>
 
-			<Divider bg={useColorModeValue('gray.600', 'gray.600')} h=".1px" py={".5px"} className='' />
-			{/* <Divider bg={"orange.900"} /> */}
-			
+			<Divider bg={useColorModeValue('gray.600', 'gray.600')} h='.1px' py={'.5px'} className='' />
 
 			<Text className='py-1 ' maxW={imageWidth}>
 				{casting.description.split(' ').slice(0, maxWords).join(' ')}

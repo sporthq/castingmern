@@ -67,29 +67,16 @@ const Navbar = () => {
 		<>
 			<Box
 				overflowY='hidden'
-				zIndex={1}
+				zIndex={10}
 				w=''
 				bg={useColorModeValue('gray.100', 'gray.900')}
 				px={4}
 				className='overflow-hidden'
+				position={"sticky"}
+				top={0}
 			>
-				<Flex h={16} className='' alignItems='center' justify='space-between'>
-					{/* // SVG BOX  */}
-					{/* <Box
-						as='div'
-						position='absolute'
-						top='50%'
-						left='2%'
-						transform='translateY( -50%)'
-						bg={useColorModeValue('gray.100', 'gray.900')}
-						w='140px'
-						h={{ base: 0, md: '200px' }}
-						rounded={{ base: 'none', md: 'full' }}
-						zIndex={-1}
-					>
-						
-						<Image   className="-rotate-12" src={MovieSvg}></Image>
-					</Box> */}
+				<Flex h={16} className='' alignItems='center' justify='space-between' >
+					
 					<HStack>
 						<Link as={ReactLink} to='/'>
 							<Flex alignItems='center'>
@@ -130,29 +117,32 @@ const Navbar = () => {
 					</HStack>
 					<Flex alignItems={'center'}>
 						<NavLink>
-							<Icon
-								display={{ base: 'inline-flex', md: 'none' }}
-								as={FaCameraRetro}
-								h={6}
-								w={6}
-								color={useColorModeValue('teal.600', 'teal.200')}
-							/>
-							<Text display={{ base: 'inline-flex', md: 'none' }} className='ml-1' fontWeight='extrabold'>
-								Casting
-								<Text color={useColorModeValue('teal.600', 'teal.200')} as='span'>
-									&
+							<Link as={ReactLink} to='/'>
+								
+								<Icon
+									display={{ base: 'inline-flex', md: 'none' }}
+									as={FaCameraRetro}
+									h={6}
+									w={6}
+									color={useColorModeValue('teal.600', 'teal.200')}
+								/>
+								<Text display={{ base: 'inline-flex', md: 'none' }} className='ml-1' fontWeight='extrabold'>
+									Casting
+									<Text color={useColorModeValue('teal.600', 'teal.200')} as='span'>
+										&
+									</Text>
 								</Text>
-							</Text>
-							<Icon
-								display={{ base: 'none', md: 'inline-flex' }}
-								p={2}
-								boxSize={8}
-								zIndex={333}
-								color={useColorModeValue('black.600', 'orange.200')}
-								as={colorMode === 'light' ? MoonIcon : SunIcon}
-								alignSelf='center'
-								onClick={() => toggleColorMode()}
-							></Icon>
+								<Icon
+									display={{ base: 'none', md: 'inline-flex' }}
+									p={2}
+									boxSize={8}
+									zIndex={333}
+									color={useColorModeValue('black.600', 'orange.200')}
+									as={colorMode === 'light' ? MoonIcon : SunIcon}
+									alignSelf='center'
+									onClick={() => toggleColorMode()}
+								></Icon>
+							</Link>
 						</NavLink>
 						<Button
 							color={colorMode === 'light' ? 'black.800' : 'white'}

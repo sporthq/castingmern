@@ -45,7 +45,7 @@ const NavMobile = ({ links, onClose }) => {
 							as={ReactLink}
 							onClick={onClose}
 							to={path}
-							className='text-center py-12 font-semibold  text-2xl hover:underline '
+							className='text-center py-9 font-semibold  text-2xl hover:underline '
 							key={index}
 						>
 							{linkName}
