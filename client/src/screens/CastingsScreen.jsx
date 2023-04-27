@@ -5,7 +5,7 @@ import CastingCard from '../components/CastingCard';
 const CastingsScreen = () => {
 	return (
 		// <Wrap spacing={30} align={"baseline"} justify='center' minHeight='100vh'>
-		<Wrap spacing={65}  align={"baseline"} justify='center' minHeight='100vh' mt={"12"}>
+		<Wrap spacing={65}  align={"baseline"} justify='center' minHeight='100vh' mt={"12"} pb={20}>
 		
 			{castings.map((casting) => (
         

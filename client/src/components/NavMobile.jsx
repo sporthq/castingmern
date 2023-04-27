@@ -12,8 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const MotionBox = motion(Box);
 
 const NavMobile = ({ links, onClose }) => {
-	// const { isOpen, onClose, onOpen } = useDisclosure();
-	const { colorMode, toggleColorMode } = useColorMode();
+	
 	const bgGradient = useColorModeValue('linear(to-b, gray.100, gray.900)', 'linear(to-b, gray.900, gray.100)');
 
 	return (
