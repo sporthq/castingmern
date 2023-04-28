@@ -99,10 +99,11 @@ const Navbar = () => {
 									h={6}
 									w={6}
 									color={useColorModeValue('teal.600', 'teal.200')}
+									_hover={{ color:'teal.500' }}
 								/>
 								<Text display={{ base: 'none', md: 'inline-flex' }} className='ml-1' fontWeight='extrabold'>
 									Casting
-									<Text className='mr-8' color={useColorModeValue('teal.600', 'teal.200')} as='span'>
+									<Text _hover={{ color:'teal.500' }} className='mr-8' color={useColorModeValue('teal.600', 'teal.200')} as='span'>
 										&
 									</Text>
 								</Text>

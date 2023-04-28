@@ -92,6 +92,7 @@ const Home = () => {
 					bg=''
 					w={{ base: '100%', lg: 'auto' }}
 					h={{ base: 'fit-content', lg: '50%' }}
+					// paddingTop={{ '2xl': "15px" }}
 					// p='-20'
 					// className='text-5xl  '
 					fontSize={{ base: '4xl', sm: '5xl', md: '6xl', lg: '7xl', xl: '8xl', '2xl': '7xl' }}
@@ -103,9 +104,10 @@ const Home = () => {
 					// bg={{ xl: 'blue.100' }}
 
 					alignItems={{ base: 'center', xl: 'center' }}
-					justify={{ base: 'center', md: 'space-around', xl: 'space-between' }}
+					justify={{ base: 'center', md: 'space-around', xl: 'space-between',  }}
 					mt={'10'}
 					h='100%'
+					// backgroundColor="red.500"
 				>
 					<Box
 						// ml="-64"
@@ -114,6 +116,8 @@ const Home = () => {
 						bg={''}
 						// marginLeft={'-140px'}
 						marginLeft={{ base: '-180px', sm: '-380px', md: '-130px', lg: '-140px', xl: '-110px' }}
+						backgroundColor=""
+						marginRight={{ "2xl": '125px' }}
 					>
 						<FrameImg
 							initial={{ rotate: '-45', x: '-500px' }}
@@ -124,7 +128,8 @@ const Home = () => {
 						/>
 					</Box>
 
-					<Box className='hidden xl:block self-center '>
+					<Box   
+						className='hidden xl:block self-center '>
 						<Center mt={'10'} pb={'40px'}>
 							<FrameButton
 								whileHover={{
@@ -152,7 +157,7 @@ const Home = () => {
 						bg=''
 						w={{ base: '100%', md: '50%', lg: '60%', '2xl': '40%' }}
 						pr={{ base: '20px', '2xl': '20x' }}
-						mr={{ '2xl': '100px' }}
+						mr={{ '2xl': '0px' }}
 					>
 						<Heading
 							fontSize={{ base: '4xl', sm: '5xl', md: '5xl', lg: '6xl' }}
