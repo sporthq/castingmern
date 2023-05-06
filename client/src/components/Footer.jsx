@@ -13,7 +13,7 @@ import {
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 
 export const Footer = () => (
-  <Container as="footer" role="contentinfo">
+  <Container as="footer" role="contentinfo"  >
    
     <Divider  bg={useColorModeValue('gray.600', 'gray.600')} h='.1px' py={'.5px'} />
     <Stack

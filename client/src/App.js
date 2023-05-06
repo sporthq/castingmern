@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Home from './components/Home';
 
 import { extendTheme } from '@chakra-ui/react';
+import CastingScreen from './screens/CastingScreen';
 
 const breakpoints = {
 	sml: '580px',
@@ -31,6 +32,7 @@ function App() {
 					<Routes>
 						<Route path='/' element={<Home></Home>}></Route>
 						<Route path='/castings' element={<CastingsScreen />}></Route>
+						<Route path='/casting/:id' element={<CastingScreen />}></Route>
 					</Routes>
 				</main>
 

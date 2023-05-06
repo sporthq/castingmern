@@ -38,12 +38,8 @@ const CastingCard = ({ casting }) => {
 
 	useEffect(() => {
 		const handleSizeWordBox = () => {
-			console.log(imageRef);
 			const width = imageRef.current.getBoundingClientRect().width;
-
-			console.log('width' + width);
 			setImageWidth(width);
-			console.log(width);
 			if (width < 400) {
 				setMaxWords(MAX_WORDS_SHORT);
 			} else {
@@ -95,13 +91,13 @@ const CastingCard = ({ casting }) => {
 			</Link>
 			<Flex alignItems='baseline' className='w-full pb-1'>
 				<Box flex={1} maxH={'5'} alignItems='' className='my-1'>
-					{casting.isNew && (
+					{casting.castingIsNew && (
 						<Badge rounded='full' px='2' colorScheme='green' className=''>
 							NEW!
 						</Badge>
 					)}
 				</Box>
-				<Text className={`font-semibold ${maxWords <= MAX_WORDS_SHORT ? 'text-sm' : 'text-lg'}`}>{casting.town}</Text>
+				<Text className={`font-bold ${maxWords <= MAX_WORDS_SHORT ? 'text-sm' : 'text-sm'}`}>{casting.town}</Text>
 			</Flex>
 
 			<Divider bg={useColorModeValue('gray.600', 'gray.600')} h='.1px' py={'.5px'} className='' />

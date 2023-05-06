@@ -23,6 +23,7 @@ import MovieSvg from '../assets/images/movie-clapperboard-svgrepo-com.svg';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect } from 'react';
 
+
 const links = [
 	{
 		linkName: 'Home',
@@ -104,7 +105,7 @@ const Navbar = () => {
 								<Text display={{ base: 'none', md: 'inline-flex' }} className='ml-1' fontWeight='extrabold'>
 									Casting
 									<Text _hover={{ color:'teal.500' }} className='mr-8' color={useColorModeValue('teal.600', 'teal.200')} as='span'>
-										&
+										& 
 									</Text>
 								</Text>
 							</Flex>
@@ -117,7 +118,7 @@ const Navbar = () => {
 						</HStack>
 					</HStack>
 					<Flex alignItems={'center'}>
-						<NavLink >
+						<Link as={ReactLink} to='/' >
 							<Icon
 								display={{ base: 'inline-flex', md: 'none' }}
 								as={FaCameraRetro}
@@ -128,7 +129,7 @@ const Navbar = () => {
 							<Text display={{ base: 'inline-flex', md: 'none' }} className='ml-1' fontWeight='extrabold'>
 								Casting
 								<Text color={useColorModeValue('teal.600', 'teal.200')} as='span'>
-									&
+									& 
 								</Text>
 							</Text>
 							<Icon
@@ -139,12 +140,12 @@ const Navbar = () => {
 								color={useColorModeValue('black.600', 'orange.200')}
 								as={colorMode === 'light' ? MoonIcon : SunIcon}
 								alignSelf='center'
-								onClick={() => {
-									
+								onClick={(e) => {
+									e.preventDefault()
 									toggleColorMode();
 								}}
 							></Icon>
-						</NavLink>
+						</Link>
 						<Button
 							color={colorMode === 'light' ? 'black.800' : 'white'}
 							_hover={{ textDecoration: 'underline' }}

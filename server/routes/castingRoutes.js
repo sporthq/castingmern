@@ -7,6 +7,18 @@ const getCastings = async (req, res) => {
 	res.json(castings);
 };
 
+const getCasting = async(req,res) => {
+	const casting = await Casting.findById(req.params.id)
+	console.log(casting);
+
+	if(casting) {
+		res.json(casting)
+	} else {
+		res.status(404);
+		throw new Error('Nie ma takiego castingu')
+	}
+}
 castingRoutes.route('/').get(getCastings);
+castingRoutes.route('/:id').get(getCasting);
 
 export default castingRoutes

@@ -95,7 +95,7 @@ const Home = () => {
 					// paddingTop={{ '2xl': "15px" }}
 					// p='-20'
 					// className='text-5xl  '
-					fontSize={{ base: '4xl', sm: '5xl', md: '6xl', lg: '7xl', xl: '8xl', '2xl': '7xl' }}
+					fontSize={{ base: '4xl', sm: '5xl', md: '6xl', lg: '6xl', xl: '7xl', '2xl': '7xl' }}
 				>
 					<AnimatedText className='pt-6  ' text='Witaj na naszej stronie. Znajdź casting dla siebie!' />
 				</Box>
@@ -115,7 +115,7 @@ const Home = () => {
 						w={{ base: '100%', sm: '75%', md: '75%', lg: '70%', xl: '50%', '2xl': '35%' }}
 						bg={''}
 						// marginLeft={'-140px'}
-						marginLeft={{ base: '-180px', sm: '-380px', md: '-130px', lg: '-140px', xl: '-110px' }}
+						marginLeft={{ base: '-180px', sm: '-380px', md: '-130px', lg: '-140px', xl: '-130px' }}
 						backgroundColor=""
 						marginRight={{ "2xl": '125px' }}
 					>
