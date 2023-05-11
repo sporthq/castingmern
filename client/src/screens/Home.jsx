@@ -18,8 +18,8 @@ import { easeInOut, motion } from 'framer-motion';
 import homeImg from '../assets/images/claps-removebg.png';
 import homeImg2 from '../assets/images/Leonardo_Creative_happy_people_in_the_casting_movie_white_back_2-removebg-preview.png';
 import { useState } from 'react';
-import TransitionEffect from './TransitionEffect';
-import Footer from './Footer';
+import TransitionEffect from '../components/TransitionEffect';
+import Footer from '../components/Footer';
 
 const FrameButton = motion(Button);
 const Home = () => {

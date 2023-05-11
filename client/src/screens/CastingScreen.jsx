@@ -69,7 +69,7 @@ const CastingScreen = () => {
 			) : (
 				casting && (
 					<>
-						<Flex  bg='' direction={{ base: 'column' }} justify='center' align='center' paddingBottom='16'>
+						<Flex bg='' direction={{ base: 'column' }} justify='center' align='center' paddingBottom='16'>
 							<Box
 								// boxShadow='2xl'
 								rounded='md'
@@ -90,19 +90,32 @@ const CastingScreen = () => {
 										// maxW={imageHeight > imageWidth ? '200px' : 'full'}
 										maxW={{
 											base: imageHeight > imageWidth ? 'full' : 'full',
+											// sm: imageHeight > imageWidth ? 'full' : '500px',
+											// md: imageHeight > imageWidth ? 'full' : '600px',
 											lg: imageHeight > imageWidth ? '200px' : '400px',
+											xl: imageHeight > imageWidth ? '200px' : '600px',
 										}}
 									/>
 
 									<Flex bg='' direction={'column'} px={{ lg: '70px' }}>
-										<Text fontWeight='bold' fontSize='2xl' marginTop={{ base: '5', lg: '0' }} maxW={{ base: 'full' }}>
+										<Text
+											fontWeight='bold'
+											fontSize={{ base: '2xl',sm:'3xl',
+											 lg: '4xl' }}
+											marginTop={{ base: '5', lg: '0' }}
+											maxW={{ base: 'full' }}
+										>
 											{casting.town}
 										</Text>
-										<Divider marginTop={{ base: '5', lg: '3' }} />
-										<Text marginTop={{ base: '5', lg: '3' }} maxW={{ base: imageWidth }}>
+										<Divider marginTop={{ base: '3', lg: '3' }} />
+										<Text
+											fontSize={{ base: 'md',sm:'lg', lg: 'md' }}
+											marginTop={{ base: '3', lg: '3' }}
+											maxW={{ base: imageWidth }}
+										>
 											{casting.description}
 										</Text>
-										<FrameButton
+										{/* <FrameButton
 											color='white'
 											_hover={{ bg: 'orange.300' }}
 											bg={'orange.400'}
@@ -115,44 +128,42 @@ const CastingScreen = () => {
 											}}
 										>
 											Zapisz się
-										</FrameButton>
+										</FrameButton> */}
 									</Flex>
 								</Flex>
 							</Box>
 							<Divider marginTop={{ base: '5', lg: '3' }} />
 
-							
-							{showForm && (
-									<MotionFormControl
-										initial={{ y: '-50', opacity: '0' }}
-										animate={{ y: '30px', opacity: '1'  ,transition: { duration: .3 }}}
-										// exit={{ y: '-50px', opacity: '0', transition:  { y:{duration:.1}, opacity: { duration: 10 }, delay:.5 } }}
-										px={{ base: '4', md: '8', lg: '12' }}
-										py={{ base: '6', md: '8', lg: '12' }}
-										marginTop={{ base: '4', lg: '2px' }}
-										w={{ base: 'full' }}
-										maxW={{ lg: 'full' }}
+							 
+								<MotionFormControl
+									initial={{ y: '-50', opacity: '0' }}
+									animate={{ y: '30px', opacity: '1', transition: { duration: 0.3 } }}
+									// exit={{ y: '-50px', opacity: '0', transition:  { y:{duration:.1}, opacity: { duration: 10 }, delay:.5 } }}
+									px={{ base: '4', md: '8', lg: '12' }}
+									py={{ base: '6', md: '8', lg: '12' }}
+									marginTop={{ base: '4', lg: '2px' }}
+									w={{ base: 'full' }}
+									maxW={{ lg: 'full' }}
+								>
+									<FormLabel>Imię: </FormLabel>
+									<Input placeContent='Imię'></Input>
+									<FormLabel>Nazwisko: </FormLabel>
+									<Input placeContent='Nazwisko'></Input>
+									<FormLabel>O sobię: </FormLabel>
+									<Textarea placeContent='O sobię'></Textarea>
+									<Button
+										color='white'
+										_hover={{ bg: 'orange.300' }}
+										bg={'orange.400'}
+										display='flex'
+										mt='30px'
+										fontSize={'sm'}
+										fontWeight={700}
+										marginLeft='auto'
 									>
-										<FormLabel>Imię: </FormLabel>
-										<Input placeContent='Imię'></Input>
-										<FormLabel>Nazwisko: </FormLabel>
-										<Input placeContent='Nazwisko'></Input>
-										<FormLabel>O sobię: </FormLabel>
-										<Textarea placeContent='O sobię'></Textarea>
-										<Button
-											color='white'
-											_hover={{ bg: 'orange.300' }}
-											bg={'orange.400'}
-											display='flex'
-											mt='30px'
-											fontSize={'sm'}
-											fontWeight={700}
-											marginLeft='auto'
-										>
-											Wyślij
-										</Button>
-									</MotionFormControl>
-							)}
+										Wyślij
+									</Button>
+								</MotionFormControl>
 							
 						</Flex>
 					</>

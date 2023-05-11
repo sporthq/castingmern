@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 
-export const Footer = () => (
+ const Footer = () => (
   <Container as="footer" role="contentinfo"  >
    
     <Divider  bg={useColorModeValue('gray.600', 'gray.600')} h='.1px' py={'.5px'} />

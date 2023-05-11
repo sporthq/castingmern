@@ -1,5 +1,6 @@
 import express from 'express';
 import Casting from '../models/Casting.js';
+
 const castingRoutes = express.Router();
 
 const getCastings = async (req, res) => {
