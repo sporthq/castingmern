@@ -14,15 +14,26 @@ import {
 	Center,
 	textDecoration,
 	Image,
+	Toast,
+	useToast,
+	MenuButton,
+	Menu,
+	MenuList,
+	MenuIcon,
+	MenuItem,
+	MenuDivider,
 } from '@chakra-ui/react';
-import { Link as ReactLink } from 'react-router-dom';
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, ArrowDownIcon } from '@chakra-ui/icons';
+import { Navigate, Link as ReactLink, redirect, useNavigate } from 'react-router-dom';
+import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, ArrowDownIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { FaCameraRetro } from 'react-icons/fa';
 import NavMobile from './NavMobile';
 import MovieSvg from '../assets/images/movie-clapperboard-svgrepo-com.svg';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect } from 'react';
-
+import { useDebugValue, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../redux/actions/userActions';
+import { CgProfile } from 'react-icons/cg';
+import { MdLocalMovies, MdLogout } from 'react-icons/md';
 
 const links = [
 	{
@@ -64,7 +75,18 @@ const Navbar = () => {
 			</Link>
 		);
 	};
+	const navigate = useNavigate();
 
+	const { userInfo } = useSelector((state) => state.user);
+	const dispatch = useDispatch();
+	const toast = useToast();
+
+	const logoutHandler = async () => {
+		await dispatch(logout());
+		navigate('/');
+		toast({ description: 'Wylogowano pomyślnie', status: 'success', isClosable: 'true' });
+
+	};
 	return (
 		<>
 			<Box
@@ -74,8 +96,8 @@ const Navbar = () => {
 				bg={useColorModeValue('gray.100', 'gray.900')}
 				px={4}
 				className='overflow-hidden'
-				position={'sticky'}
-				top={0}
+				// position={'sticky'}
+				// top={0}
 			>
 				<Flex h={16} className='' alignItems='center' justify='space-between'>
 					<HStack>
@@ -100,25 +122,29 @@ const Navbar = () => {
 									h={6}
 									w={6}
 									color={useColorModeValue('teal.600', 'teal.200')}
-									_hover={{ color:'teal.500' }}
+									_hover={{ color: 'teal.500' }}
 								/>
 								<Text display={{ base: 'none', md: 'inline-flex' }} className='ml-1' fontWeight='extrabold'>
 									Casting
-									<Text _hover={{ color:'teal.500' }} className='mr-8' color={useColorModeValue('teal.600', 'teal.200')} as='span'>
-										& 
+									<Text
+										_hover={{ color: 'teal.500' }}
+										className='mr-8'
+										color={useColorModeValue('teal.600', 'teal.200')}
+										as='span'
+									>
+										&
 									</Text>
 								</Text>
 							</Flex>
 						</Link>
 						<HStack as='nav' spacing={4} display={{ base: 'none', md: 'flex' }}>
 							{links.map(({ linkName, path }, index) => {
-								console.log(index);
 								return <NavLink key={index} children={linkName} path={path}></NavLink>;
 							})}
 						</HStack>
 					</HStack>
-					<Flex alignItems={'center'}>
-						<Link as={ReactLink} to='/' >
+					<Flex alignItems={'center'} justify={'center'}>
+						<Link as={ReactLink} to='/'>
 							<Icon
 								display={{ base: 'inline-flex', md: 'none' }}
 								as={FaCameraRetro}
@@ -129,7 +155,7 @@ const Navbar = () => {
 							<Text display={{ base: 'inline-flex', md: 'none' }} className='ml-1' fontWeight='extrabold'>
 								Casting
 								<Text color={useColorModeValue('teal.600', 'teal.200')} as='span'>
-									& 
+									&
 								</Text>
 							</Text>
 							<Icon
@@ -141,37 +167,66 @@ const Navbar = () => {
 								as={colorMode === 'light' ? MoonIcon : SunIcon}
 								alignSelf='center'
 								onClick={(e) => {
-									e.preventDefault()
+									e.preventDefault();
 									toggleColorMode();
 								}}
 							></Icon>
 						</Link>
-						<Button
-							color={colorMode === 'light' ? 'black.800' : 'white'}
-							_hover={{ textDecoration: 'underline' }}
-							as={ReactLink}
-							to={'/login'}
-							p={2}
-							display={{ base: 'none', md: 'inline-flex' }}
-							fontSize={'sm'}
-							fontWeight={500}
-							variant={'link'}
-						>
-							Zaloguj
-						</Button>
-						<Button
-							color='white'
-							_hover={{ bg: 'orange.300' }}
-							bg={'orange.400'}
-							as={ReactLink}
-							to={'/register'}
-							m={2}
-							display={{ base: 'none', md: 'inline-flex' }}
-							fontSize={'sm'}
-							fontWeight={700}
-						>
-							Załóż Konto
-						</Button>
+
+						{userInfo ? (
+							<>
+								<Menu>
+									<MenuButton as={Button} px='4' py='2' transition='all .3s'>
+										{userInfo.firstName} <ChevronDownIcon />
+									</MenuButton>
+									<MenuList>
+										<MenuItem as={ReactLink} to='/profile'>
+											<CgProfile />
+											<Text ml='2'>Profil </Text>
+										</MenuItem>
+										<MenuItem as={ReactLink} to='/your-castings'>
+											<MdLocalMovies />
+											<Text ml='2'>Twoje Castingi </Text>
+										</MenuItem>
+										<MenuDivider />
+										<MenuItem onClick={logoutHandler}>
+											<MdLogout />
+											<Text ml={2}>Wyloguj</Text>
+										</MenuItem>
+									</MenuList>
+								</Menu>
+							</>
+						) : (
+							<>
+								<Button
+									color={colorMode === 'light' ? 'black.800' : 'white'}
+									_hover={{ textDecoration: 'underline' }}
+									as={ReactLink}
+									to={'/login'}
+									p={2}
+									display={{ base: 'none', md: 'inline-flex' }}
+									fontSize={'sm'}
+									fontWeight={500}
+									variant={'link'}
+								>
+									Zaloguj
+								</Button>
+
+								<Button
+									color='white'
+									_hover={{ bg: 'orange.300' }}
+									bg={'orange.400'}
+									as={ReactLink}
+									to={'/register'}
+									m={2}
+									display={{ base: 'none', md: 'inline-flex' }}
+									fontSize={'sm'}
+									fontWeight={700}
+								>
+									Załóż Konto
+								</Button>
+							</>
+						)}
 					</Flex>
 
 					<IconButton

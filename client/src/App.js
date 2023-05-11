@@ -10,6 +10,7 @@ import Home from './screens/Home.jsx'
 import { extendTheme } from '@chakra-ui/react';
 import CastingScreen from './screens/CastingScreen';
 import LoginScreen from './screens/LoginScreen';
+import RegistationScreen from './screens/RegistationScreen';
 
 const breakpoints = {
 	sml: '580px',
@@ -35,6 +36,7 @@ function App() {
 						<Route path='/castings' element={<CastingsScreen />}></Route>
 						<Route path='/casting/:id' element={<CastingScreen />}></Route>
 						<Route path='/login' element={<LoginScreen />}></Route>
+						<Route path='/register' element={<RegistationScreen />}></Route>
 					</Routes>
 				</main>
 

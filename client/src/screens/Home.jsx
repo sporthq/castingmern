@@ -172,7 +172,7 @@ const Home = () => {
 							width='90%'
 							textAlign='center'
 							mt={10}
-							fontSize={{ base: 'md', sm: 'lg', md: 'lg', lg: 'xl' }}
+							fontSize={{ base: 'md', sm: 'lg', lg: 'xl' }}
 							color={useColorModeValue('blackAlpha.700', 'whiteAlpha.800')}
 						>
 							Zapraszamy do naszej strony, gdzie oferujemy rejestrację na castingi dla statystów filmowych. Jeśli
