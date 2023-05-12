@@ -38,6 +38,7 @@ const ProfileScreen = () => {
 	useEffect(() => {
 		if (updateSuccess) {
 			toast({ description: 'Profil zaaktualizowany', status: 'success', isClosable: 'true' });
+			dispatch(resetUpdateSucces());
 		}
 	}, [updateSuccess, toast]);
 	return userInfo ? (
@@ -62,7 +63,6 @@ const ProfileScreen = () => {
 					.oneOf([Yup.ref('password'), null], 'Hasła muszą być takie same'),
 			})}
 			onSubmit={(values) => {
-				dispatch(resetUpdateSucces());
 				dispatch(updateProfile(userInfo._id, values.firstName, values.lastName, values.email, values.password));
 			}}
 		>
