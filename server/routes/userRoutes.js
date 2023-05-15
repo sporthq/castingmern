@@ -86,6 +86,12 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 	}
 });
 
+const getUserCastings = asyncHandler(async(req,res) => {
+	const userCastings = await userCasting.find({
+		user: req.params.id
+	})
+})
+
 userRoutes.route('/login').post(loginUser);
 userRoutes.route('/register').post(registerUser);
 userRoutes.route('/profile/:id').put(protectRoute, updateUserProfile);
