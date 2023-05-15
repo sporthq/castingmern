@@ -74,7 +74,11 @@ const ProfileScreen = () => {
 					px={{ base: '4', md: '8', lg: '12' }}
 					py={{ base: '6', md: '8', lg: '12' }}
 				>
+<<<<<<< HEAD
 					<Stack bg={'red.200'} spacing={10} direction={{ base: 'column', lg: 'row' }} align={{ base: '', lg: 'flex-start' }}>
+=======
+					<Stack spacing={10} direction={{ base: 'column', lg: 'row' }} align={{ base: '', lg: 'flex-start' }}>
+>>>>>>> d34dc246970f1329cdf54068e1ba1b7c0f4ef985
 						<Stack flex='1.5' mb={{ base: '2xl', md: 'none' }}>
 							<Heading fontSize={{ base: '2xl', lg: '4xl' }} fontWeight='extrabold'>
 								Profile
