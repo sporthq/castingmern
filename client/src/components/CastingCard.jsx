@@ -77,7 +77,7 @@ const CastingCard = ({ casting }) => {
 			<Link as={ReactLink} to={`/casting/${casting._id}`}>
 				<FramerImage
 					ref={imageRef}
-					whileHover={{ scale: 1.05, transition: { duration: 0.4 } }}
+					whileHover={{ scale: 1.02, transition: { duration: 0.4 } }}
 					src={casting.image}
 					alt={casting.movieName}
 					roundedTop='lg'

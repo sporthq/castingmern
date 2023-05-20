@@ -9,7 +9,7 @@ const protectRoute = asyncHandler(async (req, res, next) => {
 			token = req.headers.authorization.split(' ')[1];
 			const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
 
-			req.user = User.findById(decoded.id);
+			req.user = await User.findById(decoded.id);
 
 			next();
 		} catch (error) {
@@ -23,4 +23,4 @@ const protectRoute = asyncHandler(async (req, res, next) => {
         }
 });
 
-export default protectRoute;
+export default protectRoute

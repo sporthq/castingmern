@@ -5,6 +5,7 @@ export const initialState = {
 	error: null,
 	userInfo: JSON.parse(localStorage.getItem('userInfo')) ?? null,
 	updateSuccess: false,
+	enrolledCastings: [],
 };
 
 export const userSlice = createSlice({
@@ -37,11 +38,16 @@ export const userSlice = createSlice({
 		resetUpdate: (state) => {
 			state.updateSuccess = false;
 		},
+		setUserCastings: (state, { payload }) => {
+			(state.error = null); (state.enrolledCastings = payload);
+			state.loading = false;
+		},
 	},
 });
 
 // actions === reducers importujemy akcje / funkcje
-export const { setLoading, setError, userLogin, userLogout, updateUserProfile, resetUpdate } = userSlice.actions;
+export const { setLoading, setError, userLogin, userLogout, updateUserProfile, resetUpdate, setUserCastings } =
+	userSlice.actions;
 export default userSlice.reducer;
 
 export const userSelector = (state) => state.user;

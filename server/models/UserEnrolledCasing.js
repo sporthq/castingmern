@@ -1,34 +1,45 @@
 import mongoose from 'mongoose';
 
-const userEnrolledCasingSchema = new mongoose.Schema(
-	{
-		user: {
-			type: mongoose.Schema.Types.ObjectId,
-			required: true,
-			ref: 'User',
-		},
-		firstName: {
-			type: String,
-			required: true,
-			ref: 'User',
-		},
-		email: {
-			type: String,
-			required: true,
-			ref: 'User',
-		},
-		castinEnrolled: [
-			{
-				movieName: { type: String, required: true },
-				image: { type: String, required: true },
-				town: { type: String, required: true },
-				casting_id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Casting' },
-			},
-		],
-	},
-	{ timestamps: true }
+
+const castingEnrollmentSchema = new mongoose.Schema(
+  {
+    casting: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Casting',
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    movieName: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    town: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
 );
 
-const enrolledCastingUser = mongoose.model('userEnrolledCasing', userEnrolledCasingSchema);
+const CastingEnrollment = mongoose.model('CastingEnrollment', castingEnrollmentSchema);
 
-export default enrolledCastingUser;
+export default CastingEnrollment;

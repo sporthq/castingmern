@@ -2,7 +2,7 @@
     "_id": {
       "$oid": "63804a5079636c2ced47757d"
     },
-    "name": "Matrix",
+    "movieName": "Matrix",
     "image": "/images/apple-watch.jpg",
     "brand": "Apple",
     "category": "Electronics",

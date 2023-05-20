@@ -26,11 +26,12 @@ import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useLocation } from 'react-router';
-import { Navigate } from 'react-router-dom';
+import { Navigate , useNavigate  } from 'react-router-dom';
 import { resetUpdateSucces, updateProfile } from './../redux/actions/userActions';
 // import { FormControl } from '@chakra-ui/form-control';
 
 const ProfileScreen = () => {
+	const navigate = useNavigate();
 	const location = useLocation();
 	const dispatch = useDispatch();
 	const { userInfo, loading, error, updateSuccess } = useSelector((state) => state.user);
@@ -64,6 +65,8 @@ const ProfileScreen = () => {
 			})}
 			onSubmit={(values) => {
 				dispatch(updateProfile(userInfo._id, values.firstName, values.lastName, values.email, values.password));
+				navigate('/profile');
+				
 			}}
 		>
 			{(formik) => (
@@ -74,8 +77,8 @@ const ProfileScreen = () => {
 					px={{ base: '4', md: '8', lg: '12' }}
 					py={{ base: '6', md: '8', lg: '12' }}
 				>
-					<Stack bg={'red.200'} spacing={10} direction={{ base: 'column', lg: 'row' }} align={{ base: '', lg: 'flex-start' }}>
-						<Stack flex='1.5' mb={{ base: '2xl', md: 'none' }}>
+					<Stack  spacing={10} direction={{ base: 'column', lg: 'row' }} align={{ base: '', lg: 'center' }}>
+						<Stack display='flex'  order={{ base:'2', lg:'1' }}  flex='1.5' mb={{ base: '2xl', md: 'none' }}>
 							<Heading fontSize={{ base: '2xl', lg: '4xl' }} fontWeight='extrabold'>
 								Profile
 							</Heading>
@@ -117,7 +120,7 @@ const ProfileScreen = () => {
 								</Stack>
 							</Stack>
 						</Stack>
-						<Flex direction='column' align='center' flex={1} _dark={{ bg: 'gray.900' }}>
+						<Flex pb={'14'} order={{ base:'1', lg:'2' }} direction='column'  align='center' flex={1} >
 							<Card>
 								<CardHeader>
 									<Heading size='md'>User Report </Heading>
