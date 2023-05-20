@@ -29,6 +29,10 @@ import { getCasting } from '../redux/actions/castingActions';
 import { useEffect, useRef, useState } from 'react';
 import CastingCard from '../components/CastingCard';
 import { AnimatePresence, motion } from 'framer-motion';
+import { enrollCastingUser, enrollUnregisterUserCasting } from '../redux/actions/enrolledActions';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import TextField from '../components/TextField';
 
 const FrameButton = motion(Button);
 const MotionFormControl = motion(FormControl);
@@ -36,121 +40,116 @@ const CastingScreen = () => {
 	const [imageWidth, setImageWidth] = useState('');
 	const [imageHeight, setImageHeight] = useState('');
 	const [showForm, setShowForm] = useState(false);
+	const [showEnrollToast, setShowEnrollToast] = useState(false);
+	
 	let { id } = useParams();
 
 	const toast = useToast();
 	// redux
 	const dispatch = useDispatch();
 	const castings = useSelector((state) => state.castings);
+	const { enrolledCasting, error: enrollError } = useSelector((state) => state.enrolled);
+	const { userInfo } = useSelector((state) => state.user);
 	const { loading, error, casting } = castings;
 
 	const imageRef = useRef();
+
 	useEffect(() => {
 		dispatch(getCasting(id));
 	}, [dispatch, id]);
+
+	useEffect(() => {
+		if (enrollError && showEnrollToast) {
+			toast({ description: `${enrollError}`, status: 'error', isClosable: true });
+			setShowEnrollToast(false);
+		} else if (enrolledCasting && showEnrollToast) {
+			toast({ description: 'Zapisano na casting', status: 'success', isClosable: true });
+		}
+	}, [enrollError, enrolledCasting, toast, showEnrollToast]);
 
 	const handleImageSize = (e) => {
 		setImageHeight(e.target.naturalHeight);
 		setImageWidth(e.target.naturalWidth);
 	};
 
+	const handleEnrollButtonClick = () => {
+		dispatch(
+			enrollCastingUser(id, {
+				firstName: userInfo.firstName,
+				lastName: userInfo.lastName,
+				email: userInfo.email,
+			})
+		);
+		setShowEnrollToast(true);
+	};
+
 	return (
-		<Wrap spacing='30px' justify='center' minH='100vh' mt={50}>
-			{loading ? (
-				<Stack direction='row' spacing={4}>
-					<Spinner mt={20} thickness='2px' speed='0.65s ' emptyColor='gray.200' color='orange.500' size='xl' />
-				</Stack>
-			) : error ? (
-				<Alert status='error'>
-					<AlertIcon />
-					<AlertTitle>Upps!</AlertTitle>
-					<AlertDescription>{error}</AlertDescription>
-				</Alert>
-			) : (
-				casting && (
-					<>
-						<Flex bg='' direction={{ base: 'column' }} justify='center' align='center' paddingBottom='16'>
-							<Box
-								// boxShadow='2xl'
-								rounded='md'
-								// maxW={{ base: '3xl', lg: '5xl' }}
-								// mx='auto'
-								px={{ base: '4', md: '8', lg: '12' }}
-								py={{ base: '6', md: '8', lg: '12' }}
-							>
-								<Flex direction={{ base: 'column', lg: 'row' }} align='center'>
-									<Image
-										ref={imageRef}
-										rounded='md'
-										src={casting && casting.image}
-										// maxW={{ base: '300px' }}
-										height={{ base: '20%' }}
-										// h='450px'
-										onLoad={handleImageSize}
-										// maxW={imageHeight > imageWidth ? '200px' : 'full'}
-										maxW={{
-											base: imageHeight > imageWidth ? 'full' : 'full',
-											// sm: imageHeight > imageWidth ? 'full' : '500px',
-											// md: imageHeight > imageWidth ? 'full' : '600px',
-											lg: imageHeight > imageWidth ? '200px' : '400px',
-											xl: imageHeight > imageWidth ? '200px' : '600px',
-										}}
-									/>
-
-									<Flex bg='' direction={'column'} px={{ lg: '70px' }}>
-										<Text
-											fontWeight='bold'
-											fontSize={{ base: '2xl',sm:'3xl',
-											 lg: '4xl' }}
-											marginTop={{ base: '5', lg: '0' }}
-											maxW={{ base: 'full' }}
-										>
-											{casting.town}
-										</Text>
-										<Divider marginTop={{ base: '3', lg: '3' }} />
-										<Text
-											fontSize={{ base: 'md',sm:'lg', lg: 'md' }}
-											marginTop={{ base: '3', lg: '3' }}
-											maxW={{ base: imageWidth }}
-										>
-											{casting.description}
-										</Text>
-										{/* <FrameButton
-											color='white'
-											_hover={{ bg: 'orange.300' }}
-											bg={'orange.400'}
-											alignSelf='flex-end'
-											mt='30px'
-											fontSize={'sm'}
-											fontWeight={700}
-											onClick={() => {
-												setShowForm(!showForm);
-											}}
-										>
-											Zapisz się
-										</FrameButton> */}
-									</Flex>
-								</Flex>
-							</Box>
-							<Divider marginTop={{ base: '5', lg: '3' }} />
-
-							 
-								<MotionFormControl
-									initial={{ y: '-50', opacity: '0' }}
-									animate={{ y: '30px', opacity: '1', transition: { duration: 0.3 } }}
-									// exit={{ y: '-50px', opacity: '0', transition:  { y:{duration:.1}, opacity: { duration: 10 }, delay:.5 } }}
+		<>
+			<Wrap spacing='30px' justify='center' minH='100vh' mt={50}>
+				{loading ? (
+					<Stack direction='row' spacing={4}>
+						<Spinner mt={20} thickness='2px' speed='0.65s ' emptyColor='gray.200' color='orange.500' size='xl' />
+					</Stack>
+				) : error ? (
+					<Alert status='error'>
+						<AlertIcon />
+						<AlertTitle>Upps!</AlertTitle>
+						<AlertDescription>{error}</AlertDescription>
+					</Alert>
+				) : (
+					casting && (
+						<>
+							<Flex bg='' direction={{ base: 'column' }} justify='center' align='center' paddingBottom='16'>
+								<Box
+									// boxShadow='2xl'
+									rounded='md'
+									// maxW={{ base: '3xl', lg: '5xl' }}
+									// mx='auto'
 									px={{ base: '4', md: '8', lg: '12' }}
 									py={{ base: '6', md: '8', lg: '12' }}
-									marginTop={{ base: '4', lg: '2px' }}
-									w={{ base: 'full' }}
-									maxW={{ lg: 'full' }}
 								>
-									<FormLabel>Imię: </FormLabel>
-									<Input placeContent='Imię'></Input>
-									<FormLabel>Nazwisko: </FormLabel>
-									<Input placeContent='Nazwisko'></Input>
-									<FormLabel>O sobię: </FormLabel>
-									<Textarea placeContent='O sobię'></Textarea>
+									<Flex direction={{ base: 'column', lg: 'row' }} align='center'>
+										<Image
+											ref={imageRef}
+											rounded='md'
+											src={casting && casting.image}
+											// maxW={{ base: '300px' }}
+											height={{ base: '20%' }}
+											// h='450px'
+											onLoad={handleImageSize}
+											// maxW={imageHeight > imageWidth ? '200px' : 'full'}
+											maxW={{
+												base: imageHeight > imageWidth ? 'full' : 'full',
+												// sm: imageHeight > imageWidth ? 'full' : '500px',
+												// md: imageHeight > imageWidth ? 'full' : '600px',
+												lg: imageHeight > imageWidth ? '200px' : '400px',
+												xl: imageHeight > imageWidth ? '200px' : '600px',
+											}}
+										/>
+
+										<Flex bg='' direction={'column'} px={{ lg: '70px' }}>
+											<Text
+												fontWeight='bold'
+												fontSize={{ base: '2xl', sm: '3xl', lg: '4xl' }}
+												marginTop={{ base: '5', lg: '0' }}
+												maxW={{ base: 'full' }}
+											>
+												{casting.town}
+											</Text>
+											<Divider marginTop={{ base: '3', lg: '3' }} />
+											<Text
+												fontSize={{ base: 'md', sm: 'lg', lg: 'md' }}
+												marginTop={{ base: '3', lg: '3' }}
+												maxW={{ base: imageWidth }}
+											>
+												{casting.description}
+											</Text>
+										</Flex>
+									</Flex>
+								</Box>
+								<Divider marginTop={{ base: '5', lg: '3' }} />
+
+								{userInfo ? (
 									<Button
 										color='white'
 										_hover={{ bg: 'orange.300' }}
@@ -159,17 +158,89 @@ const CastingScreen = () => {
 										mt='30px'
 										fontSize={'sm'}
 										fontWeight={700}
-										marginLeft='auto'
+										onClick={handleEnrollButtonClick}
+										
 									>
-										Wyślij
+										Zapisz się!
 									</Button>
-								</MotionFormControl>
-							
-						</Flex>
-					</>
-				)
-			)}
-		</Wrap>
+								) : (
+									<Formik
+										initialValues={{ email: '', firstName: '', lastName: '' }}
+										validationSchema={Yup.object({
+											email: Yup.string().email('Nie poprawny email').required('Adres email jest wymagany'),
+											firstName: Yup.string().required('Imię jest wymagane'),
+											lastName: Yup.string().required('Nazwisko jest wymagane'),
+										})}
+										onSubmit={(values) => {
+											dispatch(
+												enrollUnregisterUserCasting(
+													id,
+
+													values.firstName,
+													values.lastName,
+													values.email
+												)
+											);
+											if (enrollError) {
+												toast({ description: `${enrollError}`, status: 'error', isClosable: 'true' });
+											} else {
+												toast({ description: ' Zapisano na castng', status: 'success', isClosable: 'true' });
+											}
+										}}
+									>
+										{(formik) => (
+											<Stack
+												as='form'
+												px={{ base: '4', md: '8', lg: '12' }}
+												py={{ base: '6', md: '8', lg: '12' }}
+												marginTop={{ base: '4', lg: '6px' }}
+												w={{ base: 'full' }}
+												maxW={{ lg: 'full' }}
+												onSubmit={formik.handleSubmit}
+											>
+												{error && (
+													<Alert
+														status='error'
+														flexDirection='column'
+														alignItems='center'
+														justifyContent='center'
+														textAlign='center'
+													>
+														<AlertIcon />
+														<AlertTitle>Upps!</AlertTitle>
+														<AlertDescription>{error}</AlertDescription>
+													</Alert>
+												)}
+												<FormControl>
+													<TextField type='text' name='firstName' placeholder='Imię ' label='Imię' />
+
+													<TextField type='text' name='lastName' placeholder='Nazwisko' label='Nazwisko' />
+
+													<TextField type='text' name='email' placeholder='Email' label='Email' />
+												</FormControl>
+												<Button
+													color='white'
+													_hover={{ bg: 'orange.300' }}
+													bg={'orange.400'}
+													display='flex'
+													fontSize={'sm'}
+													fontWeight={700}
+													marginLeft='auto'
+													type='submit'
+													marginTop={'30'}
+												>
+													Wyślij
+												</Button>
+											</Stack>
+										)}
+									</Formik>
+								)}
+							</Flex>
+						</>
+					)
+				)}
+			</Wrap>
+		</>
 	);
 };
 

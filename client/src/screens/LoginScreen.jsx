@@ -59,7 +59,7 @@ const LoginScreen = () => {
 			})}
 			onSubmit={(values) => {
 				dispatch(login(values.email, values.password));
-				console.log(values);
+				
 			}}
 		>
 			{(formik) => (

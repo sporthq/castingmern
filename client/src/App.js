@@ -12,6 +12,7 @@ import CastingScreen from './screens/CastingScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegistationScreen from './screens/RegistationScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import YourCastingsScreen from './screens/YourCastingsScreen';
 
 const breakpoints = {
 	sml: '580px',
@@ -39,6 +40,8 @@ function App() {
 						<Route path='/login' element={<LoginScreen />}></Route>
 						<Route path='/register' element={<RegistationScreen />}></Route>
 						<Route path='/profile' element={ <ProfileScreen />}></Route>
+						<Route path='/your-castings' element={ <YourCastingsScreen />}></Route>
+
 					</Routes>
 				</main>
 

@@ -76,7 +76,7 @@ const Navbar = () => {
 		);
 	};
 	const navigate = useNavigate();
-
+	const colorModeValue = useColorModeValue('teal.600', 'teal.200');
 	const { userInfo } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 	const toast = useToast();
@@ -85,7 +85,6 @@ const Navbar = () => {
 		await dispatch(logout());
 		navigate('/');
 		toast({ description: 'Wylogowano pomyślnie', status: 'success', isClosable: 'true' });
-
 	};
 	return (
 		<>
@@ -152,12 +151,17 @@ const Navbar = () => {
 								w={6}
 								color={useColorModeValue('teal.600', 'teal.200')}
 							/>
-							<Text display={{ base: 'inline-flex', md: 'none' }} className='ml-1' fontWeight='extrabold'>
-								Casting
-								<Text color={useColorModeValue('teal.600', 'teal.200')} as='span'>
-									&
-								</Text>
+							<Text display={{ base: 'inline-block', md: 'none' }} className='ml-1' fontWeight='extrabold'>
+								{!userInfo ? (
+									<>
+										Casting
+										<Text color={colorModeValue} as='span'>
+											&amp;
+										</Text>
+									</>
+								) : null}
 							</Text>
+
 							<Icon
 								display={{ base: 'none', md: 'inline-flex' }}
 								p={2}
@@ -176,7 +180,7 @@ const Navbar = () => {
 						{userInfo ? (
 							<>
 								<Menu>
-									<MenuButton as={Button} px='4' py='2' transition='all .3s'>
+									<MenuButton as={Button} ml={{ base: '1', lg: '0' }} px='4' py='2' transition='all .3s'>
 										{userInfo.firstName} <ChevronDownIcon />
 									</MenuButton>
 									<MenuList>
