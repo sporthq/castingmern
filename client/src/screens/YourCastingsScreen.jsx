@@ -58,7 +58,7 @@ const YourCastingsScreen = () => {
 						<Table variant='striped'>
 							<Thead>
 								<Tr>
-									<Th>Zdjęcie</Th>
+									<Th>Zdjęcie123</Th>
 									<Th>Data zapisu</Th>
 									<Th>Nazwa Filmu</Th>
 									<Th>Miasto</Th>
