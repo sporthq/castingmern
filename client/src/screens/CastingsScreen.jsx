@@ -1,5 +1,16 @@
 // import { Center, Wrap, WrapItem } from '@chakra-ui/react';
-import { Center, WrapItem, Wrap, Box, Spinner, Stack, Alert, AlertIcon, AlertTitle, AlertDescription } from '@chakra-ui/react';
+import {
+	Center,
+	WrapItem,
+	Wrap,
+	Box,
+	Spinner,
+	Stack,
+	Alert,
+	AlertIcon,
+	AlertTitle,
+	AlertDescription,
+} from '@chakra-ui/react';
 
 import CastingCard from '../components/CastingCard';
 
@@ -7,15 +18,31 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getCastings } from '../redux/actions/castingActions';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const CastingsScreen = () => {
+	
 	const dispatch = useDispatch();
 	const castingList = useSelector((state) => state.castings);
 	const { loading, error, castings } = castingList;
 
+	const [sortedCastings, setSortedCastings] = useState([]);
+
 	useEffect(() => {
 		dispatch(getCastings());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (castings.length > 0) {
+			const sorted = [...castings].sort((a, b) => {
+				// Sortuj castingi na podstawie daty dodania
+				const dateA = new Date(a.createdAt);
+				const dateB = new Date(b.createdAt);
+				return dateB - dateA;
+			});
+			setSortedCastings(sorted);
+		}
+	}, [castings]);
 	return (
 		<Wrap spacing={65} align={'baseline'} justify='center' minHeight='100vh' mt={'12'} pb={20}>
 			{loading ? (
@@ -29,10 +56,11 @@ const CastingsScreen = () => {
 					<AlertDescription>{error}</AlertDescription>
 				</Alert>
 			) : (
-				castings.map((casting) => (
+				sortedCastings.map((casting) => (
 					<WrapItem key={casting._id}>
 						{/* <Center w='550px' h='550px'> */}
-						<Center maxW='550px' maxH='550px'>
+						
+						<Center className='xs:p-[10px]' maxW='550px' maxH='550px'>
 							<CastingCard casting={casting} />
 						</Center>
 					</WrapItem>

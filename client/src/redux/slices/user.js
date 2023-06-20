@@ -6,6 +6,11 @@ export const initialState = {
 	userInfo: JSON.parse(localStorage.getItem('userInfo')) ?? null,
 	updateSuccess: false,
 	enrolledCastings: [],
+	sendEmail: false,
+	resetSendEmail: false,
+	resetPasswordSucces: null,
+	sendConfirmMail: false,
+	success: null
 };
 
 export const userSlice = createSlice({
@@ -39,15 +44,53 @@ export const userSlice = createSlice({
 			state.updateSuccess = false;
 		},
 		setUserCastings: (state, { payload }) => {
-			(state.error = null); (state.enrolledCastings = payload);
+			state.error = null;
+			state.enrolledCastings = payload;
 			state.loading = false;
 		},
+		setSendEmail: (state, { payload }) => {
+			state.loading = false;
+			state.error = null;
+			state.sendEmail = true;
+		},
+		resetSendEmail: (state) => {
+			state.sendEmail = false;
+		},
+		setResetPasswordSucces: (state, { payload }) => {
+			state.resetPasswordSucces = payload;
+			state.loading = false;
+			state.error = false;
+		},
+		setSendConfirmMail: (state) => {
+			state.error = false;
+			state.loading = false;
+			state.sendConfirmMail = true;
+		},
+		resetError: (state) => {
+			state.error = null;
+		},
+		setSuccess: (state, action) => {
+			state.success = action.payload; // Przechowuj wiadomość sukcesu w stanie
+		  },
 	},
 });
 
 // actions === reducers importujemy akcje / funkcje
-export const { setLoading, setError, userLogin, userLogout, updateUserProfile, resetUpdate, setUserCastings } =
-	userSlice.actions;
+export const {
+	setResetPasswordSucces,
+	setSendEmail,
+	resetSendEmail,
+	setLoading,
+	setError,
+	userLogin,
+	userLogout,
+	updateUserProfile,
+	resetUpdate,
+	setUserCastings,
+	setSendConfirmMail,
+	resetError,
+	setSuccess
+} = userSlice.actions;
 export default userSlice.reducer;
 
 export const userSelector = (state) => state.user;

@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "client": "npm run start --prefix client",
-    "server": "nodemon server/index.js",
-    "app": "concurrently npm \"npm run server\" \"npm run client\""
+    "start": "nodemon server/index.js",
+    "app": "concurrently npm \"npm run start\" \"npm run client\"",
+    "build": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -22,12 +23,20 @@
   "homepage": "https://github.com/sporthq/castingmern#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.37.0",
     "concurrently": "^8.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
+    "formik-file-and-image-input": "^0.0.6",
     "jsonwebtoken": "^9.0.0",
+    "libphonenumber-js": "^1.10.36",
+    "mongodb": "^5.6.0",
     "mongoose": "^7.0.5",
-    "nodemon": "^2.0.22"
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.2",
+    "nodemon": "^2.0.22",
+    "react-select": "^5.7.3",
+    "react-select-country-list": "^2.2.3"
   }
 }

@@ -7,15 +7,16 @@ import {
 	Button,
 	Chackbox,
 	Container,
+	Flex,
 	FormControl,
 	Heading,
 	HStack,
+	Spacer,
 	Stack,
 	Text,
 	useBreakpointValue,
 	useToast,
 } from '@chakra-ui/react';
-
 import { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -24,6 +25,7 @@ import { useNavigate, Link as ReactLink, useLocation } from 'react-router-dom';
 import PasswordTextField from '../components/PasswordTextField';
 import TextField from '../components/TextField';
 import { login } from '../redux/actions/userActions';
+import { resetError, setError } from '../redux/slices/user';
 
 // TODO zmień długość hasła
 const LoginScreen = () => {
@@ -35,19 +37,32 @@ const LoginScreen = () => {
 
 	const user = useSelector((state) => state.user);
 	const { loading, error, userInfo } = user;
+
 	const headingBR = useBreakpointValue({ base: '2xl', md: '3xl', lg: '4xl' });
 	const boxBR = useBreakpointValue({ base: 'transparent', md: 'bg-surface' });
-
 	useEffect(() => {
+		// dispatch(resetError());
+	  
 		if (userInfo) {
-			if (location.state?.from) {
-				navigate(location.state.from);
-			} else {
-				navigate(redirect);
-			}
-			toast({ description: 'Witaj! Udało Ci się zalogować!', status: 'success', isClosable: 'true' });
+		  if (location.state?.from) {
+			navigate(location.state.from);
+		  } else {
+			navigate(redirect);
+		  }
+		  toast({ description: 'Witaj! Udało Ci się zalogować!', status: 'success', isClosable: true });
 		}
-	}, [userInfo, redirect,error, navigate, location.state, toast ]);
+	  }, [userInfo, redirect, error, navigate, location.state, toast]);
+
+	// useEffect(() => {
+	// 	if (error) {
+	// 		const timeout = setTimeout(() => {
+	// 			dispatch(resetError());
+	// 		}, 5000);
+
+	// 		return () => clearTimeout(timeout);
+	// 	}
+	// }, [error]);
+
 	return (
 		<Formik
 			initialValues={{ email: '', password: '' }}
@@ -59,7 +74,6 @@ const LoginScreen = () => {
 			})}
 			onSubmit={(values) => {
 				dispatch(login(values.email, values.password));
-				
 			}}
 		>
 			{(formik) => (
@@ -83,7 +97,7 @@ const LoginScreen = () => {
 							boxShadow={{ base: 'none', md: 'xl' }}
 						>
 							<Stack spacing='6' as='form' onSubmit={formik.handleSubmit}>
-								{error && (
+								{error  && (
 									<Alert
 										status='error'
 										flexDirection='column'
@@ -99,7 +113,9 @@ const LoginScreen = () => {
 								<Stack spacing='50'>
 									<FormControl>
 										<TextField type='text' name='email' placeholder='Email' label='Email' />
-										<PasswordTextField type='password' name='password' placeholder='Hasło' label='Hasło' > </PasswordTextField>
+										<PasswordTextField type='password' name='password' placeholder='Hasło' label='Hasło'>
+											{' '}
+										</PasswordTextField>
 									</FormControl>
 								</Stack>
 								<Stack spacing='6'>
@@ -108,6 +124,11 @@ const LoginScreen = () => {
 									</Button>
 								</Stack>
 							</Stack>
+							<Flex>
+								<Button display='flex' ml='auto' as={ReactLink} to='/forgotpassword' variant='link' my={4}>
+									Nie pamiętasz hasła?
+								</Button>
+							</Flex>
 						</Box>
 					</Stack>
 				</Container>

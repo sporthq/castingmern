@@ -13,6 +13,11 @@ import LoginScreen from './screens/LoginScreen';
 import RegistationScreen from './screens/RegistationScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import YourCastingsScreen from './screens/YourCastingsScreen';
+import ContactScreen from './screens/ContactScreen';
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
+import AdminConsole from './screens/AdminConsole';
+import ConfirmEmailScreen from './screens/ConfirmEmailScreen';
 
 const breakpoints = {
 	sml: '580px',
@@ -41,6 +46,11 @@ function App() {
 						<Route path='/register' element={<RegistationScreen />}></Route>
 						<Route path='/profile' element={ <ProfileScreen />}></Route>
 						<Route path='/your-castings' element={ <YourCastingsScreen />}></Route>
+						<Route path='/contact' element={ <ContactScreen />}></Route>
+						<Route path='/forgotpassword' element={ <ForgotPasswordScreen />}></Route>
+						<Route path='/resetpassword/:resetToken' element={ <ResetPasswordScreen />}></Route>
+						<Route path='/admin-console' element={ <AdminConsole />}></Route>
+						<Route path='/verify/:token' element={ <ConfirmEmailScreen />}></Route>
 
 					</Routes>
 				</main>

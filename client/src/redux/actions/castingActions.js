@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { setCastings, setLoading, setError, setCasting } from '../slices/castings';
+import { setCastings, setLoading, setError, setCasting,resetError  } from '../slices/castings';
 
 export const getCastings = () => async (dispatch) => {
 	dispatch(setLoading(true));
 	try {
 		// ustawiamy proxy w package.json , żeby nie pisać 'http://localhost:5000
 		const { data } = await axios.get('/api/castings');
-		console.log(data);
+		
 		dispatch(setCastings(data));
 	} catch (error) {
 		dispatch(
@@ -38,3 +38,7 @@ export const getCasting = (id) => async (dispatch) => {
 		);
 	}
 };
+
+export const resetCastingError = () => async (dispatch) => {
+	dispatch(resetError());
+  };
