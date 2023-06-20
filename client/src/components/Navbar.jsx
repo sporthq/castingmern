@@ -22,6 +22,7 @@ import {
 	MenuIcon,
 	MenuItem,
 	MenuDivider,
+	Badge,
 } from '@chakra-ui/react';
 import { Navigate, Link as ReactLink, redirect, useNavigate } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, ArrowDownIcon, ChevronDownIcon } from '@chakra-ui/icons';
@@ -29,11 +30,17 @@ import { FaCameraRetro } from 'react-icons/fa';
 import NavMobile from './NavMobile';
 import MovieSvg from '../assets/images/movie-clapperboard-svgrepo-com.svg';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useDebugValue, useEffect } from 'react';
+import { useDebugValue, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../redux/actions/userActions';
+import { logout, getUserCastings } from '../redux/actions/userActions';
 import { CgProfile } from 'react-icons/cg';
-import { MdLocalMovies, MdLogout } from 'react-icons/md';
+import { MdLocalMovies, MdLogout, MdOutlineAdminPanelSettings } from 'react-icons/md';
+import { castingSelector } from '../redux/slices/castings';
+import { getCastings } from '../redux/actions/castingActions';
+import { CheckIcon, WarningIcon } from '@chakra-ui/icons';
+import { IoNotificationsSharp } from 'react-icons/io5';
+import { resetError } from '../redux/slices/user';
+import { BsBoxArrowInRight } from 'react-icons/bs';
 
 const links = [
 	{
@@ -53,6 +60,11 @@ const links = [
 const Navbar = () => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const { colorMode, toggleColorMode } = useColorMode();
+	const { isCastingEdited } = useSelector(castingSelector);
+
+	const { enrolledCastings } = useSelector((state) => state.user);
+	const { castings } = useSelector((state) => state.castings);
+
 	useEffect(() => {
 		if (isOpen) {
 			document.body.style.overflow = 'hidden';
@@ -60,6 +72,7 @@ const Navbar = () => {
 			document.body.style.overflow = 'auto';
 		}
 	}, [isOpen]);
+
 	const NavLink = ({ path, children }) => {
 		return (
 			<Link
@@ -80,12 +93,30 @@ const Navbar = () => {
 	const { userInfo } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 	const toast = useToast();
+	const [filterCastings, setFilterCastings] = useState([]);
 
 	const logoutHandler = async () => {
 		await dispatch(logout());
 		navigate('/');
 		toast({ description: 'Wylogowano pomyślnie', status: 'success', isClosable: 'true' });
 	};
+
+	useEffect(() => {
+		if (userInfo) {
+			dispatch(getUserCastings());
+			dispatch(getCastings());
+		}
+	}, [userInfo]);
+
+	const [isWarningVisible, setIsWarningVisible] = useState(true);
+
+	const handleButtonClick = () => {
+		// Tutaj możesz dodać dodatkową logikę obsługi kliknięcia, jeśli jest potrzebna
+
+		// Zmiana stanu isWarningVisible na false
+		setIsWarningVisible(false);
+	};
+
 	return (
 		<>
 			<Box
@@ -180,18 +211,60 @@ const Navbar = () => {
 						{userInfo ? (
 							<>
 								<Menu>
-									<MenuButton as={Button} ml={{ base: '1', lg: '0' }} px='4' py='2' transition='all .3s'>
-										{userInfo.firstName} <ChevronDownIcon />
+									<Text ml='2'></Text>
+									<MenuButton
+										as={Button}
+										ml={{ base: '1', lg: '0' }}
+										px='4'
+										py='2'
+										transition='all .3s'
+										onClick={handleButtonClick}
+									>
+										{userInfo?.firstName}
+										{enrolledCastings.length > 0 &&
+											enrolledCastings.filter((casting) => casting.isEdited).length > 0 && (
+												<IoNotificationsSharp className='text-orange-600 inline-block mb-4' />
+											)}{' '}
+										<ChevronDownIcon />
 									</MenuButton>
 									<MenuList>
+										<MenuItem></MenuItem>
 										<MenuItem as={ReactLink} to='/profile'>
 											<CgProfile />
 											<Text ml='2'>Profil </Text>
 										</MenuItem>
 										<MenuItem as={ReactLink} to='/your-castings'>
 											<MdLocalMovies />
-											<Text ml='2'>Twoje Castingi </Text>
+											<Text ml='2'>
+												Twoje Castingi{' '}
+												{enrolledCastings.length > 0 &&
+													enrolledCastings.filter((casting) => casting.isEdited).length > 0 && (
+														<Badge
+															rounded='full'
+															ml='1px'
+															px='1.5'
+															mx='.8'
+															mt='-4'
+															fontSize='0.75em'
+															color='white'
+															bg='red'
+														>
+															{enrolledCastings.filter((casting) => casting.isEdited).length}
+														</Badge>
+													)}
+											</Text>
 										</MenuItem>
+
+										{userInfo.isAdmin === 'true' && (
+											<>
+												<MenuDivider />
+												<MenuItem as={ReactLink} to={'/admin-console'}>
+													<MdOutlineAdminPanelSettings />
+													<Text ml={'2'}>Admin</Text>
+												</MenuItem>
+											</>
+										)}
+
 										<MenuDivider />
 										<MenuItem onClick={logoutHandler}>
 											<MdLogout />
@@ -212,6 +285,9 @@ const Navbar = () => {
 									fontSize={'sm'}
 									fontWeight={500}
 									variant={'link'}
+									onClick={() => {
+										dispatch(resetError());
+									}}
 								>
 									Zaloguj
 								</Button>
@@ -226,8 +302,11 @@ const Navbar = () => {
 									display={{ base: 'none', md: 'inline-flex' }}
 									fontSize={'sm'}
 									fontWeight={700}
+									onClick={() => {
+										dispatch(resetError());
+									}}
 								>
-									Załóż Konto
+									Załóż Konto <BsBoxArrowInRight className='ml-1' />
 								</Button>
 							</>
 						)}

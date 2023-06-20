@@ -2,6 +2,8 @@ import { Button, useColorModeValue, useColorMode, Link, Box, useMediaQuery } fro
 import { Link as ReactLink } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../redux/actions/userActions';
 
 // icons:
 // import { GiFilmSpool } from 'react-icons/gi';
@@ -12,8 +14,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 const MotionBox = motion(Box);
 
 const NavMobile = ({ links, onClose }) => {
-	
-	const bgGradient = useColorModeValue('linear(to-b, gray.100, gray.900)', 'linear(to-b, gray.900, gray.100)');
+	const { userInfo } = useSelector((state) => state.user);
+	const dispatch = useDispatch();
 
 	return (
 		<MotionBox
@@ -55,18 +57,44 @@ const NavMobile = ({ links, onClose }) => {
 						<a href='/login'>Zaloguj</a>
 					</li>
 				 */}
-					<Link
-						as={ReactLink}
-						onClick={onClose}
-						to='login'
-						className='text-center py-12 font-semibold    text-2xl hover:underline'
-					>
-						Zaloguj
-					</Link>
+					{userInfo ? (
+						<>
+							<Link
+								as={ReactLink}
+								onClick={onClose}
+								to='profile'
+								className='text-center py-12 font-semibold    text-2xl hover:underline'
+							>
+								Profil
+							</Link>
+							<Button
+								onClick={() => {
+									dispatch(logout());
+								}}
+								className='mt-16 uppercase'
+								colorScheme='orange'
+								leftIcon={<FaUser />}
+							>
+								Wyloguj
+							</Button>
+						</>
+					) : (
+						<>
+							<Link
+								as={ReactLink}
+								onClick={onClose}
+								to='login'
+								className='text-center py-12 font-semibold    text-2xl hover:underline'
+							>
+								Zaloguj
+							</Link>
 
-					<Button className='mt-16 uppercase' colorScheme='orange' leftIcon={<FaUser />}>
-						Dołącz do nas!
-					</Button>
+							<Button as={ReactLink} to='register' onClick={onClose} className='mt-16 uppercase' colorScheme='orange' leftIcon={<FaUser />}>
+								Dołącz do nas!
+							</Button>
+						</>
+					)}
+
 					{/* <Box className='mt-8 flex items-center justify-between'>
 						<Button colorScheme='orange' leftIcon={<MdOutlineLogin />}>
 							Zaloguj

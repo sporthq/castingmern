@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs';
 const userSchema = new mongoose.Schema(
 	{
 		firstName: {
@@ -22,6 +22,19 @@ const userSchema = new mongoose.Schema(
 		isAdmin: {
 			type: Boolean,
 			type: String,
+			default: false,
+		},
+		image: {
+			type: Object,
+			default: {},
+			required: true,
+		},
+		phoneNumber: {
+			type: Number,
+			required: true,
+		},
+		isVerified: {
+			type: Boolean,
 			default: false,
 		},
 	},

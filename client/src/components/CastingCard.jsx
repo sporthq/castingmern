@@ -49,7 +49,7 @@ const CastingCard = ({ casting }) => {
 			// Obraz jest już w pełni załadowany
 			handleSizeWordBox();
 		} else {
-			console.log('czekamy na ladowanie');
+			
 			// Obraz nie jest jeszcze załadowany, słuchaj zdarzenia onLoad
 			imageRef.current.onload = handleSizeWordBox;
 		}
@@ -59,57 +59,70 @@ const CastingCard = ({ casting }) => {
 	}, [imageWidth]);
 
 	return (
-		<Stack
-			// ref={imageRef}
-			p={2}
-			spacing='3px'
-			bg={useColorModeValue('gray.100', 'gray.900')}
-			// w="200px"
-			h='450px'
-			borderWidth={'1px'}
-			rounded={'lg'}
-			shadow={'lg'}
-			position={'relative'}
-			overflow='hidden'
-		>
-			{/* zielone kólko z prawej  */}
-			{/* {casting.isNew && <Circle size='10px ' position={'absolute'} top={2} right={2} bg='green'></Circle>} */}
-			<Link as={ReactLink} to={`/casting/${casting._id}`}>
-				<FramerImage
-					ref={imageRef}
-					whileHover={{ scale: 1.02, transition: { duration: 0.4 } }}
-					src={casting.image}
-					alt={casting.movieName}
-					roundedTop='lg'
-					maxH='290px'
-					className='overflow-hidden mb-1'
-				></FramerImage>
-			</Link>
-			<Flex alignItems='baseline' className='w-full pb-1'>
-				<Box flex={1} maxH={'5'} alignItems='' className='my-1'>
-					{casting.castingIsNew && (
-						<Badge rounded='full' px='2' colorScheme='green' className=''>
-							NEW!
-						</Badge>
-					)}
-				</Box>
-				<Text className={`font-bold ${maxWords <= MAX_WORDS_SHORT ? 'text-sm' : 'text-sm'}`}>{casting.town}</Text>
-			</Flex>
+		<>
+			<Stack
+				// ref={imageRef}
+				p={2}
+				spacing='3px'
+				bg={useColorModeValue('gray.100', 'gray.900')}
+				// w="200px"
+				h='450px'
+				borderWidth={'1px'}
+				rounded={'lg'}
+				shadow={'lg'}
+				position={'relative'}
+				overflow='hidden'
+				minWidth='220px'
+			>
+				{/* zielone kólko z prawej  */}
+				{/* {casting.isNew && <Circle size='10px ' position={'absolute'} top={2} right={2} bg='green'></Circle>} */}
+				<Link as={ReactLink} to={`/casting/${casting._id}`}>
+					<FramerImage
+						ref={imageRef}
+						whileHover={{ scale: 1.02, transition: { duration: 0.4 } }}
+						src={casting.image?.filePath}
+						alt={casting.movieName}
+						roundedTop='lg'
+						maxH='290px'
+						className='overflow-hidden mb-1'
+						minWidth='200px'
+						h='292px'
+						objectFit='contain'
+					></FramerImage>
+				</Link>
+				<Flex alignItems='baseline' className='w-full pb-1'>
+					<Box flex={1} maxH={'5'} alignItems='' className='my-1'>
+						{casting.isNewCasting && (
+							<Badge rounded='full' px='2' colorScheme='green' className=''>
+								NEW!
+							</Badge>
+						)}
+					</Box>
+					<Text className={`font-bold ${maxWords <= MAX_WORDS_SHORT ? 'text-sm' : 'text-sm'}`}>{casting.town}</Text>
+				</Flex>
 
-			<Divider bg={useColorModeValue('gray.600', 'gray.600')} h='.1px' py={'.5px'} className='' />
+				<Divider bg={useColorModeValue('gray.600', 'gray.600')} h='.1px' py={'.5px'} className='' />
 
-			<Text className='py-1 pl-1' maxW={imageWidth}>
-				{casting.description
-					.split(' ')
-					.slice(0, maxWords)
-					.join(' ')
-					.replace(/[.,]+$/, '')}
-				{(maxWords === MAX_WORDS_SHORT || maxWords === MAX_WORDS_LONG) && '...'}
-			</Text>
-			<Link className='font-bold text-right' as={ReactLink} to={`/casting/${casting._id}`} py='2' cursor='pointer'>
-				Czytaj dalej...
-			</Link>
-		</Stack>
+				<Text className='py-1 pl-1 ' noOfLines={2} maxW={imageWidth}>
+					{casting.description
+						.split(' ')
+						.slice(0, maxWords)
+						.join(' ')
+						.replace(/[.,]+$/, '')}
+					{(maxWords === MAX_WORDS_SHORT || maxWords === MAX_WORDS_LONG) && '...'}
+				</Text>
+				<Link
+					className='font-bold text-right '
+					
+					as={ReactLink}
+					to={`/casting/${casting._id}`}
+					py='2'
+					cursor='pointer'
+				>
+					Pokaż więcej
+				</Link>
+			</Stack>
+		</>
 	);
 };
 

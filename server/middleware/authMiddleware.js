@@ -17,10 +17,17 @@ const protectRoute = asyncHandler(async (req, res, next) => {
 			throw new Error('Nie masz dostępu, token nieprawidłowy');
 		}
 
-        if(!token) {
-            res.status(401)
-            throw new Error('Brak autoryzacji')
-        }
+	if (!token) {
+		res.status(401);
+		throw new Error('Brak autoryzacji');
+	}
 });
 
-export default protectRoute
+const admin = (req, res, next) => {
+	if (req.user && req.user.isAdmin !== 'false') {
+		next();
+	}else {
+		return res.status(401).json({message: 'Brak autoryzacji.'})
+	}
+};
+export {protectRoute,admin} 

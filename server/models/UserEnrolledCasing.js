@@ -36,6 +36,17 @@ const castingEnrollmentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    userImage: {
+			type: Object,
+			default: {},
+			required: true
+		},
+    phoneNumber: {
+			type: Number,
+			required: true
+		},
+		isEdited: { type: Boolean, default: false },
+
   },
   { timestamps: true }
 );
