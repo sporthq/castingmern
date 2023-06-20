@@ -185,7 +185,7 @@ const Navbar = () => {
 							<Text display={{ base: 'inline-block', md: 'none' }} className='ml-1' fontWeight='extrabold'>
 								{!userInfo ? (
 									<>
-										Casting
+										CastingStoj
 										<Text color={colorModeValue} as='span'>
 											&amp;
 										</Text>
