@@ -20,18 +20,18 @@ app.use('/api/', enrolledRoutes);
 app.use('/api', contactUSRoutes);
 const port = process.env.PORT || 5000;
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const __dirname = path.resolve();
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+// const __dirname = path.resolve();
+// app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static(path.join(__dirname, '/client/build')));
+// if (process.env.NODE_ENV === 'production') {
+// 	app.use(express.static(path.join(__dirname, '/client/build')));
 
-	app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
-}
+// 	app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
+// }
 
 app.listen(port, () => {
 	console.log(`Server run on port ${port}`);

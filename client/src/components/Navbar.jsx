@@ -126,8 +126,7 @@ const Navbar = () => {
 				bg={useColorModeValue('gray.100', 'gray.900')}
 				px={4}
 				className='overflow-hidden'
-				// position={'sticky'}
-				// top={0}
+				
 			>
 				<Flex h={16} className='' alignItems='center' justify='space-between'>
 					<HStack>
