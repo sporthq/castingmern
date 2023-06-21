@@ -184,4 +184,5 @@ castingRoutes.route('/:id').get(getCasting);
 castingRoutes.route('/').put(upload.single('image'),protectRoute,admin, updateCasting)
 castingRoutes.route('/:id').delete(protectRoute,admin,deleteCasting)
 castingRoutes.route('/').post(upload.single('image'),protectRoute,admin,createNewCasting)
+
 export default castingRoutes;
