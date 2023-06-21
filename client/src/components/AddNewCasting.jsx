@@ -72,14 +72,14 @@ const [isCastingEdited, setIsCastingEdited] = useState(false)
 	};
 	return (
 	
-		<Tr>
-			<Td>
-				<Text fontSize='sm'>Dodaj Zdjęcie</Text>
+		<Tr className='xs:flex xs:flex-col '>
+			<Td className='xs:flex xs:flex-col xs:justify-center xs:items-center'>
+				<Text className='xs:mb-2 ' display={imagePreview ? 'none' : 'inline-block'}fontSize='sm'>Dodaj Zdjęcie</Text>
 				<Tooltip label={'Ustaw nazwę zdjęcia'} fontSize='sm'>
 					<Input id='image' display='none' name='image' type='file' size='sm' onChange={hadnleImageChange}></Input>
 
 				</Tooltip>
-					<Image onClick={handleImageClick} src={imagePreview ? imagePreview : `https://placehold.co/100x100?text=++`} boxSize='100px' fit='contain'  /> 
+					<Image onClick={handleImageClick} src={imagePreview ? imagePreview : `https://placehold.co/100x100?text=++`} boxSize={{ base:'200px', md:'100px' }} fit='contain'  /> 
 			</Td>
 			<Td>
 				<Text fontSize='sm'>Opis</Text>
