@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { uploadCasting } from '../redux/actions/adminActions';
 import {
 	Badge,
+	Box,
 	Button,
 	FormControl,
 	FormLabel,
@@ -17,7 +18,7 @@ import {
 	Tr,
 	VStack,
 } from '@chakra-ui/react';
-
+import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 const AddNewCasting = () => {
 	const dispatch = useDispatch();
 
@@ -31,27 +32,24 @@ const AddNewCasting = () => {
 	const [isNewCasting, setIsNewCasting] = useState(true);
 	const [imagePreview, setImagePreview] = useState('');
 
-const [isCastingEdited, setIsCastingEdited] = useState(false)
-	
-	const createNewCasting = () => {
-		
-		console.log(movieName);
-		
+	const [isCastingEdited, setIsCastingEdited] = useState(false);
 
-		dispatch(uploadCasting( movieName, image, town, description, isNewCasting , isCastingEdited,resetFormValues))
-		  
-	  };
+	const createNewCasting = () => {
+		console.log(movieName);
+
+		dispatch(uploadCasting(movieName, image, town, description, isNewCasting, isCastingEdited, resetFormValues));
+	};
 	const resetFormValues = () => {
 		setMovieName('');
 		setTown('');
 		setImage('');
 		setDescription('');
 		setIsNewCasting(true);
-		setImagePreview('')
+		setImagePreview('');
 	};
 
-	const hadnleImageChange = e => {
-		const file = e.target.files[0]
+	const hadnleImageChange = (e) => {
+		const file = e.target.files[0];
 
 		if (file) {
 			const reader = new FileReader();
@@ -66,28 +64,39 @@ const [isCastingEdited, setIsCastingEdited] = useState(false)
 			};
 			reader.readAsDataURL(file);
 		}
-	}
+	};
 	const handleImageClick = () => {
 		document.getElementById(`image`).click();
 	};
 	return (
-	
 		<Tr className='xs:flex xs:flex-col '>
-			<Td className='xs:flex xs:flex-col xs:justify-center xs:items-center'>
-				<Text className='xs:mb-2 ' display={imagePreview ? 'none' : 'inline-block'}fontSize='sm'>Dodaj Zdjęcie</Text>
+			<Td bg='' className='xs:flex xs:flex-col xs:justify-center xs:items-center'>
+				<Text className=' ' display={imagePreview ? 'none' : 'inline-block'} fontSize='sm'>
+					Dodaj Zdjęcie
+				</Text>
 				<Tooltip label={'Ustaw nazwę zdjęcia'} fontSize='sm'>
 					<Input id='image' display='none' name='image' type='file' size='sm' onChange={hadnleImageChange}></Input>
-
 				</Tooltip>
-					<Image onClick={handleImageClick} src={imagePreview ? imagePreview : `https://placehold.co/100x100?text=++`} boxSize={{ base:'200px', md:'100px' }} fit='contain'  /> 
+				<Box
+					onClick={handleImageClick}
+					boxSize={{ base: '130px', md: '100px' }}
+					fit='contain'
+					className='flex items-center justify-center text-center'
+				>
+					{imagePreview ? (
+						<img src={imagePreview} alt='Preview' />
+					) : (
+						<Box as={MdOutlineAddPhotoAlternate} textAlign={'center'} size={80} />
+					)}
+				</Box>
 			</Td>
-			<Td>
+			<Td bg={''}>
 				<Text fontSize='sm'>Opis</Text>
 				<Textarea value={description} w='270px' h='120px' size='sm' onChange={(e) => setDescription(e.target.value)} />
 			</Td>
 			<Td>
 				<Text fontSize='sm'>Nazwa filmu</Text>
-				<Input size='sm' value={movieName}  onChange={(e) => setMovieName(e.target.value)}></Input>
+				<Input size='sm' value={movieName} onChange={(e) => setMovieName(e.target.value)}></Input>
 				<Text fontSize='sm'>Miasto</Text>
 				<Input size='sm' value={town} onChange={(e) => setTown(e.target.value)}></Input>
 			</Td>
@@ -113,7 +122,6 @@ const [isCastingEdited, setIsCastingEdited] = useState(false)
 				</VStack>
 			</Td>
 		</Tr>
-		
 	);
 };
 
