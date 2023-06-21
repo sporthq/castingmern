@@ -125,7 +125,7 @@ const Home = () => {
 							initial={{ rotate: '-45', x: '-500px' }}
 							animate={{ rotate: 0, x: 0 }}
 							transition={{ duration: 0.5, delay: 0.5 }}
-							srcSet={`${homeImgSmall} 300w, ${homeImgMedium} 768w, ${homeImgLarge} 1280w`}
+							srcSet={`${homeImgSmall} 450w, ${homeImgMedium} 768w, ${homeImgLarge} 1280w`}
 						/>
 					</Box>
 

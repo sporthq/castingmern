@@ -1,6 +1,6 @@
-
-import { Box, Button, Image, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Image, Text, useColorModeValue } from '@chakra-ui/react';
 import React, { useRef, useState } from 'react';
+import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 
 const CustomFileButton = ({ onChange }) => {
   const fileInputRef = useRef(null);
@@ -35,26 +35,37 @@ const CustomFileButton = ({ onChange }) => {
         onChange={handleFileChange}
       />
 
-      <Box display="flex" justifyContent="left" alignItems={'flex-start'} flexDirection="column" >
-        <>
+      <Box display="flex" justifyContent="left" alignItems="flex-start" flexDirection="column">
+        {!previewImage ? (
+          <Box
+            rounded="md"
+            mb="6"
+            style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain' }}
+            onClick={handleButtonClick}
+            w={'200px'}
+           
+            display="flex"
+            justifyContent="left"
+            alignItems="center"
+          >
+            <MdOutlineAddPhotoAlternate size={100} />
+          </Box>
+        ) : (
           <Image
             rounded="md"
             mb="6"
             style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain' }}
             onClick={handleButtonClick}
             w={'200px'}
-            src={
-              previewImage
-                ? previewImage
-                : 'https://placehold.co/100x100?text=Kliknij+i+Dodaj+Zdjęcie'
-            }
+            src={previewImage}
           />
-          {previewImage && (
-            <Text mb={2} bg={textColor} textAlign="center" fontSize="sm">
-              Kliknij na zdjęcie, jeśli chcesz je zmienić
-            </Text>
-          )}
-        </>
+        )}
+
+        {previewImage && (
+          <Text mb={2} bg={textColor} textAlign="center" fontSize="sm">
+            Kliknij na zdjęcie, jeśli chcesz je zmienić
+          </Text>
+        )}
       </Box>
     </>
   );

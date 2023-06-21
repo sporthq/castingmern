@@ -110,7 +110,7 @@ const CastingScreen = () => {
 									px={{ base: '4', md: '8', lg: '12' }}
 									py={{ base: '6', md: '8', lg: '12' }}
 								>
-									<Flex direction={{ base: 'column', lg: 'row' }} justify='center' align={{ base:'', lg:'center' }} bg=''>
+									<Flex direction={{ base: 'column', lg: 'row' }} justify='center' align={{ base:'center', lg:'center' }} bg=''>
 										<Image
 											ref={imageRef}
 											rounded='md'

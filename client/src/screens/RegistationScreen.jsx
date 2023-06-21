@@ -21,7 +21,7 @@ import {
 	FormErrorMessage,
 	
 } from '@chakra-ui/react';
-import Select from 'react-select';
+
 import { Link as ReactLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Field, Formik } from 'formik';
@@ -32,7 +32,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import CustomFileButton from '../components/CustomFileButton';
 import TextField from '../components/TextField';
 import PasswordTextField from '../components/PasswordTextField';
-import { resetError } from '../redux/slices/user';
+import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
+
 
 const RegistrationScreen = () => {
 	const dispatch = useDispatch();
