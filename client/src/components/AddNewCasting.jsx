@@ -32,13 +32,12 @@ const AddNewCasting = () => {
 	const [imagePreview, setImagePreview] = useState('');
 
 const [isCastingEdited, setIsCastingEdited] = useState(false)
-	console.log(image);
+	
 	const createNewCasting = () => {
 		
+		console.log(movieName);
 		
 
-		console.log(image);
-		console.log(movieName);
 		dispatch(uploadCasting( movieName, image, town, description, isNewCasting , isCastingEdited,resetFormValues))
 		  
 	  };

@@ -17,6 +17,8 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+console.log(process.env.CLOUDINARY_NAME,process.env.CLOUDINARY_API_KEY,process.env.CLOUDINARY_API_SECRET );
+
 import upload from '../utils/fileUpload.js';
 const userRoutes = express.Router();
 
@@ -24,31 +26,6 @@ const userRoutes = express.Router();
 const genToken = (id) => {
 	return jwt.sign({ id }, process.env.TOKEN_SECRET, { expiresIn: '1d' });
 };
-
-// const loginUser = asyncHandler(async (req, res) => {
-// 	const { email, password } = req.body;
-// 	const user = await User.findOne({ email });
-
-// 	if (user && (await user.matchPasswords(password))) {
-// 		//TODO Odkomentować
-// 		if (!user.isVerified) {
-// 			return res.status(401).json({ message: 'Konto nie zostało zweryfikowane.' });
-// 		}
-// 		res.json({
-// 			_id: user._id,
-// 			firstName: user.firstName,
-// 			lastName: user.lastName,
-// 			email: user.email,
-// 			isAdmin: user.isAdmin,
-// 			token: genToken(user._id),
-// 			createdAt: user.createdAt,
-// 			image: user.image,
-// 			phoneNumber: user.phoneNumber,
-// 		});
-// 	} else {
-// 		return res.status(401).json({ message: 'Nie prawidłowy email lub hasło ' });
-// 	}
-// });
 
 const loginUser = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
@@ -125,6 +102,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		// save image to cloudinary
 		let uploadedFile;
 
+		console.log(`req file: ${req.file}`);
 		try {
 			uploadedFile = await cloudinary.uploader.upload(req.file.path, {
 				folder: 'Casting user images',
@@ -133,6 +111,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		} catch (error) {
 			res.status(500).json({ message: 'Zdjęcie nie zostało dodane' });
 		}
+		console.log(` uploadedFile -> ${uploadedFile}`);
 		fileData = {
 			fileName: req.file.originalname,
 			filePath: uploadedFile.secure_url,
@@ -193,22 +172,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		res.status(500).json({ message: 'Błąd podczas tworzenia użytkownika' });
 	}
 
-	// if (user) {
-	// 	res.status(201).json({
-	// 		_id: user._id,
-	// 		firstName: user.firstName,
-	// 		lastName: user.lastName,
-	// 		email: user.email,
-	// 		isAdmin: user.isAdmin,
-	// 		token: genToken(user._id),
-	// 		image: user.image,
-	// 		phoneNumber: user.phoneNumber,
-	// 		isVerified: user.isVerified,
-	// 	});
-	// } else {
-	// 	res.json(400);
-	// 	throw new Error('Nieprawidłowe dane użytkownika');
-	// }
+	
 });
 
 const verifyUser = asyncHandler(async (req, res) => {

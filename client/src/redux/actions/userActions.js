@@ -60,6 +60,7 @@ export const register = (firstName, lastName, email, password, image, phoneNumbe
 		};
 		const { data } = await axios.post('/api/users/register', formData, config);
 
+		
 	
 		dispatch(setSendConfirmMail());
 		

@@ -80,6 +80,7 @@ const RegistrationScreen = () => {
 				acceptTerms: Yup.boolean().oneOf([true], 'Musisz zaakceptować regulamin!'),
 			})}
 			onSubmit={(values) => {
+				console.log(values);
 				dispatch(
 					register(values.firstName, values.lastName, values.email, values.password, values.image, values.phoneNumber)
 				);
