@@ -16,8 +16,10 @@ import { Link as ReactLink } from 'react-router-dom';
 
 import { easeInOut, motion } from 'framer-motion';
 import homeImg from '../assets/images/claps-removebg.png';
-import homeImg2 from '../assets/images/Leonardo_Creative_happy_people_in_the_casting_movie_white_back_2-removebg-preview.png';
-import { useState } from 'react';
+import homeImgLarge from '../assets/images/claps-large.png';
+import homeImgMedium from '../assets/images/claps-medium.png';
+import homeImgSmall from '../assets/images/claps-small.png';
+
 import TransitionEffect from '../components/TransitionEffect';
 import Footer from '../components/Footer';
 
@@ -123,8 +125,7 @@ const Home = () => {
 							initial={{ rotate: '-45', x: '-500px' }}
 							animate={{ rotate: 0, x: 0 }}
 							transition={{ duration: 0.5, delay: 0.5 }}
-							src={homeImg}
-							className=''
+							srcSet={`${homeImgSmall} 300w, ${homeImgMedium} 768w, ${homeImgLarge} 1280w`}
 						/>
 					</Box>
 

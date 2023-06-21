@@ -69,8 +69,8 @@ const AddNewCasting = () => {
 		document.getElementById(`image`).click();
 	};
 	return (
-		<Tr className='xs:flex xs:flex-col '>
-			<Td bg='' className='xs:flex xs:flex-col xs:justify-center xs:items-center'>
+		<Tr  className='mdMax:flex mdMax:flex-col '>
+			<Td bg='' className='mdMax:flex mdMax:flex-col mdMax:justify-center mdMax:items-center'>
 				<Text className=' ' display={imagePreview ? 'none' : 'inline-block'} fontSize='sm'>
 					Dodaj Zdjęcie
 				</Text>
@@ -101,7 +101,7 @@ const AddNewCasting = () => {
 				<Input size='sm' value={town} onChange={(e) => setTown(e.target.value)}></Input>
 			</Td>
 			<Td>
-				<Text> </Text>
+				
 				<FormControl display='flex' alignItems='center'>
 					<FormLabel htmlFor='castingIsNewFlag' mb='0' fontSize='sm'>
 						Dodaj{' '}
