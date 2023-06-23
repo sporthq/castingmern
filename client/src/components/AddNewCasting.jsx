@@ -75,7 +75,7 @@ const AddNewCasting = () => {
 					Dodaj Zdjęcie
 				</Text>
 				<Tooltip label={'Ustaw nazwę zdjęcia'} fontSize='sm'>
-					<Input id='image' display='none' name='image' type='file' size='sm' onChange={hadnleImageChange}></Input>
+					<Input id='image' display='none'	accept='image/jpeg, image/png, image/jpg' name='image' type='file' size='sm' onChange={hadnleImageChange}></Input>
 				</Tooltip>
 				<Box
 					onClick={handleImageClick}

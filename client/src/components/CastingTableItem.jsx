@@ -22,8 +22,6 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 const CastingTableItem = ({ casting, index }) => {
-	
-
 	const cancelRef = useRef();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -34,16 +32,16 @@ const CastingTableItem = ({ casting, index }) => {
 	const [description, setDescription] = useState(casting.description);
 	const [isNewCasting, setIsNewCasting] = useState(casting.isNewCasting);
 
-	const [castingIsEdited, setCastingIsEdited] = useState(true)
+	const [castingIsEdited, setCastingIsEdited] = useState(true);
 	const [castingToDelete, setCastingToDelete] = useState('');
 	
-	
+
 	const dispatch = useDispatch();
 
-
-	const onSaveCasting = () => {
-
-		dispatch(updateCasting(movieName, imageFile, town, description, isNewCasting, casting._id,castingIsEdited ));
+	const onSaveCasting =  () => {
+		
+		
+		dispatch(updateCasting(movieName, imageFile, town, description, isNewCasting, casting._id, castingIsEdited));
 	};
 
 	const openDeleteConfrimBox = (casting) => {
@@ -60,8 +58,6 @@ const CastingTableItem = ({ casting, index }) => {
 	const handleImageChange = (e) => {
 		const file = e.target.files[0];
 
-		console.log(file);
-
 		if (file) {
 			const reader = new FileReader();
 			reader.onloadend = () => {
@@ -77,7 +73,6 @@ const CastingTableItem = ({ casting, index }) => {
 		}
 	};
 
-
 	const handleImageClick = () => {
 		document.getElementById(`imageInput-${index}`).click();
 	};
@@ -89,15 +84,14 @@ const CastingTableItem = ({ casting, index }) => {
 						type='file'
 						id={`imageInput-${index}`}
 						name='image'
-						accept='image/*'
+						accept='image/jpeg, image/png, image/jpg'
 						style={{ display: 'none' }}
 						onChange={handleImageChange}
 					/>
 					{/* <Input size='sm' value={image} onClick={handleImageClick} readOnly /> */}
 					<Tooltip label={casting.image?.fileName} fontSize='sm'>
-					<Image src={imagePreview} boxSize='100px' fit='contain' onClick={handleImageClick} />
+						<Image src={imagePreview} boxSize='100px' fit='contain' onClick={handleImageClick} />
 					</Tooltip>
-					
 				</Td>
 				<Td>
 					<Textarea
@@ -131,8 +125,14 @@ const CastingTableItem = ({ casting, index }) => {
 								isChecked={isNewCasting}
 							></Switch>
 						</FormControl>
-						
-						<Switch display='none' disabled id='isCastingEdited'  isChecked={castingIsEdited} onChange={()=>setCastingIsEdited(!castingIsEdited)}></Switch>
+
+						<Switch
+							display='none'
+							disabled
+							id='isCastingEdited'
+							isChecked={castingIsEdited}
+							onChange={() => setCastingIsEdited(!castingIsEdited)}
+						></Switch>
 					</Flex>
 				</Td>
 				<Td>
