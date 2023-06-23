@@ -19,6 +19,7 @@ import ConfirmEmailScreen from './screens/ConfirmEmailScreen';
 import CookieConsent from './components/CookieConsent';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
+import TestDisclaimer from './components/TestDisclaimer';
 const breakpoints = {
 	sml: '580px',
 };
@@ -39,6 +40,7 @@ function App() {
 		<ChakraProvider theme={theme}>
 			<Router>
 				<Navbar />
+				<TestDisclaimer/>
 				<main>
 					<Routes>
 						<Route path='/' element={<Home></Home>} />
