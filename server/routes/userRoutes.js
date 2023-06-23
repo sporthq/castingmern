@@ -102,7 +102,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		// save image to cloudinary
 		let uploadedFile;
 
-		console.log(`req file: ${req.file}`);
+		
 		try {
 			uploadedFile = await cloudinary.uploader.upload(req.file.path, {
 				folder: 'Casting user images',
@@ -111,7 +111,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		} catch (error) {
 			res.status(500).json({ message: 'Zdjęcie nie zostało dodane' });
 		}
-		console.log(` uploadedFile -> ${uploadedFile}`);
+		
 		fileData = {
 			fileName: req.file.originalname,
 			filePath: uploadedFile.secure_url,
@@ -239,11 +239,13 @@ const verifyUser = asyncHandler(async (req, res) => {
             user.password = req.body.password;
         }
 
+		
         if (req.file) {
             // Usuń stare zdjęcie z Cloudinary
             if (user.image && user.image.filePath) {
                 try {
                     await cloudinary.uploader.destroy(user.image.publicId);
+					console.log('zdjecie usuniete')
                 } catch (error) {
                     console.error('Błąd usuwania starego zdjęcia z Cloudinary:', error);
                 }

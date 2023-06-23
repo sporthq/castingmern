@@ -1,5 +1,4 @@
-import { useParams, Link as ReactLink  } from 'react-router-dom';
-
+import { useParams, Link as ReactLink } from 'react-router-dom';
 
 import {
 	Box,
@@ -15,7 +14,6 @@ import {
 	AlertDescription,
 	Flex,
 	FormControl,
-	
 	Divider,
 	Button,
 } from '@chakra-ui/react';
@@ -49,7 +47,6 @@ const CastingScreen = () => {
 	const { userInfo, enrolledCastings } = useSelector((state) => state.user);
 	const { loading, error, casting } = castings;
 
-	
 	const imageRef = useRef();
 
 	useEffect(() => {
@@ -77,7 +74,6 @@ const CastingScreen = () => {
 				lastName: userInfo.lastName,
 				email: userInfo.email,
 				phoneNumber: userInfo.phoneNumber,
-				
 			})
 		);
 
@@ -86,7 +82,7 @@ const CastingScreen = () => {
 
 	return (
 		<>
-			<Wrap spacing='30px' justify='center' minH='100vh' mt={50} >
+			<Wrap spacing='30px' justify='center' minH='100vh' mt={50}>
 				{loading ? (
 					<Stack direction='row' spacing={4}>
 						<Spinner mt={20} thickness='2px' speed='0.65s ' emptyColor='gray.200' color='orange.500' size='xl' />
@@ -110,16 +106,19 @@ const CastingScreen = () => {
 									px={{ base: '4', md: '8', lg: '12' }}
 									py={{ base: '6', md: '8', lg: '12' }}
 								>
-									<Flex direction={{ base: 'column', lg: 'row' }} justify='center' align={{ base:'center', lg:'center' }} bg=''>
+									<Flex
+										direction={{ base: 'column', lg: 'row' }}
+										justify='center'
+										align={{ base: 'center', lg: 'center' }}
+										bg=''
+									>
 										<Image
 											ref={imageRef}
 											rounded='md'
 											src={casting && casting.image.filePath}
-											mb={{ base:'3', lg:"0" }}
+											mb={{ base: '3', lg: '0' }}
 											height={{ base: '20%' }}
-											
 											onLoad={handleImageSize}
-											
 											maxW={{
 												base: imageHeight > imageWidth ? '200px' : '300px',
 												// sm: imageHeight > imageWidth ? 'full' : '500px',
@@ -130,18 +129,17 @@ const CastingScreen = () => {
 											objectFit='cover' // Dodany styl, aby obrazek byl wyciagniety na caly kontener
 										/>
 
-										<Flex bg='' align='flex-end'  direction={'column'} px={{ lg: '70px' }}>
-											
-										
+										<Flex bg='' align='flex-end' direction={'column'} px={{ lg: '70px' }}>
 											<Text
 												fontSize={{ base: 'md', sm: 'lg', lg: 'md' }}
 												marginTop={{ base: '3', lg: '3' }}
-												maxW={{ base: '100%', }}
-												
+												maxW={{ base: '100%' }}
 											>
 												{casting.description}
 											</Text>
-											<Text mt={{ base:'2', lg:'1' }}  textAlign={'right'}><strong>Miejsce:</strong>    {casting.town}</Text>
+											<Text mt={{ base: '2', lg: '1' }} textAlign={'right'}>
+												<strong>Miejsce:</strong> {casting.town}
+											</Text>
 										</Flex>
 									</Flex>
 								</Box>
@@ -162,72 +160,83 @@ const CastingScreen = () => {
 										Zapisz się!
 									</Button>
 								) : (
-                  <>
-                  <Text px={'2'} textAlign={'center'} fontSize={{ md:'xl' }} mt='4'>Aby dodać zgłoszenie musisz  <Button fontSize={{ md:'xl' }} as={ReactLink} variant={'link'} colorScheme='orange' to='/register'>Załóżyć Konto</Button> </Text>
-									<Formik
-										initialValues={{ email: '', firstName: '', lastName: '' }}
-										validationSchema={Yup.object({
-											email: Yup.string().email('Niepoprawny email').required('Adres email jest wymagany'),
-											firstName: Yup.string().required('Imię jest wymagane'),
-											lastName: Yup.string().required('Nazwisko jest wymagane'),
-										})}
-										onSubmit={(values) => {
-											dispatch(enrollUnregisterUserCasting(id, values.firstName, values.lastName, values.email));
-											if (enrollError) {
-												toast({ description: `${enrollError}`, status: 'error', isClosable: true });
-											} else {
-												toast({ description: 'Zapisano na casting', status: 'success', isClosable: true });
-											}
-										}}
-									>
-										{(formik) => (
-											<Stack
-												as='form'
-												px={{ base: '4', md: '8', lg: '12' }}
-												py={{ base: '6', md: '8', lg: '12' }}
-												marginTop={{ base: '4', lg: '6px' }}
-												w={{ base: 'full' }}
-												maxW={{ lg: 'lg' }}
-												onSubmit={formik.handleSubmit}
+									<>
+										<Text px={'2'} textAlign={'center'} fontSize={{ md: 'xl' }} mt='4'>
+											Aby dodać zgłoszenie musisz{' '}
+											<Button
+												fontSize={{ md: 'xl' }}
+												as={ReactLink}
+												variant={'link'}
+												colorScheme='orange'
+												to='/register'
 											>
-												{error && (
-													<Alert
-														status='error'
-														flexDirection='column'
-														alignItems='center'
-														justifyContent='center'
-														textAlign='center'
-													>
-														<AlertIcon />
-														<AlertTitle>Upps!</AlertTitle>
-														<AlertDescription>{error}</AlertDescription>
-													</Alert>
-												)}
-												<FormControl>
-													<TextField type='text' name='firstName' placeholder='Imię' label='Imię' />
-
-													<TextField type='text' name='lastName' placeholder='Nazwisko' label='Nazwisko' />
-
-													<TextField type='text' name='email' placeholder='Email' label='Email' />
-												</FormControl>
-												<Button
-													isDisabled={'false'}
-													color='white'
-													_hover={{ bg: 'orange.300' }}
-													bg={'orange.400'}
-													display='flex'
-													fontSize={'sm'}
-													fontWeight={700}
-													marginLeft='auto'
-													type='submit'
-													marginTop={'30'}
+												Załóżyć Konto
+											</Button>{' '}
+										</Text>
+										<Formik
+											initialValues={{ email: '', firstName: '', lastName: '' }}
+											validationSchema={Yup.object({
+												email: Yup.string().email('Niepoprawny email').required('Adres email jest wymagany'),
+												firstName: Yup.string().required('Imię jest wymagane'),
+												lastName: Yup.string().required('Nazwisko jest wymagane'),
+											})}
+											onSubmit={(values) => {
+												dispatch(enrollUnregisterUserCasting(id, values.firstName, values.lastName, values.email));
+												if (enrollError) {
+													toast({ description: `${enrollError}`, status: 'error', isClosable: true });
+												} else {
+													toast({ description: 'Zapisano na casting', status: 'success', isClosable: true });
+												}
+											}}
+										>
+											{(formik) => (
+												<Stack
+													as='form'
+													px={{ base: '4', md: '8', lg: '12' }}
+													py={{ base: '6', md: '8', lg: '12' }}
+													marginTop={{ base: '4', lg: '6px' }}
+													w={{ base: 'full' }}
+													maxW={{ lg: 'lg' }}
+													onSubmit={formik.handleSubmit}
 												>
-													Wyślij
-												</Button>
-											</Stack>
-										)}
-									</Formik>
-                  </>
+													{error && (
+														<Alert
+															status='error'
+															flexDirection='column'
+															alignItems='center'
+															justifyContent='center'
+															textAlign='center'
+														>
+															<AlertIcon />
+															<AlertTitle>Upps!</AlertTitle>
+															<AlertDescription>{error}</AlertDescription>
+														</Alert>
+													)}
+													<FormControl>
+														<TextField type='text' name='firstName' placeholder='Imię' label='Imię' />
+
+														<TextField type='text' name='lastName' placeholder='Nazwisko' label='Nazwisko' />
+
+														<TextField type='text' name='email' placeholder='Email' label='Email' />
+													</FormControl>
+													<Button
+														isDisabled={'false'}
+														color='white'
+														_hover={{ bg: 'orange.300' }}
+														bg={'orange.400'}
+														display='flex'
+														fontSize={'sm'}
+														fontWeight={700}
+														marginLeft='auto'
+														type='submit'
+														marginTop={'30'}
+													>
+														Wyślij
+													</Button>
+												</Stack>
+											)}
+										</Formik>
+									</>
 								)}
 							</Flex>
 						</>

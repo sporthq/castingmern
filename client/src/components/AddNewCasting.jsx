@@ -69,7 +69,7 @@ const AddNewCasting = () => {
 		document.getElementById(`image`).click();
 	};
 	return (
-		<Tr  className='mdMax:flex mdMax:flex-col '>
+		<Tr className='mdMax:flex mdMax:flex-col '>
 			<Td bg='' className='mdMax:flex mdMax:flex-col mdMax:justify-center mdMax:items-center'>
 				<Text className=' ' display={imagePreview ? 'none' : 'inline-block'} fontSize='sm'>
 					Dodaj Zdjęcie
@@ -85,10 +85,11 @@ const AddNewCasting = () => {
 				>
 					{imagePreview ? (
 						<img src={imagePreview} alt='Preview' />
-					) : (
-						<Box as={MdOutlineAddPhotoAlternate} textAlign={'center'} size={80} />
-					)}
+						) : (
+							<Box as={MdOutlineAddPhotoAlternate} textAlign={'center'} size={80} />
+							)}
 				</Box>
+							<Text fontSize={'sm'}>Dozwolone formaty:<p><strong>png,jpg,jpeg</strong></p> </Text>
 			</Td>
 			<Td bg={''}>
 				<Text fontSize='sm'>Opis</Text>
@@ -101,7 +102,6 @@ const AddNewCasting = () => {
 				<Input size='sm' value={town} onChange={(e) => setTown(e.target.value)}></Input>
 			</Td>
 			<Td>
-				
 				<FormControl display='flex' alignItems='center'>
 					<FormLabel htmlFor='castingIsNewFlag' mb='0' fontSize='sm'>
 						Dodaj{' '}

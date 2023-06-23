@@ -22,8 +22,7 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 const CastingTableItem = ({ casting, index }) => {
-	console.log(casting);
-	console.log(casting.image?.filePath);
+	
 
 	const cancelRef = useRef();
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -98,6 +97,7 @@ const CastingTableItem = ({ casting, index }) => {
 					<Tooltip label={casting.image?.fileName} fontSize='sm'>
 					<Image src={imagePreview} boxSize='100px' fit='contain' onClick={handleImageClick} />
 					</Tooltip>
+					
 				</Td>
 				<Td>
 					<Textarea

@@ -137,9 +137,11 @@ const RegistrationScreen = () => {
 													previewImage={formik.values.image}
 												/>
 											)}
-										</Field>
+							
 
-										<PasswordTextField type='password' name='password' placeholder='Hasło' label='Hasło' />
+										</Field>
+ 
+										<PasswordTextField  type='password' name='password' placeholder='Hasło' label='Hasło' />
 										<PasswordTextField
 											type='password'
 											name='confirmPassword'

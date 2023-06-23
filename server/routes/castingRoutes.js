@@ -62,7 +62,7 @@ const createNewCasting = asyncHandler(async (req, res) => {
 		let uploadedFile;
 
 		try {
-			console.log(`req FILE.PATH ${req.file.path}`);
+			
 			uploadedFile = await cloudinary.uploader.upload(req.file.path, {
 				folder: 'Casting movie images',
 				resource_type: 'image',
@@ -121,10 +121,17 @@ const updateCasting = asyncHandler(async (req, res) => {
 	const casting = await Casting.findById(id);
 	
 	let fileData = {};
-	
+	console.log(casting)
 
 	if (req.file) {
-		
+		if (casting.image && casting.image.filePath) {
+			try {
+				await cloudinary.uploader.destroy(casting.image.publicId);
+				console.log('udało się usunać')
+			} catch (error) {
+				console.error('Błąd usuwania starego zdjęcia z Cloudinary:', error);
+			}
+		}
 		// save image to cloudinary
 		let uploadedFile;
 
@@ -138,11 +145,12 @@ const updateCasting = asyncHandler(async (req, res) => {
 			res.status(500).json({ message: 'Zdjęcie nie zostało dodane' });
 		}
 		
-		fileData = {
+		casting.image = {
 			fileName: req.file.originalname,
 			filePath: uploadedFile.secure_url,
 			fileType: req.file.mimetype,
 			fileSize: req.file.size,
+			publicId: uploadedFile.public_id,
 		};
 	}
 
