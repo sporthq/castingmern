@@ -17,9 +17,9 @@ import ResetPasswordScreen from './screens/ResetPasswordScreen';
 import AdminConsole from './screens/AdminConsole';
 import ConfirmEmailScreen from './screens/ConfirmEmailScreen';
 import CookieConsent from './components/CookieConsent';
-import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import TestDisclaimer from './components/TestDisclaimer';
+
 const breakpoints = {
 	sml: '580px',
 };

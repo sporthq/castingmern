@@ -6,7 +6,9 @@ import upload from '../utils/fileUpload.js';
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
 import CastingEnrollment from '../models/UserEnrolledCasing.js';
+import UserEnrolledCasting from '../models/UserEnrolledCasing.js';
 import multer from 'multer';
+
 dotenv.config();
 
 cloudinary.config({
@@ -103,7 +105,9 @@ const deleteCasting = asyncHandler(async (req, res) => {
 	const casting = await Casting.findByIdAndDelete(req.params.id);
 
 	if (casting) {
-		res.json(casting);
+		await UserEnrolledCasting.deleteMany({ casting: casting._id });
+
+		res.json({ message: 'Casting i związane zapisy zostały usunięte.' });
 	} else {
 		return res.status(404).json({ message: 'Casting nie znaleźiony.' });
 	}

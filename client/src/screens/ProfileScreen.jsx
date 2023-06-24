@@ -161,15 +161,15 @@ const ProfileScreen = () => {
 						</Stack>
 						<Flex pb={'14'} order={{ base: '1', lg: '2' }} direction='column' align='center' flex={1}>
 							<Card>
-								<CardHeader>
-									<Heading mb={'-6'} size='md'>
+								<CardHeader textAlign='center'>
+									<Heading mb={'-6'} size={{ base:'md', sm:'lg' }}>
 										{firstName} {lastName}{' '}
 									</Heading>
 								</CardHeader>
 								<CardBody>
 									<Stack divider={<StackDivider></StackDivider>} spacing={4}>
-										<Box pt={2} fontSize={'small'}>
-											<Image rounded='2xl' mb={'2'} maxW='200px' maxH='auto' src={image}></Image>
+										<Box textAlign='center' pt={2} fontSize={'small'}>
+											<Image rounded='2xl' mb={'2'} maxW={{ base:'200px', sm:'250px' , lg:'300px'}} maxH='auto' src={image}></Image>
 											Konto Założone: {new Date(userInfo.createdAt).toLocaleDateString('pl-PL')}
 										</Box>
 									</Stack>

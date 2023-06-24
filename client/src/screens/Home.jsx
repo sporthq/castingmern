@@ -1,27 +1,15 @@
-import {
-	Box,
-	Button,
-	Center,
-	Flex,
-	HStack,
-	Heading,
-	Hide,
-	Image,
-	Show,
-	Text,
-	VStack,
-	useColorModeValue,
-} from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Heading, Image, Text, VStack, useColorModeValue } from '@chakra-ui/react';
 import { Link as ReactLink } from 'react-router-dom';
 
 import { easeInOut, motion } from 'framer-motion';
-import homeImg from '../assets/images/claps-removebg.png';
+
 import homeImgLarge from '../assets/images/claps-large.png';
 import homeImgMedium from '../assets/images/claps-medium.png';
 import homeImgSmall from '../assets/images/claps-small.png';
 
 import TransitionEffect from '../components/TransitionEffect';
-import Footer from '../components/Footer';
+
+
 
 const FrameButton = motion(Button);
 const Home = () => {
@@ -77,6 +65,7 @@ const Home = () => {
 
 	const FrameImg = motion(Image);
 
+	
 	return (
 		<>
 			<TransitionEffect />
@@ -106,7 +95,7 @@ const Home = () => {
 					// bg={{ xl: 'blue.100' }}
 
 					alignItems={{ base: 'center', xl: 'center' }}
-					justify={{ base: 'center', md: 'space-around', xl: 'space-between',  }}
+					justify={{ base: 'center', md: 'space-around', xl: 'space-between' }}
 					mt={'10'}
 					h='100%'
 					// backgroundColor="red.500"
@@ -118,8 +107,8 @@ const Home = () => {
 						bg={''}
 						// marginLeft={'-140px'}
 						marginLeft={{ base: '-180px', sm: '-380px', md: '-130px', lg: '-140px', xl: '-130px' }}
-						backgroundColor=""
-						marginRight={{ "2xl": '125px' }}
+						backgroundColor=''
+						marginRight={{ '2xl': '125px' }}
 					>
 						<FrameImg
 							initial={{ rotate: '-45', x: '-500px' }}
@@ -129,12 +118,11 @@ const Home = () => {
 						/>
 					</Box>
 
-					<Box   
-						className='hidden xl:block self-center '>
+					<Box className='hidden xl:block self-center '>
 						<Center mt={'10'} pb={'40px'}>
 							<FrameButton
 								whileHover={{
-									y:-3,
+									y: -3,
 									transition: { duration: 0.1 },
 								}}
 								whileTap={{ scale: 0.9 }}
