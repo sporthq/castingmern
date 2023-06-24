@@ -15,7 +15,7 @@ function fileFilter(req, file, cb) {
 	if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg'  ) {
 		cb(null, true);
 	} else {
-		return cb(new Error(`Nie prawidłowy format zdjęcia lub przekoczyło ${maxSize}MB `));
+		return cb(new Error(`Nie prawidłowy format zdjęcia! `));
 	}
 	
 }

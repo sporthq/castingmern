@@ -17,9 +17,10 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-console.log(process.env.CLOUDINARY_NAME,process.env.CLOUDINARY_API_KEY,process.env.CLOUDINARY_API_SECRET );
+console.log(process.env.CLOUDINARY_NAME, process.env.CLOUDINARY_API_KEY, process.env.CLOUDINARY_API_SECRET);
 
 import upload from '../utils/fileUpload.js';
+import multer from 'multer';
 const userRoutes = express.Router();
 
 // TODO: redefine expiresIn
@@ -56,7 +57,9 @@ const loginUser = asyncHandler(async (req, res) => {
 		}
 
 		if (!user.isVerified) {
-			return res.status(401).json({ message: 'Konto nie zostało zweryfikowane. Sprawdź e-mail aby dokończyć rejestrację!' });
+			return res
+				.status(401)
+				.json({ message: 'Konto nie zostało zweryfikowane. Sprawdź e-mail aby dokończyć rejestrację!' });
 		}
 
 		res.json({
@@ -76,6 +79,26 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
+	try {
+		await new Promise((resolve, reject) => {
+			upload.single('image')(req, res, function (err) {
+				if (err instanceof multer.MulterError) {
+					// Obsługa błędu multer dotyczącego limitu rozmiaru pliku
+					if (err.code === 'LIMIT_FILE_SIZE') {
+						reject(new Error('Maxymalny rozmiar zdjęcia to: 10MB'));
+					} else {
+						reject(err);
+					}
+				} else if (err) {
+					reject(err);
+				} else {
+					resolve();
+				}
+			});
+		});
+	} catch (error) {
+		res.status(400).json({ message: error.message });
+	}
 	const { firstName, lastName, email, password, phoneNumber } = req.body;
 
 	const userExist = await User.findOne({ email });
@@ -102,7 +125,6 @@ const registerUser = asyncHandler(async (req, res) => {
 		// save image to cloudinary
 		let uploadedFile;
 
-		
 		try {
 			uploadedFile = await cloudinary.uploader.upload(req.file.path, {
 				folder: 'Casting user images',
@@ -111,7 +133,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		} catch (error) {
 			res.status(500).json({ message: 'Zdjęcie nie zostało dodane' });
 		}
-		
+
 		fileData = {
 			fileName: req.file.originalname,
 			filePath: uploadedFile.secure_url,
@@ -171,127 +193,142 @@ const registerUser = asyncHandler(async (req, res) => {
 	} catch (error) {
 		res.status(500).json({ message: 'Błąd podczas tworzenia użytkownika' });
 	}
-
-	
 });
 
 const verifyUser = asyncHandler(async (req, res) => {
 	// Pobranie tokenu weryfikacyjnego z parametru URL
 	let verificationToken = await Token.findOne({ token: req.params.token });
-  
+
 	if (!verificationToken) {
-	  return res.status(400).json({ message: 'Twój token wygasł.' });
+		return res.status(400).json({ message: 'Twój token wygasł.' });
 	}
-  
+
 	if (verificationToken.expiresAt < Date.now()) {
-	  console.log('Token wygasł');
-	  // Usunięcie wygasłego tokenu z bazy danych
-	  await Token.deleteOne({ token: verificationToken.token });
-  
-	  // Znalezienie użytkownika powiązanego z wygasłym tokenem
-	  const user = await User.findById(verificationToken.userId);
-  
-	  // Sprawdzenie, czy użytkownik istnieje
-	  if (!user) {
-		return res.status(404).json({ message: 'Użytkownik nie znaleziony.' });
-	  }
-  
-	  // Usunięcie użytkownika
-	  await User.deleteOne({ _id: user._id });
-  
-	  return res.status(400).json({
-		message: 'Twój token wygasł. Załóż nowe konto.',
-		createNewAccount: true,
-	  });
+		console.log('Token wygasł');
+		// Usunięcie wygasłego tokenu z bazy danych
+		await Token.deleteOne({ token: verificationToken.token });
+
+		// Znalezienie użytkownika powiązanego z wygasłym tokenem
+		const user = await User.findById(verificationToken.userId);
+
+		// Sprawdzenie, czy użytkownik istnieje
+		if (!user) {
+			return res.status(404).json({ message: 'Użytkownik nie znaleziony.' });
+		}
+
+		// Usunięcie użytkownika
+		await User.deleteOne({ _id: user._id });
+
+		return res.status(400).json({
+			message: 'Twój token wygasł. Załóż nowe konto.',
+			createNewAccount: true,
+		});
 	}
-  
+
 	// Znalezienie użytkownika na podstawie tokenu weryfikacyjnego
 	const user = await User.findById(verificationToken.userId);
-  
+
 	if (!user) {
-	  return res.status(404).json({ message: 'Użytkownik nie znaleziony.' });
+		return res.status(404).json({ message: 'Użytkownik nie znaleziony.' });
 	}
-  
+
 	// Sprawdzenie, czy użytkownik jest już zweryfikowany
 	if (user.isVerified) {
-	  return res.status(400).json({ message: 'Konto jest już zweryfikowane.' });
+		return res.status(400).json({ message: 'Konto jest już zweryfikowane.' });
 	}
-  
+
 	// Uaktualnienie statusu weryfikacji użytkownika
 	user.isVerified = true;
 	await user.save();
-  
+
 	// Usunięcie tokenu weryfikacyjnego z bazy danych
 	await Token.deleteOne({ token: req.params.token });
-  
+
 	res.status(200).json({ message: 'Twoje konto zostało zweryfikowane pomyślnie.' });
-  });
-  
-  const updateUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
-    if (user) {
-        user.firstName = req.body.firstName || user.firstName;
-        user.lastName = req.body.lastName || user.lastName;
-        user.email = req.body.email || user.email;
-        user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
-
-        if (req.body.password) {
-            user.password = req.body.password;
-        }
-
-		
-        if (req.file) {
-            // Usuń stare zdjęcie z Cloudinary
-            if (user.image && user.image.filePath) {
-                try {
-                    await cloudinary.uploader.destroy(user.image.publicId);
-					console.log('zdjecie usuniete')
-                } catch (error) {
-                    console.error('Błąd usuwania starego zdjęcia z Cloudinary:', error);
-                }
-            }
-
-            // Zapisz nowe zdjęcie w Cloudinary
-            let uploadedFile;
-            try {
-                uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-                    folder: 'Casting user images',
-                    resource_type: 'image',
-                });
-            } catch (error) {
-                console.error('Błąd dodawania nowego zdjęcia do Cloudinary:', error);
-                return res.status(500).json({ message: 'Zdjęcie nie zostało dodane' });
-            }
-
-            // Zaktualizuj dane zdjęcia użytkownika
-            user.image = {
-                fileName: req.file.originalname,
-                filePath: uploadedFile.secure_url,
-                fileType: req.file.mimetype,
-                fileSize: req.file.size,
-                publicId: uploadedFile.public_id, // Dodaj publicId do danych zdjęcia
-            };
-        }
-
-        const updatedUser = await user.save();
-        res.json({
-            _id: updatedUser._id,
-            firstName: updatedUser.firstName,
-            lastName: updatedUser.lastName,
-            email: updatedUser.email,
-            phoneNumber: updatedUser.phoneNumber,
-            image: updatedUser.image,
-            token: genToken(updatedUser._id),
-            isAdmin: updatedUser.isAdmin,
-            createdAt: updatedUser.createdAt,
-        });
-    } else {
-        res.status(404);
-        throw new Error('Użytkownik nie znaleziony');
-    }
 });
 
+const updateUserProfile = asyncHandler(async (req, res) => {
+	try {
+		await new Promise((resolve, reject) => {
+			upload.single('image')(req, res, function (err) {
+				if (err instanceof multer.MulterError) {
+					// Obsługa błędu multer dotyczącego limitu rozmiaru pliku
+					if (err.code === 'LIMIT_FILE_SIZE') {
+						reject(new Error('Maxymalny rozmiar zdjęcia to: 10MB'));
+					} else {
+						reject(err);
+					}
+				} else if (err) {
+					reject(err);
+				} else {
+					resolve();
+				}
+			});
+		});
+	} catch (error) {
+		res.status(400).json({ message: error.message });
+	}
+	const user = await User.findById(req.params.id);
+	if (user) {
+		user.firstName = req.body.firstName || user.firstName;
+		user.lastName = req.body.lastName || user.lastName;
+		user.email = req.body.email || user.email;
+		user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
 
+		if (req.body.password) {
+			user.password = req.body.password;
+		}
+
+		if (req.file) {
+			// Usuń stare zdjęcie z Cloudinary
+			if (user.image && user.image.filePath) {
+				try {
+					await cloudinary.uploader.destroy(user.image.publicId);
+					console.log('zdjecie usuniete');
+				} catch (error) {
+					console.error('Błąd usuwania starego zdjęcia z Cloudinary:', error);
+				}
+			}
+
+			// Zapisz nowe zdjęcie w Cloudinary
+			let uploadedFile;
+			try {
+				uploadedFile = await cloudinary.uploader.upload(req.file.path, {
+					folder: 'Casting user images',
+					resource_type: 'image',
+				});
+			} catch (error) {
+				console.error('Błąd dodawania nowego zdjęcia do Cloudinary:', error);
+				return res.status(500).json({ message: 'Zdjęcie nie zostało dodane' });
+			}
+
+			// Zaktualizuj dane zdjęcia użytkownika
+			user.image = {
+				fileName: req.file.originalname,
+				filePath: uploadedFile.secure_url,
+				fileType: req.file.mimetype,
+				fileSize: req.file.size,
+				publicId: uploadedFile.public_id, // Dodaj publicId do danych zdjęcia
+			};
+		}
+
+		const updatedUser = await user.save();
+		res.json({
+			_id: updatedUser._id,
+			firstName: updatedUser.firstName,
+			lastName: updatedUser.lastName,
+			email: updatedUser.email,
+			phoneNumber: updatedUser.phoneNumber,
+			image: updatedUser.image,
+			token: genToken(updatedUser._id),
+			isAdmin: updatedUser.isAdmin,
+			createdAt: updatedUser.createdAt,
+		});
+	} else {
+		res.status(404);
+		throw new Error('Użytkownik nie znaleziony');
+	}
+});
 
 const getUserCastings = asyncHandler(async (req, res) => {
 	const userCastings = await UserEnrolledCasing.find({
@@ -408,8 +445,8 @@ const deleteUser = asyncHandler(async (req, res) => {
 });
 
 userRoutes.route('/login').post(loginUser);
-userRoutes.route('/register').post(upload.single('image'), registerUser);
-userRoutes.route('/profile/:id').put(upload.single('image'), updateUserProfile);
+userRoutes.route('/register').post( registerUser);
+userRoutes.route('/profile/:id').put(protectRoute, updateUserProfile);
 userRoutes.route('/:id').get(protectRoute, getUserCastings);
 userRoutes.route('/forgotpassword').post(forgotPassword);
 userRoutes.route('/resetpassword/:resetToken').put(resetPassword);

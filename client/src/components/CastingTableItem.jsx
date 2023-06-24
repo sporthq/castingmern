@@ -128,7 +128,7 @@ const CastingTableItem = ({ casting, index }) => {
 
 						<Switch
 							display='none'
-							disabled
+							
 							id='isCastingEdited'
 							isChecked={castingIsEdited}
 							onChange={() => setCastingIsEdited(!castingIsEdited)}

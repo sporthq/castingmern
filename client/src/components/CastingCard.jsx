@@ -73,6 +73,7 @@ const CastingCard = ({ casting }) => {
 				position={'relative'}
 				overflow='hidden'
 				minWidth='220px'
+				
 			>
 				{/* zielone kólko z prawej  */}
 				{/* {casting.isNew && <Circle size='10px ' position={'absolute'} top={2} right={2} bg='green'></Circle>} */}

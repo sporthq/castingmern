@@ -102,7 +102,7 @@ const CastingScreen = () => {
 									rounded='md'
 									// maxW={{ base: '3xl', lg: '5xl' }}
 									// mx='auto'
-									width='70%'
+									width={{ lg: '100%', '2xl': '70%' }}
 									px={{ base: '4', md: '8', lg: '12' }}
 									py={{ base: '6', md: '8', lg: '12' }}
 								>
@@ -121,23 +121,28 @@ const CastingScreen = () => {
 											onLoad={handleImageSize}
 											maxW={{
 												base: imageHeight > imageWidth ? '200px' : '300px',
-												// sm: imageHeight > imageWidth ? 'full' : '500px',
-												md: imageHeight > imageWidth ? '300px' : '300px',
-												lg: imageHeight > imageWidth ? '200px' : '300px',
-												xl: imageHeight > imageWidth ? '200px' : '300px',
+
+												md: imageHeight > imageWidth ? '300px' : '400px',
+												lg: imageHeight > imageWidth ? '200px' : '350px',
+												xl: imageHeight > imageWidth ? '200px' : '450px',
 											}}
 											objectFit='cover' // Dodany styl, aby obrazek byl wyciagniety na caly kontener
 										/>
 
 										<Flex bg='' align='flex-end' direction={'column'} px={{ lg: '70px' }}>
 											<Text
-												fontSize={{ base: 'md', sm: 'lg', lg: 'md' }}
+												fontSize={{ base: 'sm', sm: 'md', lg: 'md', xl: 'lg' }}
 												marginTop={{ base: '3', lg: '3' }}
 												maxW={{ base: '100%' }}
+												textAlign={{ base: 'center', sm: 'left' }}
 											>
 												{casting.description}
 											</Text>
-											<Text mt={{ base: '2', lg: '1' }} textAlign={'right'}>
+											<Text
+												fontSize={{ base: 'md', sm: 'md', lg: 'lg', xl: 'lg' }}
+												mt={{ base: '2', lg: '1' }}
+												textAlign={'right'}
+											>
 												<strong>Miejsce:</strong> {casting.town}
 											</Text>
 										</Flex>
