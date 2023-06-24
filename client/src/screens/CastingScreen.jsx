@@ -22,13 +22,13 @@ import { BiPackage, BiCheckShield, BiSupport } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCasting } from '../redux/actions/castingActions';
 import { useEffect, useRef, useState } from 'react';
-import CastingCard from '../components/CastingCard';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import { enrollCastingUser, enrollUnregisterUserCasting } from '../redux/actions/enrolledActions';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import TextField from '../components/TextField';
-
+import { Helmet } from 'react-helmet';
 const FrameButton = motion(Button);
 const MotionFormControl = motion(FormControl);
 
@@ -80,8 +80,22 @@ const CastingScreen = () => {
 		setShowEnrollToast(true);
 	};
 
+	const castingTitle = casting ? `${casting.movieName} - Szczegóły Castingu ` : 'Szczegóły Castingu';
+	const castingDescription = casting
+		? `Sprawdź szczegóły castingu do filmu ${casting.movieTitle} o identyfikatorze  w ${casting.town}. Dowiedz się o wymaganiach, terminach i sposobach zgłoszenia. Zdobądź swoją szansę na wystąpienie w ekscytującej produkcji filmowej!`
+		: '';
+
+		console.log(castingDescription);
+
 	return (
 		<>
+			<Helmet>
+				<title>{castingTitle}</title>
+				<Helmet>
+					<meta name='description' content={castingDescription} />
+				</Helmet>
+			</Helmet>
+
 			<Wrap spacing='30px' justify='center' minH='100vh' mt={50}>
 				{loading ? (
 					<Stack direction='row' spacing={4}>
