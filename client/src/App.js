@@ -1,4 +1,4 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, Switch } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import CastingsScreen from './screens/CastingsScreen';
@@ -18,7 +18,7 @@ import ConfirmEmailScreen from './screens/ConfirmEmailScreen';
 import CookieConsent from './components/CookieConsent';
 import { useCookies } from 'react-cookie';
 import TestDisclaimer from './components/TestDisclaimer';
-
+import NotFound from './screens/NotFound';
 const breakpoints = {
 	sml: '580px',
 };
@@ -39,21 +39,25 @@ function App() {
 		<ChakraProvider theme={theme}>
 			<Router>
 				<Navbar />
-				<TestDisclaimer/>
+				<TestDisclaimer />
 				<main>
 					<Routes>
-						<Route path='/' element={<Home></Home>} />
-						<Route path='/castingi' element={<CastingsScreen />} />
-						<Route path='/casting/:id' element={<CastingScreen />} />
-						<Route path='/login' element={<LoginScreen />} />
-						<Route path='/rejestracja' element={<RegistationScreen />} />
-						<Route path='/profile' element={<ProfileScreen />} />
-						<Route path='/twoje-castingi' element={<YourCastingsScreen />} />
-						<Route path='/kontakt' element={<ContactScreen />} />
-						<Route path='/forgotpassword' element={<ForgotPasswordScreen />} />
-						<Route path='/resetpassword/:resetToken' element={<ResetPasswordScreen />} />
-						<Route path='/admin-console' element={<AdminConsole />} />
-						<Route path='/verify/:token' element={<ConfirmEmailScreen />} />
+						
+							<Route path='/' element={<Home></Home>} />
+							<Route path='/castingi' element={<CastingsScreen />} />
+							<Route path='/casting/:id' element={<CastingScreen />} />
+							<Route path='/login' element={<LoginScreen />} />
+							<Route path='/rejestracja' element={<RegistationScreen />} />
+							<Route path='/profile' element={<ProfileScreen />} />
+							<Route path='/twoje-castingi' element={<YourCastingsScreen />} />
+							<Route path='/kontakt' element={<ContactScreen />} />
+							<Route path='/forgotpassword' element={<ForgotPasswordScreen />} />
+							<Route path='/resetpassword/:resetToken' element={<ResetPasswordScreen />} />
+							<Route path='/admin-console' element={<AdminConsole />} />
+							<Route path='/verify/:token' element={<ConfirmEmailScreen />} />
+							{/* <Route path="/not-found" element={<NotFound key="not-found" />} /> */}
+							<Route path='/*' element={<NotFound />} /> 
+						
 					</Routes>
 				</main>
 				<Footer />

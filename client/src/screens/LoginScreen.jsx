@@ -67,6 +67,7 @@ const LoginScreen = () => {
 		<>
 		<Helmet>
 				<meta name='robots' content='noindex' />
+				
 				<link rel='canonical' href='/' />
 			</Helmet>
 		

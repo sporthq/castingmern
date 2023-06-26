@@ -1,4 +1,4 @@
-import { useParams, Link as ReactLink } from 'react-router-dom';
+import { useParams, Link as ReactLink, redirect, useNavigate } from 'react-router-dom';
 
 import {
 	Box,
@@ -30,6 +30,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import TextField from '../components/TextField';
 import { Helmet } from 'react-helmet-async';
+import NotFound from './NotFound';
 const FrameButton = motion(Button);
 const MotionFormControl = motion(FormControl);
 
@@ -43,11 +44,13 @@ const CastingScreen = () => {
 	// redux
 	const dispatch = useDispatch();
 	const castings = useSelector((state) => state.castings);
+	useSelector((state) => state.castings);
 	const { enrolledCasting, error: enrollError, loading: loadingEnroll } = useSelector((state) => state.enrolled);
 	const { userInfo, enrolledCastings } = useSelector((state) => state.user);
 	const { loading, error, casting } = castings;
 
 	const imageRef = useRef();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		dispatch(getCasting(id));
@@ -84,14 +87,23 @@ const CastingScreen = () => {
 	const castingDescription = casting
 		? `Sprawdź szczegóły castingu do filmu ${casting.mobvieName}. Dowiedz się o wymaganiach, terminach i sposobach zgłoszenia!`
 		: '';
-
-	console.log(castingDescription);
-
+	if (loading) {
+		// Wyświetlanie innego komponentu lub komunikatu ładowania
+		return (
+			<Stack direction='row' display='flex' minH={'80vh'} justify={'center'} spacing={4}>
+				<Spinner mt={20} thickness='2px' speed='0.65s ' emptyColor='gray.200' color='orange.500' size='xl' />
+			</Stack>
+		);
+	}
+	if (!casting) {
+		const errorParam = encodeURIComponent('Casting nie istnieje');
+		navigate(`/not-found?error=${errorParam}`, { replace: true });
+		return null;
+	}
 	return (
 		<>
 			<Helmet>
 				<title>{castingTitle}</title>
-
 				<meta name='description' content={castingDescription} />
 				<link rel='canonical' href='/' />
 			</Helmet>
@@ -111,7 +123,12 @@ const CastingScreen = () => {
 					casting && (
 						<>
 							<Flex bg='' direction={{ base: 'column' }} justify='center' align='center' paddingBottom='16'>
-								<Heading textAlign={'center'} as={'h1'} fontSize={{ base: '4xl', sm: '5xl', md: '5xl', lg: '6xl' }}>
+								<Heading
+									mb={7}
+									textAlign={'center'}
+									as={'h1'}
+									fontSize={{ base: '4xl', sm: '5xl', md: '5xl', lg: '6xl' }}
+								>
 									Casting do filmu {casting.movieName}
 								</Heading>
 								<Box

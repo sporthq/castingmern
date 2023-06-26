@@ -1,8 +1,6 @@
 https://casting-appv1.onrender.com/
 https://casting-appv1.onrender.com/castingi
 https://casting-appv1.onrender.com/casting
-https://casting-appv1.onrender.com/login
 https://casting-appv1.onrender.com/profile
 https://casting-appv1.onrender.com/twoje-castingi
-https://casting-appv1.onrender.com/rejestracja
-https://casting-appv1.onrender.com/admin-console
+

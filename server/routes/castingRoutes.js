@@ -24,17 +24,19 @@ const getCastings = async (req, res) => {
 };
 
 const getCasting = async (req, res) => {
-	const casting = await Casting.findById(req.params.id);
-	// const casting = await Casting.findOne({ movieName: req.params.movieName });
-	console.log(casting);
-
-	if (casting) {
+	try {
+	  const casting = await Casting.findById(req.params.id);
+  
+	  if (casting) {
 		res.json(casting);
-	} else {
-		res.status(404);
-		throw new Error('Nie ma takiego castingu');
+	  } else {
+		res.status(400).json({ message: 'Nie ma takiego castingu!' });
+	  }
+	} catch (error) {
+		return  res.status(400).json({ message: 'Nie ma takiego castingu!' });
+		
 	}
-};
+  };
 
 // create casting
 

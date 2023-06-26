@@ -21,27 +21,12 @@ export const getCastings = () => async (dispatch) => {
 	}
 };
 
-// export const getCasting = (id) => async (dispatch) => {
-// 	dispatch(setLoading(true));
-// 	try {
-// 		const { data } = await axios.get(`/api/castings/${id}`);
-// 		dispatch(setCasting(data));
-// 	} catch (error) {
-// 		dispatch(
-// 			setError(
-// 				error.response && error.response.data.message
-// 					? error.response.data.message
-// 					: error.message
-// 					? error.message
-// 					: 'Nieoczekiwany błąd'
-// 			)
-// 		);
-// 	}
-// };
+
 export const getCasting = (id) => async (dispatch) => {
 	dispatch(setLoading(true));
 	try {
 		const { data } = await axios.get(`/api/castings/${id}`);
+		console.log(data);
 		dispatch(setCasting(data));
 	} catch (error) {
 		dispatch(

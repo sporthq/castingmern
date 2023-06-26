@@ -61,7 +61,7 @@ const Navbar = () => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const { colorMode, toggleColorMode } = useColorMode();
 	const { isCastingEdited } = useSelector(castingSelector);
-
+	const {  casting }  = useSelector((state) => state.castings)
 	const { enrolledCastings } = useSelector((state) => state.user);
 	const { castings } = useSelector((state) => state.castings);
 
@@ -102,11 +102,18 @@ const Navbar = () => {
 	};
 
 	useEffect(() => {
-		if (userInfo) {
+		if (userInfo ) {
 			dispatch(getUserCastings());
-			dispatch(getCastings());
 		}
 	}, [userInfo]);
+
+	useEffect(() => {
+		if(casting){
+
+			dispatch(getCastings());
+		}
+
+	},[casting])
 
 	const [isWarningVisible, setIsWarningVisible] = useState(true);
 

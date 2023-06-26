@@ -95,7 +95,7 @@ export const updateCasting =
 
 			dispatch(setCastings(data));
 			dispatch(setCastingUpdateFlag());
-			dispatch(resetError());
+			// dispatch(resetError());
 		} catch (error) {
 			dispatch(
 				setError(
