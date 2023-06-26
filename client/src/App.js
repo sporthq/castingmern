@@ -1,7 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-
 import CastingsScreen from './screens/CastingsScreen';
 import Footer from './components/Footer';
 import Home from './screens/Home.jsx';
@@ -44,13 +43,13 @@ function App() {
 				<main>
 					<Routes>
 						<Route path='/' element={<Home></Home>} />
-						<Route path='/castings' element={<CastingsScreen />} />
+						<Route path='/castingi' element={<CastingsScreen />} />
 						<Route path='/casting/:id' element={<CastingScreen />} />
 						<Route path='/login' element={<LoginScreen />} />
-						<Route path='/register' element={<RegistationScreen />} />
+						<Route path='/rejestracja' element={<RegistationScreen />} />
 						<Route path='/profile' element={<ProfileScreen />} />
-						<Route path='/your-castings' element={<YourCastingsScreen />} />
-						<Route path='/contact' element={<ContactScreen />} />
+						<Route path='/twoje-castingi' element={<YourCastingsScreen />} />
+						<Route path='/kontakt' element={<ContactScreen />} />
 						<Route path='/forgotpassword' element={<ForgotPasswordScreen />} />
 						<Route path='/resetpassword/:resetToken' element={<ResetPasswordScreen />} />
 						<Route path='/admin-console' element={<AdminConsole />} />

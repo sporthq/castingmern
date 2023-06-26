@@ -33,6 +33,7 @@ import {
 import { deleteEnrolledOnCasting } from '../redux/actions/userActions';
 import { getCastings } from '../redux/actions/castingActions';
 import { updateEnroll } from '../redux/actions/enrolledActions';
+import { Helmet } from 'react-helmet-async';
 const YourCastingsScreen = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -51,33 +52,6 @@ const YourCastingsScreen = () => {
 			dispatch(getCastings());
 		}
 	}, [userInfo]);
-
-	// useEffect(() => {
-
-	// 	if(enrolledCastings.length > 0){
-
-	// 	const savedOnCastings = castings.filter((casting) => {
-	// 		return enrolledCastings.some((item) => item.casting === casting._id);
-	// 	  });
-
-	// 	  console.log(savedOnCastings);
-	// 	 savedOnCastings.forEach((casting) => {
-
-	// 		enrolledCastings.forEach((enroll) => {
-	// 			console.log(casting.movieName, enroll.movieName);
-	// 			if(casting.movieName === enroll.movieName){
-	// 				console.log('Nazwa filmu nie różni się ');
-	// 			}else {
-	// 				console.log('Nazw filmu jest różna');
-	// 			}
-	// 			if(casting.town === enroll.town){
-	// 				console.log('Nazwa miasta nie różni się ');
-	// 			}else {
-	// 				console.log('Nazw filmu jest różna');
-	// 			}
-	// 		})
-	// 	 })
-	// }}, [enrolledCastings, castings]);
 
 	useEffect(() => {
 		if (enrolledCastings.length > 0) {
@@ -121,19 +95,23 @@ const YourCastingsScreen = () => {
 
 	const handleCloseDialog = async () => {
 		for (const property of changedProperties) {
-		  await dispatch(updateEnroll(property.id, property.castingId));
+			await dispatch(updateEnroll(property.id, property.castingId));
 		}
-	  
+
 		await dispatch(getUserCastings());
 		setShowDialog(false); // Zamknij Dialog
 		setChangedProperties([]);
-	  };
+	};
 
 	const handleClosePopup = () => {
 		setShowDialog(false);
 	};
 	return userInfo ? (
 		<>
+			<Helmet>
+				<meta name='robots' content='noindex' />
+				<link rel='canonical' href='/' />
+			</Helmet>
 			{loading ? (
 				<Wrap justify='center' direction='column' align='center' mt={'20'} minH='100vh'>
 					<Stack direction='row' spacing={4}>

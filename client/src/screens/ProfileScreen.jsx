@@ -30,7 +30,7 @@ import { useLocation } from 'react-router';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { resetUpdateSucces, updateProfile } from './../redux/actions/userActions';
 import CustomFileButton from '../components/CustomFileButton';
-// import { FormControl } from '@chakra-ui/form-control';
+import {Helmet} from 'react-helmet-async'
 
 const ProfileScreen = () => {
 	const navigate = useNavigate();
@@ -53,6 +53,11 @@ const ProfileScreen = () => {
 	}, [updateSuccess, toast]);
 
 	return userInfo ? (
+		<>
+		<Helmet>
+				<meta name='robots' content='noindex' />
+				<link rel='canonical' href='/' />
+			</Helmet>
 		<Formik
 			initialValues={{
 				email: email,
@@ -180,6 +185,7 @@ const ProfileScreen = () => {
 				</Box>
 			)}
 		</Formik>
+		</>
 	) : (
 		<Navigate to='/login' replace={true} state={{ from: location }} />
 	);

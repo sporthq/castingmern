@@ -33,7 +33,7 @@ import CustomFileButton from '../components/CustomFileButton';
 import TextField from '../components/TextField';
 import PasswordTextField from '../components/PasswordTextField';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
-
+import {Helmet} from 'react-helmet-async'
 
 const RegistrationScreen = () => {
 	const dispatch = useDispatch();
@@ -56,6 +56,11 @@ const RegistrationScreen = () => {
 	}, [userInfo, redirect, error, navigate, toast]);
 
 	return (
+		<> 
+		<Helmet>
+				<meta name='robots' content='noindex' />
+				<link rel='canonical' href='/' />
+			</Helmet>
 		<Formik
 			initialValues={{
 				email: '',
@@ -189,6 +194,7 @@ const RegistrationScreen = () => {
 				</Container>
 			)}
 		</Formik>
+		</>
 	);
 };
 

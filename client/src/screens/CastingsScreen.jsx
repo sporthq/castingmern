@@ -10,6 +10,7 @@ import {
 	AlertIcon,
 	AlertTitle,
 	AlertDescription,
+	Heading,
 } from '@chakra-ui/react';
 
 import CastingCard from '../components/CastingCard';
@@ -19,7 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCastings } from '../redux/actions/castingActions';
 
 import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 const CastingsScreen = () => {
 	const dispatch = useDispatch();
 	const castingList = useSelector((state) => state.castings);
@@ -48,9 +49,14 @@ const CastingsScreen = () => {
 				<title>Lista Castingów</title>
 				<meta
 					name='description'
-					content='Zobacz naszą listę aktualnych castingów filmowych w Warszawie. Dołącz do nas i miej szansę na wystąpienie w filmie! Przeglądaj castingi różnych produkcji i zapisz się już dziś.'
+					content='Zobacz naszą listę aktualnych castingów filmowych. Dołącz do nas i miej szansę na wystąpienie w filmie! Przeglądaj castingi różnych produkcji i zapisz się już dziś.'
 				/>
+				<link rel='canonical' href='/' />
 			</Helmet>
+			<Heading as='h1' fontSize={{ base: '4xl', sm: '5xl', md: '5xl', lg: '6xl' }} my={20} textAlign='center'>
+				Lista Castingów
+			</Heading>
+
 			<Wrap spacing={65} align={'baseline'} justify='center' minHeight='100vh' mt={'12'} pb={20}>
 				{loading ? (
 					<Stack direction='row' spacing={4}>
@@ -63,15 +69,15 @@ const CastingsScreen = () => {
 						<AlertDescription>{error}</AlertDescription>
 					</Alert>
 				) : (
-					sortedCastings.map((casting) => (
-						<WrapItem key={casting._id}>
-							{/* <Center w='550px' h='550px'> */}
-
-							<Center className='xs:p-[10px]' maxW='550px' maxH='550px'>
-								<CastingCard casting={casting} />
-							</Center>
-						</WrapItem>
-					))
+					<>
+						{sortedCastings.map((casting) => (
+							<WrapItem key={casting._id}>
+								<Center className='xs:p-[10px]' maxW='550px' maxH='550px'>
+									<CastingCard casting={casting} />
+								</Center>
+							</WrapItem>
+						))}
+					</>
 				)}
 			</Wrap>
 		</>

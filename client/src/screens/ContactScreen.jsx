@@ -9,7 +9,6 @@ import {
 	FormControl,
 	Heading,
 	Stack,
-	Textarea,
 	useToast,
 } from '@chakra-ui/react';
 import { Formik } from 'formik';
@@ -18,9 +17,9 @@ import TextField from '../components/TextField';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import TextAreaField from '../components/TextAreaField';
 import * as Yup from 'yup';
-import axios from 'axios';
+
 import { resetContactError, sendEmail } from '../redux/actions/contactActions';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 const ContactScreen = () => {
 	const { userInfo } = useSelector((state) => state.user);
 	const { error: contactError, loading: contactLoading, success } = useSelector((state) => state.contact);
@@ -46,8 +45,11 @@ const ContactScreen = () => {
 				<title>Skontaktuj się z nami || Castingi </title>
 				<meta
 					name='description'
-					content='Skontaktuj się z nami, aby uzyskać więcej informacji na temat castingów filmowych w Warszawie. Jesteśmy dostępni przez telefon, e-mail i formularz kontaktowy. Nie przegap szansy na udział w ekscytujących produkcjach filmowych!'
+					content='Skontaktuj się z nami, aby uzyskać więcej informacji na temat castingów filmowych w Warszawie. Jesteśmy dostępni przez e-mail i formularz kontaktowy. '
 				/>
+				<link rel="canonical" href="/" />
+				{/* <meta name='robots' content='noindex' /> */}
+
 			</Helmet>
 			<Formik
 				initialValues={{ thead: '', email: userInfo?.email || '', msg: '' }}
@@ -65,7 +67,7 @@ const ContactScreen = () => {
 					<Container maxW='lg' py={{ base: '12', md: '24' }} minH='2xl'>
 						<Stack spacing='8'>
 							<Stack textAlign='center'>
-								<Heading size={{ base: '2xl', lg: '3xl' }}>Napisz do nas!</Heading>
+								<Heading as={'h1'} size={{ base: '2xl', lg: '3xl' }}>Napisz do nas!</Heading>
 							</Stack>
 						</Stack>
 						<Box

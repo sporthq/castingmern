@@ -116,6 +116,7 @@ const Home = () => {
 							transition={{ duration: 0.5, delay: 0.5 }}
 							srcSet={`${homeImgSmall} 450w, ${homeImgMedium} 768w, ${homeImgLarge} 1280w`}
 							alt={'Klaps filmowy'}
+							loading='auto'
 						/>
 					</Box>
 
@@ -128,7 +129,7 @@ const Home = () => {
 								}}
 								whileTap={{ scale: 0.9 }}
 								as={ReactLink}
-								to='/castings'
+								to='/castingi'
 								variant={{ base: 'solid' }}
 								fontWeight='bold'
 								color={'white'}
@@ -173,7 +174,7 @@ const Home = () => {
 						<Center mt={'10'} pb={'40px'} className='xl:hidden' visibility={{ xl: 'hidden' }}>
 							<Button
 								as={ReactLink}
-								to='/castings'
+								to='/castingi'
 								variant={{ base: 'solid' }}
 								fontWeight='bold'
 								color={'white'}
@@ -189,20 +190,6 @@ const Home = () => {
 				</Flex>
 			</Flex>
 
-			{/* button nie wiem czy bedzie przydany - pokaz wszyskie castingi  */}
-			{/* <Button
-				as={ReactLink}
-				rounded='xl'
-				to={'/castings'}
-				colorScheme='orange'
-				ml='auto'
-				order={3}
-				w='1/2'
-				mt={'14'}
-				fontWeight='semibold'
-			>
-				Zobacz Wszystkie Castingi
-			</Button> */}
 		</>
 	);
 };

@@ -16,6 +16,7 @@ import {
 	FormControl,
 	Divider,
 	Button,
+	Heading,
 } from '@chakra-ui/react';
 import { StarIcon, SmallAddIcon } from '@chakra-ui/icons';
 import { BiPackage, BiCheckShield, BiSupport } from 'react-icons/bi';
@@ -28,7 +29,7 @@ import { enrollCastingUser, enrollUnregisterUserCasting } from '../redux/actions
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import TextField from '../components/TextField';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 const FrameButton = motion(Button);
 const MotionFormControl = motion(FormControl);
 
@@ -36,8 +37,7 @@ const CastingScreen = () => {
 	const [imageWidth, setImageWidth] = useState('');
 	const [imageHeight, setImageHeight] = useState('');
 	const [showEnrollToast, setShowEnrollToast] = useState(false);
-
-	let { id } = useParams();
+	const { id } = useParams();
 
 	const toast = useToast();
 	// redux
@@ -82,18 +82,18 @@ const CastingScreen = () => {
 
 	const castingTitle = casting ? `${casting.movieName} - Szczegóły Castingu ` : 'Szczegóły Castingu';
 	const castingDescription = casting
-		? `Sprawdź szczegóły castingu do filmu ${casting.movieTitle} o identyfikatorze  w ${casting.town}. Dowiedz się o wymaganiach, terminach i sposobach zgłoszenia. Zdobądź swoją szansę na wystąpienie w ekscytującej produkcji filmowej!`
+		? `Sprawdź szczegóły castingu do filmu ${casting.mobvieName}. Dowiedz się o wymaganiach, terminach i sposobach zgłoszenia!`
 		: '';
 
-		console.log(castingDescription);
+	console.log(castingDescription);
 
 	return (
 		<>
 			<Helmet>
 				<title>{castingTitle}</title>
-				<Helmet>
-					<meta name='description' content={castingDescription} />
-				</Helmet>
+
+				<meta name='description' content={castingDescription} />
+				<link rel='canonical' href='/' />
 			</Helmet>
 
 			<Wrap spacing='30px' justify='center' minH='100vh' mt={50}>
@@ -111,6 +111,9 @@ const CastingScreen = () => {
 					casting && (
 						<>
 							<Flex bg='' direction={{ base: 'column' }} justify='center' align='center' paddingBottom='16'>
+								<Heading textAlign={'center'} as={'h1'} fontSize={{ base: '4xl', sm: '5xl', md: '5xl', lg: '6xl' }}>
+									Casting do filmu {casting.movieName}
+								</Heading>
 								<Box
 									// boxShadow='2xl'
 									rounded='md'
@@ -133,6 +136,7 @@ const CastingScreen = () => {
 											mb={{ base: '3', lg: '0' }}
 											height={{ base: '20%' }}
 											onLoad={handleImageSize}
+											alt={casting.movieName}
 											maxW={{
 												base: imageHeight > imageWidth ? '200px' : '300px',
 
@@ -187,7 +191,7 @@ const CastingScreen = () => {
 												as={ReactLink}
 												variant={'link'}
 												colorScheme='orange'
-												to='/register'
+												to='/rejestracja'
 											>
 												Załóżyć Konto
 											</Button>{' '}

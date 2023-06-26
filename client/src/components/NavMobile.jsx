@@ -89,7 +89,7 @@ const NavMobile = ({ links, onClose }) => {
 								Zaloguj
 							</Link>
 
-							<Button as={ReactLink} to='register' onClick={onClose} className='mt-16 uppercase' colorScheme='orange' leftIcon={<FaUser />}>
+							<Button as={ReactLink} to='rejestracja' onClick={onClose} className='mt-16 uppercase' colorScheme='orange' leftIcon={<FaUser />}>
 								Dołącz do nas!
 							</Button>
 						</>

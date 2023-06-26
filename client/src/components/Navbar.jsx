@@ -49,11 +49,11 @@ const links = [
 	},
 	{
 		linkName: 'Castingi',
-		path: '/castings',
+		path: '/castingi',
 	},
 	{
 		linkName: 'Kontakt',
-		path: '/contact',
+		path: '/kontakt',
 	},
 ];
 
@@ -184,7 +184,7 @@ const Navbar = () => {
 							<Text display={{ base: 'inline-block', md: 'none' }} className='ml-1' fontWeight='extrabold'>
 								{!userInfo ? (
 									<>
-										CastingStoj
+										Casting
 										<Text color={colorModeValue} as='span'>
 											&amp;
 										</Text>
@@ -232,7 +232,7 @@ const Navbar = () => {
 											<CgProfile />
 											<Text ml='2'>Profil </Text>
 										</MenuItem>
-										<MenuItem as={ReactLink} to='/your-castings'>
+										<MenuItem as={ReactLink} to='/twoje-castingi'>
 											<MdLocalMovies />
 											<Text ml='2'>
 												Twoje Castingi{' '}
@@ -296,7 +296,7 @@ const Navbar = () => {
 									_hover={{ bg: 'orange.300' }}
 									bg={'orange.400'}
 									as={ReactLink}
-									to={'/register'}
+									to={'/rejestracja'}
 									m={2}
 									display={{ base: 'none', md: 'inline-flex' }}
 									fontSize={'sm'}

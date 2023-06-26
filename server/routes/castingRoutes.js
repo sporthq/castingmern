@@ -25,6 +25,7 @@ const getCastings = async (req, res) => {
 
 const getCasting = async (req, res) => {
 	const casting = await Casting.findById(req.params.id);
+	// const casting = await Casting.findOne({ movieName: req.params.movieName });
 	console.log(casting);
 
 	if (casting) {
