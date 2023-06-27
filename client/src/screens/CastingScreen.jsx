@@ -39,6 +39,8 @@ const CastingScreen = () => {
 	const [imageWidth, setImageWidth] = useState('');
 	const [imageHeight, setImageHeight] = useState('');
 	const [showEnrollToast, setShowEnrollToast] = useState(false);
+
+
 	const { id } = useParams();
 
 	const toast = useToast();
@@ -84,8 +86,6 @@ const CastingScreen = () => {
 		setShowEnrollToast(true);
 	};
 
-	
-
 	const castingTitle = casting ? `${casting.movieName} - Szczegóły Castingu ` : 'Szczegóły Castingu';
 	const castingDescription = casting
 		? `Sprawdź szczegóły castingu do filmu ${casting.movieName}. Dowiedz się o wymaganiach, terminach i sposobach zgłoszenia!`
@@ -104,6 +104,10 @@ const CastingScreen = () => {
 		return null;
 	}
 	const castingID = `casting/${id}`;
+
+	
+
+	
 	return (
 		<>
 			<Helmet>
@@ -188,14 +192,8 @@ const CastingScreen = () => {
 														fontSize={{ base: 'xs', sm: 'md' }}
 														justifyContent='center'
 													>
-														<Icon
-															mr={1}
-															as={ArrowBackIcon}
-															boxSize={{ base: '4', md: '5' }}
-															color='orange.400'
-															
-														/>{' '}
-														Wróć do listy castingów
+														<Icon mr={1} as={ArrowBackIcon} boxSize={{ base: '4', md: '5' }} color='orange.400' /> Wróć
+														do listy castingów
 													</Button>
 												</Flex>
 												<Text
@@ -309,6 +307,7 @@ const CastingScreen = () => {
 					)
 				)}
 			</Wrap>
+			
 		</>
 	);
 };
