@@ -26,7 +26,7 @@ const CookieConsent = () => {
 				polityką prywatności
 			</Text>
 			<Button mt={3} ml={6} colorScheme={'orange'} onClick={giveCookieConsent}>
-				Accept
+				Akceptuje
 			</Button>
 		</Box>
 	);

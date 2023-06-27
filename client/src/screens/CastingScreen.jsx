@@ -17,20 +17,21 @@ import {
 	Divider,
 	Button,
 	Heading,
+	Icon,
 } from '@chakra-ui/react';
-import { StarIcon, SmallAddIcon } from '@chakra-ui/icons';
-import { BiPackage, BiCheckShield, BiSupport } from 'react-icons/bi';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getCasting } from '../redux/actions/castingActions';
 import { useEffect, useRef, useState } from 'react';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { enrollCastingUser, enrollUnregisterUserCasting } from '../redux/actions/enrolledActions';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import TextField from '../components/TextField';
 import { Helmet } from 'react-helmet-async';
-import NotFound from './NotFound';
+
 const FrameButton = motion(Button);
 const MotionFormControl = motion(FormControl);
 
@@ -83,6 +84,8 @@ const CastingScreen = () => {
 		setShowEnrollToast(true);
 	};
 
+	
+
 	const castingTitle = casting ? `${casting.movieName} - Szczegóły Castingu ` : 'Szczegóły Castingu';
 	const castingDescription = casting
 		? `Sprawdź szczegóły castingu do filmu ${casting.mobvieName}. Dowiedz się o wymaganiach, terminach i sposobach zgłoszenia!`
@@ -100,12 +103,13 @@ const CastingScreen = () => {
 		navigate(`/not-found?error=${errorParam}`, { replace: true });
 		return null;
 	}
+	const castingID = `casting/${id}`;
 	return (
 		<>
 			<Helmet>
 				<title>{castingTitle}</title>
 				<meta name='description' content={castingDescription} />
-				<link rel='canonical' href='/' />
+				<link rel='canonical' href={castingID} />
 			</Helmet>
 
 			<Wrap spacing='30px' justify='center' minH='100vh' mt={50}>
@@ -122,7 +126,7 @@ const CastingScreen = () => {
 				) : (
 					casting && (
 						<>
-							<Flex bg='' direction={{ base: 'column' }} justify='center' align='center' paddingBottom='16'>
+							<Flex direction={{ base: 'column' }} justify='center' align='center' paddingBottom='16'>
 								<Heading
 									mb={7}
 									textAlign={'center'}
@@ -173,13 +177,35 @@ const CastingScreen = () => {
 											>
 												{casting.description}
 											</Text>
-											<Text
-												fontSize={{ base: 'md', sm: 'md', lg: 'lg', xl: 'lg' }}
-												mt={{ base: '2', lg: '1' }}
-												textAlign={'right'}
-											>
-												<strong>Miejsce:</strong> {casting.town}
-											</Text>
+											<Flex w='100%' justify={'space-between'} textAlign={'center'}>
+												<Flex alignItems='center' mt={{ base: '5', md: '5' }}>
+													<Button
+														display='flex'
+														alignItems={'center'}
+														as={ReactLink}
+														to='/castingi'
+														variant={'outline'}
+														fontSize={{ base: 'xs', sm: 'md' }}
+														justifyContent='center'
+													>
+														<Icon
+															mr={1}
+															as={ArrowBackIcon}
+															boxSize={{ base: '4', md: '5' }}
+															color='orange.400'
+															
+														/>{' '}
+														Wróć do listy castingów
+													</Button>
+												</Flex>
+												<Text
+													fontSize={{ base: 'md', sm: 'md', lg: 'lg', xl: 'lg' }}
+													mt={{ base: '7', lg: '7' }}
+													textAlign={'right'}
+												>
+													<strong>Miejsce:</strong> {casting.town}
+												</Text>
+											</Flex>
 										</Flex>
 									</Flex>
 								</Box>

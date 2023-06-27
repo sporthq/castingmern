@@ -35,7 +35,7 @@ const ConfirmEmailScreen = () => {
 		<>
 			<Helmet>
 				<meta name='robots' content='noindex' />
-				<link rel='canonical' href='/' />
+				{/* <link rel='canonical' href='/' /> */}
 			</Helmet>
 			<Container maxW='lg' py={{ base: '12', md: '24' }} px={{ base: '0', md: '8' }} minH='4xl'>
 				<Stack spacing='5'>

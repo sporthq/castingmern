@@ -51,7 +51,7 @@ const CastingsScreen = () => {
 					name='description'
 					content='Zobacz naszą listę aktualnych castingów filmowych. Dołącz do nas i miej szansę na wystąpienie w filmie! Przeglądaj castingi różnych produkcji i zapisz się już dziś.'
 				/>
-				<link rel='canonical' href='/' />
+				<link rel='canonical' href='/castingi' />
 			</Helmet>
 			<Heading as='h1' fontSize={{ base: '4xl', sm: '5xl', md: '5xl', lg: '6xl' }} my={20} textAlign='center'>
 				Lista Castingów

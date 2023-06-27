@@ -32,7 +32,7 @@ const LoginScreen = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
-	const redirect = '/castings';
+	const redirect = '/castingi';
 	const toast = useToast();
 
 	const user = useSelector((state) => state.user);
@@ -68,7 +68,7 @@ const LoginScreen = () => {
 		<Helmet>
 				<meta name='robots' content='noindex' />
 				
-				<link rel='canonical' href='/' />
+				<link rel='canonical' href='/login' />
 			</Helmet>
 		
 		<Formik

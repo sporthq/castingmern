@@ -110,7 +110,7 @@ const YourCastingsScreen = () => {
 		<>
 			<Helmet>
 				<meta name='robots' content='noindex' />
-				<link rel='canonical' href='/' />
+				{/* <link rel='canonical' href='/' /> */}
 			</Helmet>
 			{loading ? (
 				<Wrap justify='center' direction='column' align='center' mt={'20'} minH='100vh'>

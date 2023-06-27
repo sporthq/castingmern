@@ -19,6 +19,7 @@ import CookieConsent from './components/CookieConsent';
 import { useCookies } from 'react-cookie';
 import TestDisclaimer from './components/TestDisclaimer';
 import NotFound from './screens/NotFound';
+import { Helmet } from 'react-helmet';
 const breakpoints = {
 	sml: '580px',
 };
@@ -37,6 +38,7 @@ function App() {
 	const [cookies] = useCookies(['cookieConsent']);
 	return (
 		<ChakraProvider theme={theme}>
+			<Helmet></Helmet>
 			<Router>
 				<Navbar />
 				<TestDisclaimer />

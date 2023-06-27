@@ -36,6 +36,7 @@ const AddNewCasting = () => {
 
 	const createNewCasting = () => {
 		console.log(movieName);
+		console.log(isCastingEdited)
 
 		dispatch(uploadCasting(movieName, image, town, description, isNewCasting, isCastingEdited, resetFormValues));
 	};

@@ -16,7 +16,7 @@ const AdminConsole = () => {
 			{userInfo && userInfo.isAdmin === 'true' ? (
 				<Helmet>
 					<meta name='robots' content='noindex' />
-					<link rel='canonical' href='/' />
+					<link rel='canonical' href='/admin-console' />
 				</Helmet>
 			) : (
 				<Navigate to='/login' replace={true} state={{ from: location }} />

@@ -178,7 +178,6 @@ export const uploadCasting =
 			const { data } = await axios.post('/api/castings', formData, config);
 			dispatch(setCastings(data));
 			dispatch(setCastingUpdateFlag());
-
 			resetFormValues();
 			dispatch(resetError());
 		} catch (error) {

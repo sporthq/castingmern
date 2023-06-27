@@ -39,7 +39,7 @@ const RegistrationScreen = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { error, loading, userInfo, sendConfirmMail } = useSelector((state) => state.user);
-	const redirect = '/castings';
+	const redirect = '/castingi';
 	const toast = useToast();
 	const headingBR = useBreakpointValue({ base: '2xl', md: '3xl', lg: '4xl' });
 	const boxBR = useBreakpointValue({ base: 'transparent', md: 'bg-surface' });
@@ -59,7 +59,7 @@ const RegistrationScreen = () => {
 		<> 
 		<Helmet>
 				<meta name='robots' content='noindex' />
-				<link rel='canonical' href='/' />
+				<link rel='canonical' href='/rejestracja' />
 			</Helmet>
 		<Formik
 			initialValues={{

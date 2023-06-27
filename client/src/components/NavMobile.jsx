@@ -53,10 +53,7 @@ const NavMobile = ({ links, onClose }) => {
 						</Link>
 					))}
 
-					{/* <li className='text-center py-12 font-semibold    text-2xl hover:underline'>
-						<a href='/login'>Zaloguj</a>
-					</li>
-				 */}
+					
 					{userInfo ? (
 						<>
 							<Link

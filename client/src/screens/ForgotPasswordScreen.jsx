@@ -46,7 +46,7 @@ const ForgotPasswordScreen = () => {
 		<>
 		<Helmet>
 				<meta name='robots' content='noindex' />
-				<link rel='canonical' href='/' />
+				{/* <link rel='canonical' href='/' /> */}
 			</Helmet>
 			<Formik
 				initialValues={{ email: '' }}

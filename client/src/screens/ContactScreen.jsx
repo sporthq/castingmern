@@ -47,8 +47,7 @@ const ContactScreen = () => {
 					name='description'
 					content='Skontaktuj się z nami, aby uzyskać więcej informacji na temat castingów filmowych w Warszawie. Jesteśmy dostępni przez e-mail i formularz kontaktowy. '
 				/>
-				<link rel="canonical" href="/" />
-				{/* <meta name='robots' content='noindex' /> */}
+				<link rel="canonical" href="/kontakt" />
 
 			</Helmet>
 			<Formik
