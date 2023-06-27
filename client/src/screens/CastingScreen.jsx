@@ -88,7 +88,7 @@ const CastingScreen = () => {
 
 	const castingTitle = casting ? `${casting.movieName} - Szczegóły Castingu ` : 'Szczegóły Castingu';
 	const castingDescription = casting
-		? `Sprawdź szczegóły castingu do filmu ${casting.mobvieName}. Dowiedz się o wymaganiach, terminach i sposobach zgłoszenia!`
+		? `Sprawdź szczegóły castingu do filmu ${casting.movieName}. Dowiedz się o wymaganiach, terminach i sposobach zgłoszenia!`
 		: '';
 	if (loading) {
 		// Wyświetlanie innego komponentu lub komunikatu ładowania
