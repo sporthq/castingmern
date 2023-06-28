@@ -66,9 +66,8 @@ According to the chosen license, which is Creative Commons Attribution-NonCommer
 The CC BY-NC license imposes restrictions on the commercial use of the project to protect the interests of the creator and maintain software freedom. If you wish to use this project for commercial purposes, you will need to consult the project owner and obtain appropriate permission or license, according to the terms of the chosen license.
 
 It is important to adhere to the license terms and respect the rights of the project creator. If you have any doubts or need more specific information about the conditions of using the project for commercial purposes, I recommend consulting the project owner or seeking legal advice.
+
 ## Screenshots Admin Console
-
-
 
 
 ![](https://iili.io/Hi9boV2.png)
