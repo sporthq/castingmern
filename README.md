@@ -37,7 +37,7 @@ Casting Website is a platform that enables users to browse film castings and sig
 
 8. **Notifications for Changes**: If you sign up for a casting, you will receive notifications about any changes related to that casting, such as a change in the film's name or location. Notifications will be visible on your account.
 
-![](https://iili.io/Hi9D1vs.png)
+![](https://iili.io/Hi9y5Rn.png)
 
 ![](https://iili.io/Hi9D4nV.png)
 
