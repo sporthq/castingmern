@@ -53,10 +53,7 @@ const NavMobile = ({ links, onClose }) => {
 						</Link>
 					))}
 
-					{/* <li className='text-center py-12 font-semibold    text-2xl hover:underline'>
-						<a href='/login'>Zaloguj</a>
-					</li>
-				 */}
+					
 					{userInfo ? (
 						<>
 							<Link
@@ -89,7 +86,7 @@ const NavMobile = ({ links, onClose }) => {
 								Zaloguj
 							</Link>
 
-							<Button as={ReactLink} to='register' onClick={onClose} className='mt-16 uppercase' colorScheme='orange' leftIcon={<FaUser />}>
+							<Button as={ReactLink} to='rejestracja' onClick={onClose} className='mt-16 uppercase' colorScheme='orange' leftIcon={<FaUser />}>
 								Dołącz do nas!
 							</Button>
 						</>

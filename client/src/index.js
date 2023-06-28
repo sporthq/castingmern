@@ -6,15 +6,15 @@ import reportWebVitals from './reportWebVitals';
 
 import store from './redux/store';
 import { Provider } from 'react-redux';
-import { AnimatePresence } from 'framer-motion';
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	
-		<Provider store={store}>
+	<Provider store={store}>
+		<HelmetProvider>
 			<App />
-		</Provider>
-
+		</HelmetProvider>
+	</Provider>
 );
 
 reportWebVitals();

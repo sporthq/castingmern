@@ -10,6 +10,7 @@ const castingSchema = new mongoose.Schema(
 		town: { type: String, required: true },
 		description: { type: String, required: true },
 		isNewCasting: { type: Boolean, default: false },
+		castingIsEdited: { type: Boolean, default: false },
 	
 	},
 	{ timestamps: true }

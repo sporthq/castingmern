@@ -5,21 +5,21 @@ const storage = multer.diskStorage({
 		cb(null, 'server/uploads');
 	},
 	filename: function (req, file, cb) {
-		cb(null, new Date().toISOString().replace(/:/g, '-') + "=" +  file.originalname);
+		cb(null, new Date().toISOString().replace(/:/g, '-') + '=' + file.originalname);
 	},
 });
 
-console.log(storage);
 // specify file format that can be save
-
+const maxSize = 10 * 1024 * 1024; // Przykładowy limit wagowy: 5 MB
 function fileFilter(req, file, cb) {
-	if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+	if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg'  ) {
 		cb(null, true);
 	} else {
-		cb(null, false);
+		return cb(new Error(`Nie prawidłowy format zdjęcia! `));
 	}
+	
 }
 
-const upload = multer({ storage, fileFilter });
+const upload = multer({ storage, fileFilter, limits: {fileSize: maxSize} });
 
-export default upload
+export default upload;

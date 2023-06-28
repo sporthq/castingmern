@@ -21,7 +21,7 @@ import {
 	FormErrorMessage,
 	
 } from '@chakra-ui/react';
-import Select from 'react-select';
+
 import { Link as ReactLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Field, Formik } from 'formik';
@@ -32,13 +32,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import CustomFileButton from '../components/CustomFileButton';
 import TextField from '../components/TextField';
 import PasswordTextField from '../components/PasswordTextField';
-import { resetError } from '../redux/slices/user';
+import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
+import {Helmet} from 'react-helmet-async'
 
 const RegistrationScreen = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { error, loading, userInfo, sendConfirmMail } = useSelector((state) => state.user);
-	const redirect = '/castings';
+	const redirect = '/castingi';
 	const toast = useToast();
 	const headingBR = useBreakpointValue({ base: '2xl', md: '3xl', lg: '4xl' });
 	const boxBR = useBreakpointValue({ base: 'transparent', md: 'bg-surface' });
@@ -55,6 +56,11 @@ const RegistrationScreen = () => {
 	}, [userInfo, redirect, error, navigate, toast]);
 
 	return (
+		<> 
+		<Helmet>
+				<meta name='robots' content='noindex' />
+				<link rel='canonical' href='/rejestracja' />
+			</Helmet>
 		<Formik
 			initialValues={{
 				email: '',
@@ -80,6 +86,7 @@ const RegistrationScreen = () => {
 				acceptTerms: Yup.boolean().oneOf([true], 'Musisz zaakceptować regulamin!'),
 			})}
 			onSubmit={(values) => {
+				console.log(values);
 				dispatch(
 					register(values.firstName, values.lastName, values.email, values.password, values.image, values.phoneNumber)
 				);
@@ -135,9 +142,11 @@ const RegistrationScreen = () => {
 													previewImage={formik.values.image}
 												/>
 											)}
-										</Field>
+							
 
-										<PasswordTextField type='password' name='password' placeholder='Hasło' label='Hasło' />
+										</Field>
+ 
+										<PasswordTextField  type='password' name='password' placeholder='Hasło' label='Hasło' />
 										<PasswordTextField
 											type='password'
 											name='confirmPassword'
@@ -185,6 +194,7 @@ const RegistrationScreen = () => {
 				</Container>
 			)}
 		</Formik>
+		</>
 	);
 };
 

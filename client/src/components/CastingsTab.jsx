@@ -110,7 +110,7 @@ const CastingsTab = () => {
 						</Thead>
 						<Tbody>
 							{sortedCastings.map((casting,index) => (
-								<CastingTableItem key={casting._id} casting={casting} index={index} />
+								<CastingTableItem  key={casting._id} casting={casting} index={index} />
 							))}
 						</Tbody>
 					</Table>

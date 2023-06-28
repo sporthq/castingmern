@@ -1,3 +1,12 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /login 
+Disallow: /rejestracja 
+Disallow: /admin-console
+Disallow: /forgotpassword
+Disallow: /resetpassword
+Disallow: /verify
+
+Sitemap: https://casting-appv1.onrender.com/sitemap.txt
+
+

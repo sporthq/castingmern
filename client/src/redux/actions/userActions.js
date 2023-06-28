@@ -60,6 +60,7 @@ export const register = (firstName, lastName, email, password, image, phoneNumbe
 		};
 		const { data } = await axios.post('/api/users/register', formData, config);
 
+		
 	
 		dispatch(setSendConfirmMail());
 		
@@ -115,78 +116,6 @@ export const updateProfile = (id, firstName, lastName, email, password, phoneNum
   };
 
 
-// export const updateProfile = (id, firstName, lastName, email, password, phoneNumber) => async (dispatch, getState) => {
-// 	const {
-// 		user: { userInfo },
-// 	} = getState();
-
-// 	try {
-// 		const config = {
-// 			headers: {
-// 				// Authorization: `Bearer ${userInfo.token}`,
-// 				'Content-Type': 'multipart/form-data',
-// 			},
-// 		};
-// 		const { data } = await axios.put(
-// 			`/api/users/profile/${id}`,
-// 			{ _id: id, firstName, lastName, email, password, phoneNumber },
-// 			config
-// 		);
-// 		localStorage.setItem('userInfo', JSON.stringify(data));
-// 		dispatch(updateUserProfile(data));
-// 	} catch (error) {
-// 		dispatch(
-// 			setError(
-// 				error.response && error.response.data.message
-// 					? error.response.data.message
-// 					: error.message
-// 					? error.message
-// 					: 'Nieoczekiwany błąd'
-// 			)
-// 		);
-// 	}
-// };
-
-
-// export const updateProfile = (id, firstName, lastName, email, password, phoneNumber, image) => async (dispatch, getState) => {
-//   const {
-//     user: { userInfo },
-//   } = getState();
-
-//   try {
-//     dispatch(setLoading(true));
-
-//     const formData = new FormData();
-//     formData.append('firstName', firstName);
-//     formData.append('lastName', lastName);
-//     formData.append('email', email);
-//     formData.append('password', password);
-//     formData.append('phoneNumber', phoneNumber);
-//     formData.append('image', image);
-
-//     const config = {
-//       headers: {
-//         Authorization: `Bearer ${userInfo.token}`,
-//         'Content-Type': 'multipart/form-data',
-//       },
-//     };
-
-//     const { data } = await axios.put(`/api/users/profile/${id}`, formData, config);
-
-//     localStorage.setItem('userInfo', JSON.stringify(data));
-//     dispatch(updateUserProfile(data));
-//   } catch (error) {
-//     dispatch(
-//       setError(
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message
-//           ? error.message
-//           : 'Nieoczekiwany błąd'
-//       )
-//     );
-//   }
-// };
 export const resetUpdateSucces = () => async (dispatch) => {
 	dispatch(resetUpdate());
 };

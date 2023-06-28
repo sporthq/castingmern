@@ -30,36 +30,6 @@ export const getAllUsers = () => async (dispatch, getState) => {
 	}
 };
 
-// export const deleteUser = (id) => async (dispatch, getState) => {
-// 	const {
-// 		user: { userInfo },
-// 	} = getState();
-
-// 	try {
-// 		const config = {
-// 			headers: {
-// 				Authorization: `Bearer ${userInfo.token}`,
-// 				'Content-type': 'appliaction/json',
-// 			},
-// 		};
-// 		const { data: enrolledUsers } = await axios.get(`/api/castings/${id}/enrolled`, config);
-// 		const { data } = await axios.delete(`/api/users/${id}`, config);
-// 		for (const user of enrolledUsers) {
-// 			await dispatch(deleteEnrolledOnCasting(user._id)); // Wywołaj funkcję deleteEnrolledOnCasting dla danego użytkownika
-// 		  }
-// 		dispatch(userDelete(data));
-// 	} catch (error) {
-// 		dispatch(
-// 			setError(
-// 				error.response && error.response.data.message
-// 					? error.response.data.message
-// 					: error.message
-// 					? error.message
-// 					: 'Nieoczekiwany błąd'
-// 			)
-// 		);
-// 	}
-// };
 export const deleteUser = (id) => async (dispatch, getState) => {
 	const {
 		user: { userInfo },
@@ -100,7 +70,7 @@ export const resetErrorAndRemoval = () => async (dispatch) => {
 // update casting
 
 export const updateCasting =
-	(movieName, image, town, description, isNewCasting, id, isCastingEdited) => async (dispatch, getState) => {
+(movieName, image, town, description, isNewCasting, id, isCastingEdited) => async (dispatch, getState) => {
 		const {
 			user: { userInfo },
 		} = getState();
@@ -123,9 +93,9 @@ export const updateCasting =
 
 			const { data } = await axios.put('/api/castings', formData, config);
 
-		
 			dispatch(setCastings(data));
 			dispatch(setCastingUpdateFlag());
+			// dispatch(resetError());
 		} catch (error) {
 			dispatch(
 				setError(
@@ -137,7 +107,7 @@ export const updateCasting =
 				)
 			);
 		}
-	};
+	};	
 // delete casting
 
 export const deleteCasting = (id) => async (dispatch, getState) => {
@@ -208,7 +178,6 @@ export const uploadCasting =
 			const { data } = await axios.post('/api/castings', formData, config);
 			dispatch(setCastings(data));
 			dispatch(setCastingUpdateFlag());
-
 			resetFormValues();
 			dispatch(resetError());
 		} catch (error) {

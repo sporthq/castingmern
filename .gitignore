@@ -11,7 +11,8 @@ node_modules/
 /server/uploads
 # production
 client/build
-
+server/uploads
+.gitignore
 # misc
 .DS_Store
 .env.local

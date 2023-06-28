@@ -49,11 +49,11 @@ const links = [
 	},
 	{
 		linkName: 'Castingi',
-		path: '/castings',
+		path: '/castingi',
 	},
 	{
 		linkName: 'Kontakt',
-		path: '/contact',
+		path: '/kontakt',
 	},
 ];
 
@@ -61,7 +61,7 @@ const Navbar = () => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const { colorMode, toggleColorMode } = useColorMode();
 	const { isCastingEdited } = useSelector(castingSelector);
-
+	const {  casting }  = useSelector((state) => state.castings)
 	const { enrolledCastings } = useSelector((state) => state.user);
 	const { castings } = useSelector((state) => state.castings);
 
@@ -102,11 +102,18 @@ const Navbar = () => {
 	};
 
 	useEffect(() => {
-		if (userInfo) {
+		if (userInfo ) {
 			dispatch(getUserCastings());
-			dispatch(getCastings());
 		}
 	}, [userInfo]);
+
+	useEffect(() => {
+		if(casting){
+
+			dispatch(getCastings());
+		}
+
+	},[casting])
 
 	const [isWarningVisible, setIsWarningVisible] = useState(true);
 
@@ -126,8 +133,7 @@ const Navbar = () => {
 				bg={useColorModeValue('gray.100', 'gray.900')}
 				px={4}
 				className='overflow-hidden'
-				// position={'sticky'}
-				// top={0}
+				
 			>
 				<Flex h={16} className='' alignItems='center' justify='space-between'>
 					<HStack>
@@ -233,7 +239,7 @@ const Navbar = () => {
 											<CgProfile />
 											<Text ml='2'>Profil </Text>
 										</MenuItem>
-										<MenuItem as={ReactLink} to='/your-castings'>
+										<MenuItem as={ReactLink} to='/twoje-castingi'>
 											<MdLocalMovies />
 											<Text ml='2'>
 												Twoje Castingi{' '}
@@ -297,7 +303,7 @@ const Navbar = () => {
 									_hover={{ bg: 'orange.300' }}
 									bg={'orange.400'}
 									as={ReactLink}
-									to={'/register'}
+									to={'/rejestracja'}
 									m={2}
 									display={{ base: 'none', md: 'inline-flex' }}
 									fontSize={'sm'}

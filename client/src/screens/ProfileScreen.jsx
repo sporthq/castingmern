@@ -30,7 +30,7 @@ import { useLocation } from 'react-router';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { resetUpdateSucces, updateProfile } from './../redux/actions/userActions';
 import CustomFileButton from '../components/CustomFileButton';
-// import { FormControl } from '@chakra-ui/form-control';
+import {Helmet} from 'react-helmet-async'
 
 const ProfileScreen = () => {
 	const navigate = useNavigate();
@@ -53,6 +53,10 @@ const ProfileScreen = () => {
 	}, [updateSuccess, toast]);
 
 	return userInfo ? (
+		<>
+		<Helmet>
+				<meta name='robots' content='noindex' />
+			</Helmet>
 		<Formik
 			initialValues={{
 				email: email,
@@ -161,15 +165,15 @@ const ProfileScreen = () => {
 						</Stack>
 						<Flex pb={'14'} order={{ base: '1', lg: '2' }} direction='column' align='center' flex={1}>
 							<Card>
-								<CardHeader>
-									<Heading mb={'-6'} size='md'>
+								<CardHeader textAlign='center'>
+									<Heading mb={'-6'} size={{ base:'md', sm:'lg' }}>
 										{firstName} {lastName}{' '}
 									</Heading>
 								</CardHeader>
 								<CardBody>
 									<Stack divider={<StackDivider></StackDivider>} spacing={4}>
-										<Box pt={2} fontSize={'small'}>
-											<Image rounded='2xl' mb={'2'} maxW='200px' maxH='auto' src={image}></Image>
+										<Box textAlign='center' pt={2} fontSize={'small'}>
+											<Image rounded='2xl' mb={'2'} maxW={{ base:'200px', sm:'250px' , lg:'300px'}} maxH='auto' src={image}></Image>
 											Konto Założone: {new Date(userInfo.createdAt).toLocaleDateString('pl-PL')}
 										</Box>
 									</Stack>
@@ -180,6 +184,7 @@ const ProfileScreen = () => {
 				</Box>
 			)}
 		</Formik>
+		</>
 	) : (
 		<Navigate to='/login' replace={true} state={{ from: location }} />
 	);

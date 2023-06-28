@@ -24,6 +24,7 @@ import {  Link as  useLocation, useParams } from 'react-router-dom';
 import PasswordTextField from '../components/PasswordTextField';
 
 import { resetPassword } from '../redux/actions/userActions';
+import { Helmet } from 'react-helmet-async';
 
 const ResetPasswordScreen = () => {
 	const dispatch = useDispatch();
@@ -34,6 +35,11 @@ const ResetPasswordScreen = () => {
 	const boxBR = useBreakpointValue({ base: 'transparent', md: 'bg-surface' });
 	
 	return (
+		<>
+		<Helmet>
+				<meta name='robots' content='noindex' />
+				{/* <link rel='canonical' href='/' /> */}
+			</Helmet>
 		<Formik
 			initialValues={{ password: '', confirmPassword: '' }}
 			validationSchema={Yup.object({
@@ -119,6 +125,7 @@ const ResetPasswordScreen = () => {
 				</Container>
 			)}
 		</Formik>
+		</>
 	);
 };
 

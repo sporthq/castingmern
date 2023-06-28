@@ -21,10 +21,12 @@ export const getCastings = () => async (dispatch) => {
 	}
 };
 
+
 export const getCasting = (id) => async (dispatch) => {
 	dispatch(setLoading(true));
 	try {
 		const { data } = await axios.get(`/api/castings/${id}`);
+		console.log(data);
 		dispatch(setCasting(data));
 	} catch (error) {
 		dispatch(

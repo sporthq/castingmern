@@ -26,13 +26,13 @@ import PasswordTextField from '../components/PasswordTextField';
 import TextField from '../components/TextField';
 import { login } from '../redux/actions/userActions';
 import { resetError, setError } from '../redux/slices/user';
-
+import {Helmet} from 'react-helmet-async'
 // TODO zmień długość hasła
 const LoginScreen = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
-	const redirect = '/castings';
+	const redirect = '/castingi';
 	const toast = useToast();
 
 	const user = useSelector((state) => state.user);
@@ -64,6 +64,13 @@ const LoginScreen = () => {
 	// }, [error]);
 
 	return (
+		<>
+		<Helmet>
+				<meta name='robots' content='noindex' />
+				
+				<link rel='canonical' href='/login' />
+			</Helmet>
+		
 		<Formik
 			initialValues={{ email: '', password: '' }}
 			validationSchema={Yup.object({
@@ -84,7 +91,7 @@ const LoginScreen = () => {
 								<Heading size={headingBR}>Zaloguj się </Heading>
 								<HStack spacing='1' justify='center'>
 									<Text color='muted'>Nie masz konta ? </Text>
-									<Button as={ReactLink} to='/register' variant='link' colorScheme='orange'>
+									<Button as={ReactLink} to='/rejestracja' variant='link' colorScheme='orange'>
 										Załóż konto
 									</Button>
 								</HStack>
@@ -134,6 +141,7 @@ const LoginScreen = () => {
 				</Container>
 			)}
 		</Formik>
+		</>
 	);
 };
 
