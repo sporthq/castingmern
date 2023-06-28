@@ -1,5 +1,6 @@
-![Static Badge](https://img.shields.io/badge/Lang-PL%20-PL?labelColor=white&color=red&link=https%3A%2F%2Fgithub.com%2Fsporthq%2Fcastingmern%2Fblob%2Fmaster%2FREADME-PL.md)
-![Static Badge](https://img.shields.io/badge/Lang-ENG%20-PL?labelColor=white&color=blue&link=https%3A%2F%2Fgithub.com%2Fsporthq%2Fcastingmern%2Fblob%2Fmaster%2FREADME.md)
+[![Lang](https://img.shields.io/badge/Lang-PL%20-PL?labelColor=white&color=red&link=https%3A%2F%2Fgithub.com%2Fsporthq%2Fcastingmern%2Fblob%2Fmaster%2FREADME-PL.md)](https://github.com/sporthq/castingmern/blob/master/README-PL.md)
+[![Lang](https://img.shields.io/badge/Lang-ENG%20-PL?labelColor=white&color=blue&link=https%3A%2F%2Fgithub.com%2Fsporthq%2Fcastingmern%2Fblob%2Fmaster%2FREADME.md)](https://github.com/sporthq/castingmern/blob/master/README.md)
+
 # Casting Webstie
 
 Welcome to Casting Website! This web application allows you to manage castings and sign up for them. Below you will find information about the features and capabilities of the website.
