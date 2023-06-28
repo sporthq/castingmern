@@ -1,3 +1,5 @@
+https://img.shields.io/badge/Lang-PL%20-PL?labelColor=blue&color=red&link=https%3A%2F%2Fgithub.com%2Fsporthq%2Fcastingmern%2Fblob%2Fmaster%2FREADME-PL.md
+
 # Casting Webstie
 
 Welcome to Casting Website! This web application allows you to manage castings and sign up for them. Below you will find information about the features and capabilities of the website.
