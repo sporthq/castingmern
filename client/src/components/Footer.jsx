@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { FaGithub, FaTwitter, FaFacebook } from 'react-icons/fa';
 
-const Footer = () => (
+const Footer = ({children}) => (
 	<Container as='footer' role='contentinfo'>
 		<Divider bg={useColorModeValue('gray.600', 'gray.600')} h='.1px' py={'.5px'} />
 		<Stack pt='8' pb='12' justify='space-between' direction={{ base: 'column-reverse', md: 'row' }} align='center'>
@@ -48,6 +48,7 @@ const Footer = () => (
 				/>
 			</ButtonGroup>
 		</Stack>
+		{/* {children} */}
 	</Container>
 );
 

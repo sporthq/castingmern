@@ -51,7 +51,7 @@ const YourCastingsScreen = () => {
 			dispatch(getUserCastings());
 			dispatch(getCastings());
 		}
-	}, [userInfo]);
+	}, [userInfo, dispatch]);
 
 	useEffect(() => {
 		if (enrolledCastings.length > 0) {

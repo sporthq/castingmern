@@ -1,13 +1,15 @@
 import React from 'react';
 import { useCookies } from 'react-cookie';
+
 import { Box, Button, Text, useColorModeValue } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link as ReactLink } from 'react-router-dom';
 
 const CookieConsent = () => {
 	const [cookies, setCookie, removeCookie] = useCookies(['cookieConsent']);
+
 	const giveCookieConsent = (e) => {
-		e.preventDefault();
 		setCookie('cookieConsent', true, { path: '/' });
+		e.preventDefault();
 	};
 
 	return (
@@ -23,8 +25,9 @@ const CookieConsent = () => {
 			className='flex-col md:flex md:flex-row justify-center items-center'
 		>
 			<Text>
-				Kontynuując przeglądanie tej strony internetowej, zgadzasz się na korzystanie z plików cookie zgodnie z naszą
-				<Link to='/'>polityką prywatności </Link>
+				Kontynuując przeglądanie tej strony internetowej, zgadzasz się na korzystanie z plików cookie zgodnie z naszą <Button as={ReactLink} variant={'link'} colorScheme='orange' to='/polityka-prywatnosci'>
+					  polityką prywatności{' '}
+				</Button>
 			</Text>
 			<Button mt={3} ml={6} colorScheme={'orange'} onClick={giveCookieConsent}>
 				Akceptuje

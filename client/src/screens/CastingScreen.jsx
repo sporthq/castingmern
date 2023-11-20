@@ -234,7 +234,7 @@ const CastingScreen = () => {
 												colorScheme='orange'
 												to='/rejestracja'
 											>
-												Załóżyć Konto
+												Założyć Konto
 											</Button>{' '}
 										</Text>
 										<Formik

@@ -8,11 +8,12 @@ import homeImgMedium from '../assets/images/claps-medium.png';
 import homeImgSmall from '../assets/images/claps-small.png';
 
 import TransitionEffect from '../components/TransitionEffect';
-
-
+import { memo } from 'react';
 
 const FrameButton = motion(Button);
-const Home = () => {
+const Home = memo(() => {
+	console.log('render');
+
 	const quote = {
 		initial: {
 			opacity: 1,
@@ -64,9 +65,10 @@ const Home = () => {
 	};
 
 	const FrameImg = motion(Image);
-
 	
+
 	return (
+		
 		<>
 			<TransitionEffect />
 			<Flex
@@ -189,9 +191,8 @@ const Home = () => {
 					</VStack>
 				</Flex>
 			</Flex>
-
 		</>
 	);
-};
+});
 
 export default Home;

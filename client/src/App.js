@@ -20,6 +20,8 @@ import { useCookies } from 'react-cookie';
 import TestDisclaimer from './components/TestDisclaimer';
 import NotFound from './screens/NotFound';
 import { Helmet } from 'react-helmet';
+import PrivacyPolicy from './screens/PrivacyPolicy.jsx';
+import Terms from './screens/Terms.jsx';
 const breakpoints = {
 	sml: '580px',
 };
@@ -36,6 +38,7 @@ const theme = extendTheme({
 
 function App() {
 	const [cookies] = useCookies(['cookieConsent']);
+	console.log(cookies);
 	return (
 		<ChakraProvider theme={theme}>
 			<Helmet></Helmet>
@@ -44,22 +47,21 @@ function App() {
 				{/* <TestDisclaimer /> */}
 				<main>
 					<Routes>
-						
-							<Route path='/' element={<Home></Home>} />
-							<Route path='/castingi' element={<CastingsScreen />} />
-							<Route path='/casting/:id' element={<CastingScreen />} />
-							<Route path='/login' element={<LoginScreen />} />
-							<Route path='/rejestracja' element={<RegistationScreen />} />
-							<Route path='/profile' element={<ProfileScreen />} />
-							<Route path='/twoje-castingi' element={<YourCastingsScreen />} />
-							<Route path='/kontakt' element={<ContactScreen />} />
-							<Route path='/forgotpassword' element={<ForgotPasswordScreen />} />
-							<Route path='/resetpassword/:resetToken' element={<ResetPasswordScreen />} />
-							<Route path='/admin-console' element={<AdminConsole />} />
-							<Route path='/verify/:token' element={<ConfirmEmailScreen />} />
-							{/* <Route path="/not-found" element={<NotFound key="not-found" />} /> */}
-							<Route path='*' element={<NotFound />} /> 
-						
+						<Route path='/' element={<Home></Home>} />
+						<Route path='/castingi' element={<CastingsScreen />} />
+						<Route path='/casting/:id' element={<CastingScreen />} />
+						<Route path='/login' element={<LoginScreen />} />
+						<Route path='/rejestracja' element={<RegistationScreen />} />
+						<Route path='/profile' element={<ProfileScreen />} />
+						<Route path='/twoje-castingi' element={<YourCastingsScreen />} />
+						<Route path='/kontakt' element={<ContactScreen />} />
+						<Route path='/forgotpassword' element={<ForgotPasswordScreen />} />
+						<Route path='/resetpassword/:resetToken' element={<ResetPasswordScreen />} />
+						<Route path='/admin-console' element={<AdminConsole />} />
+						<Route path='/polityka-prywatnosci' element={<PrivacyPolicy />} />
+						<Route path='/verify/:token' element={<ConfirmEmailScreen />} />
+
+						<Route path='*' element={<NotFound />} />
 					</Routes>
 				</main>
 				<Footer />
