@@ -16,9 +16,9 @@ const contactUS = asyncHandler(async (req, res) => {
 
 	if (req.user) {
 		const user = await User.findById(req.user._id);
-		console.log(`USER: ${user}`);
+	
 		if (user) {
-			console.log(user);
+		
 			email = user.email;
 			sessionIdentifier = user._id;
 		}
@@ -42,7 +42,7 @@ const contactUS = asyncHandler(async (req, res) => {
 		return res.status(409).json({ message: 'Musisz wypełnić wszytkie pola' });
 
 	}
-	console.log(email);
+	
 
 	const send_to = process.env.EMAIL_USER;
 	const send_from = email;

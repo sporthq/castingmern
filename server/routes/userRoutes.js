@@ -17,7 +17,7 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-console.log(process.env.CLOUDINARY_NAME, process.env.CLOUDINARY_API_KEY, process.env.CLOUDINARY_API_SECRET);
+
 
 import upload from '../utils/fileUpload.js';
 import multer from 'multer';
@@ -31,7 +31,7 @@ const genToken = (id) => {
 const loginUser = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
 	const user = await User.findOne({ email });
-	console.log(user);
+	
 	if (!user) {
 		return res.status(401).json({ message: 'Nie ma takiego użytkownika.' });
 	}
@@ -105,7 +105,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 	if (userExist) {
 		const tokenExist = await Token.findOne({ userId: userExist._id });
-		console.log(tokenExist);
+		
 	}
 
 	if (userExist?.isVerified === false) {
@@ -204,7 +204,7 @@ const verifyUser = asyncHandler(async (req, res) => {
 	}
 
 	if (verificationToken.expiresAt < Date.now()) {
-		console.log('Token wygasł');
+		
 		// Usunięcie wygasłego tokenu z bazy danych
 		await Token.deleteOne({ token: verificationToken.token });
 
@@ -284,7 +284,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 			if (user.image && user.image.filePath) {
 				try {
 					await cloudinary.uploader.destroy(user.image.publicId);
-					console.log('zdjecie usuniete');
+					
 				} catch (error) {
 					console.error('Błąd usuwania starego zdjęcia z Cloudinary:', error);
 				}
@@ -344,7 +344,7 @@ const getUserCastings = asyncHandler(async (req, res) => {
 });
 
 const forgotPassword = asyncHandler(async (req, res) => {
-	console.log(req.body);
+
 	const { email } = req.body;
 	const user = await User.findOne({ email });
 

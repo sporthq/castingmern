@@ -50,7 +50,7 @@ const CastingTableItem = ({ casting, index }) => {
 	};
 
 	const handleTownChange = (e) => {
-		console.log(e.target.value);
+	
 		const newTownValue = e.target.value;
 
 		setTown(newTownValue);
@@ -65,7 +65,7 @@ const CastingTableItem = ({ casting, index }) => {
 					file: file,
 					preview: reader.result,
 				};
-				console.log(newImage);
+				
 				setImageFile(file);
 				setImagePreview(newImage.preview);
 			};

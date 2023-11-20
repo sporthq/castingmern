@@ -24,7 +24,7 @@ const AddNewCasting = () => {
 
 	const { error } = useSelector((state) => state.admin);
 
-	console.log(error);
+	
 	const [movieName, setMovieName] = useState('');
 	const [town, setTown] = useState('');
 	const [image, setImage] = useState('');
@@ -35,8 +35,7 @@ const AddNewCasting = () => {
 	const [isCastingEdited, setIsCastingEdited] = useState(false);
 
 	const createNewCasting = () => {
-		console.log(movieName);
-		console.log(isCastingEdited)
+
 
 		dispatch(uploadCasting(movieName, image, town, description, isNewCasting, isCastingEdited, resetFormValues));
 	};
@@ -59,7 +58,7 @@ const AddNewCasting = () => {
 					file: file,
 					preview: reader.result,
 				};
-				console.log(newImage);
+				
 				setImage(file);
 				setImagePreview(newImage.preview);
 			};

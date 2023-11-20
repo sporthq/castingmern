@@ -185,7 +185,7 @@ export const forgotPasword = (email) => async (dispatch) => {
 			},
 		};
 		const { data } = await axios.post(`/api/users/forgotpassword`, { email }, config);
-		console.log(data);
+		
 		dispatch(setSendEmail());
 	} catch (error) {
 		dispatch(
@@ -209,7 +209,7 @@ export const resetPassword = (resetToken, password) => async (dispatch) => {
 			},
 		};
 		const { data } = await axios.put(`/api/users/resetpassword/${resetToken}`, { password }, config);
-		console.log(data);
+		
 		dispatch(setResetPasswordSucces(data.message));
 	} catch (error) {
 		dispatch(

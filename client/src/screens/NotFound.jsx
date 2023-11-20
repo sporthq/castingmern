@@ -12,7 +12,7 @@ const NotFound = () => {
 		errorMsg = 'Nie ma takiego castingu';
 	}
 
-	console.log(error);
+
 	return (
 		<Box minH={'2xl'} mt={130} display='flex' flexDirection='column' textAlign='center' alignItems='center'>
 			<Heading mb={{ base: 2, md: 4 }}>Błąd 404 - Strona nie odnaleziona</Heading>

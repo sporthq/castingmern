@@ -43,7 +43,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 			},
 		};
 		const { data: enrolledUsers } = await axios.get(`/api/castings/${id}/enrolledByUser`, config);
-		console.log('Zapisani użytkownicy:', enrolledUsers);
+		
 		for (const user of enrolledUsers) {
 			await dispatch(deleteEnrolledOnCasting(user._id));
 		}
@@ -131,7 +131,7 @@ export const deleteCasting = (id) => async (dispatch, getState) => {
 
 		// Usuń zapisy na casting dla każdego użytkownika
 		for (const user of enrolledUsers) {
-			console.log(user);
+		
 			await dispatch(deleteEnrolledOnCasting(user._id)); // Wywołaj funkcję deleteEnrolledOnCasting dla danego użytkownika
 		}
 

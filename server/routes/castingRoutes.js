@@ -41,7 +41,7 @@ const getCasting = async (req, res) => {
 // create casting
 
 const createNewCasting = asyncHandler(async (req, res) => {
-	console.log(req.body);
+	
 
 	const { movieName, image, town, description, isNewCasting, isCastingEdited } = req.body;
 
@@ -72,7 +72,7 @@ const createNewCasting = asyncHandler(async (req, res) => {
 		} catch (error) {
 			res.status(500).json({ message: 'Zdjęcie nie zostało dodane' });
 		}
-		console.log(uploadedFile);
+	
 		fileData = {
 			fileName: req.file.originalname,
 			publicId: uploadedFile.public_id,
@@ -144,7 +144,7 @@ const updateCasting = asyncHandler(async (req, res) => {
 	let fileData = {};
 
 	if (req.file) {
-		console.log(req.file.mimetype);
+		
 
 		if (req.file.mimetype !== 'image/png' && req.file.mimetype !== 'image/jpg' && req.file.mimetype !== 'image/jpeg') {
 			return res.status(400).json({ message: 'Nieprawidłowy format pliku. Akceptowane formaty to: PNG, JPG, JPEG.' });
@@ -153,7 +153,7 @@ const updateCasting = asyncHandler(async (req, res) => {
 		if (casting.image && casting.image.filePath) {
 			try {
 				await cloudinary.uploader.destroy(casting.image.publicId);
-				console.log('udało się usunać');
+				
 			} catch (error) {
 				console.error('Błąd usuwania starego zdjęcia z Cloudinary:', error);
 			}
@@ -162,7 +162,7 @@ const updateCasting = asyncHandler(async (req, res) => {
 		let uploadedFile;
 
 		try {
-			console.log(`req FILE.PATH ${req.file.path}`);
+			
 			uploadedFile = await cloudinary.uploader.upload(req.file.path, {
 				folder: 'Casting movie images',
 				resource_type: 'image',

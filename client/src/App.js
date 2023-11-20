@@ -41,7 +41,7 @@ function App() {
 			<Helmet></Helmet>
 			<Router>
 				<Navbar />
-				<TestDisclaimer />
+				{/* <TestDisclaimer /> */}
 				<main>
 					<Routes>
 						
@@ -58,7 +58,7 @@ function App() {
 							<Route path='/admin-console' element={<AdminConsole />} />
 							<Route path='/verify/:token' element={<ConfirmEmailScreen />} />
 							{/* <Route path="/not-found" element={<NotFound key="not-found" />} /> */}
-							<Route path='/*' element={<NotFound />} /> 
+							<Route path='*' element={<NotFound />} /> 
 						
 					</Routes>
 				</main>

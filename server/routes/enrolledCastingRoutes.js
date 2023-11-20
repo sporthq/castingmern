@@ -145,7 +145,7 @@ const updateEnrollForCasting = asyncHandler(async (req, res) => {
 	try {
 		const { castingId } = req.body;
 
-		console.log();
+		
 
 		const casting = await Casting.findById(castingId);
 

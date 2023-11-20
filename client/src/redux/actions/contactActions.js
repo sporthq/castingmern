@@ -11,7 +11,7 @@ export const sendEmail = (values) => async (dispatch) => {
 			},
 		};
 		const res = await axios.post(`/api/contact`, values, config);
-		console.log(res);
+	
 		dispatch(setSuccess(true)); // Dodaj tę linię
 	} catch (error) {
 		dispatch(
