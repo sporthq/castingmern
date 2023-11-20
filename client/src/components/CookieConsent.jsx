@@ -23,7 +23,7 @@ const CookieConsent = () => {
 		>
 			<Text>
 				Kontynuując przeglądanie tej strony internetowej, zgadzasz się na korzystanie z plików cookie zgodnie z naszą
-				polityką prywatności
+				polityką prywatności  TEST
 			</Text>
 			<Button mt={3} ml={6} colorScheme={'orange'} onClick={giveCookieConsent}>
 				Akceptuje
