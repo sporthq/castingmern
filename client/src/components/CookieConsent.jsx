@@ -1,11 +1,12 @@
 import React from 'react';
 import { useCookies } from 'react-cookie';
 import { Box, Button, Text, useColorModeValue } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const CookieConsent = () => {
 	const [cookies, setCookie, removeCookie] = useCookies(['cookieConsent']);
 	const giveCookieConsent = (e) => {
-    e.preventDefault()
+		e.preventDefault();
 		setCookie('cookieConsent', true, { path: '/' });
 	};
 
@@ -23,7 +24,7 @@ const CookieConsent = () => {
 		>
 			<Text>
 				Kontynuując przeglądanie tej strony internetowej, zgadzasz się na korzystanie z plików cookie zgodnie z naszą
-				polityką prywatności  TEST
+				<Link to='/'>polityką prywatności </Link>
 			</Text>
 			<Button mt={3} ml={6} colorScheme={'orange'} onClick={giveCookieConsent}>
 				Akceptuje
