@@ -188,9 +188,9 @@ const RegistrationScreen = () => {
 											textAlign='center'
 										>
 											<AlertIcon />
-											<AlertTitle>Potwierdź adres e-mail!</AlertTitle>
+											<AlertTitle>Potwierdź adres e-mail!, sprawdź folder SPAM!</AlertTitle>
 											<AlertDescription>
-												Sprawdź pocztę i klknij w link powierdzający aby dokończyć rejestrację
+												Sprawdź pocztę i klknij w link powierdzający aby dokończyć rejestrację.
 											</AlertDescription>
 										</Alert>
 									)}

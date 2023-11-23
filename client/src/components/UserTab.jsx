@@ -27,6 +27,7 @@ import {
 	Wrap,
 	useDisclosure,
 	useToast,
+	Text,
   } from '@chakra-ui/react';
   import { useEffect, useState, useRef } from 'react';
   import { useDispatch, useSelector } from 'react-redux';
@@ -106,125 +107,131 @@ import {
 	const totalPages = Math.ceil(sortedUserList?.length / usersPerPage);
   
 	return (
-	  <>
-		<Box>
-		  {error && (
-			<Alert status='error'>
-			  <AlertIcon></AlertIcon>
-			  <AlertTitle>Upps!</AlertTitle>
-			  <AlertDescription>{error}</AlertDescription>
-			</Alert>
-		  )}
-		  {loading ? (
-			<Wrap justify='center'>
-			  <Stack direction='row' spacing='4'>
-				<Spinner mt='20' thickness='2px' speed='0.65s' emptyColor='gray.200' color='orange.500' size='xl' />
-			  </Stack>
-			</Wrap>
-		  ) : (
+		<>
 			<Box>
-			  <TableContainer>
-				<Table variant='simple'>
-				  <Thead>
-					<Tr>
-					  <Th >Zdjęcie</Th>
-					  <Th textAlign='center'>Imię</Th>
-					  <Th textAlign='center'>Nazwisko</Th>
-					  <Th textAlign='center'>Data rejestracji</Th>
-					  <Th textAlign='center'>Email</Th>
-					  <Th textAlign='center'>Zweryfikowany</Th>
-					  <Th textAlign='center'>Admin</Th>
-					  <Th textAlign='center'>Actions</Th>
-					  {/* <Th>Nr telefonu</Th> */}
-					</Tr>
-				  </Thead>
-				  <Tbody className=''>
-					{sortedUserList &&
-					  sortedUserList.map((user) => {
-						return (
-						  <Tr key={user._id}>
-							<Td textAlign='center'>
-							  <Image
-								rounded='full'
-								w='55px'
-								h='55px'
-								objectFit='cover'
-								src={user?.image?.filePath}
-								onClick={() => openImageModal(user?.image?.filePath, user.firstName)}
-								cursor='pointer'
-							  />
-							</Td>
-							<Td textAlign='center'>
-							  {user.firstName}
-							  {user._id === userInfo._id ? ' (Ty)' : ''}
-							</Td>
-							<Td textAlign='center'>{user.lastName}</Td>
-							<Td textAlign='center'>{new Date(user.createdAt).toLocaleDateString('pl-PL')}</Td>
-							<Td textAlign='center'>{user.email}</Td>
-							<Td textAlign='center'>
-							  {user?.isVerified === true ? (
-								<CheckCircleIcon color='green.500' />
-							  ) : (
-								<CheckCircleIcon color='red.500' />
-							  )}
-							</Td>
-  
-							<Td textAlign='center'>
-							  {user.isAdmin === 'true' ? <CheckCircleIcon color='orange.500' /> : ''}
-							</Td>
-							<Td textAlign='center'>
-							  <Button
-								isDisabled={user._id === userInfo._id}
-								variant='outline'
-								onClick={() => openDeleteConfirmBox(user)}
-							  >
-								<DeleteIcon mr='5px' /> Usuń{' '}
-							  </Button>
-							</Td>
-						  </Tr>
-						);
-					  })}
-				  </Tbody>
-				</Table>
-			  </TableContainer>
-			  <ConfirmRemovalAlert
-				isOpen={isOpen}
-				onOpen={onOpen}
-				onClose={onClose}
-				cancelRef={cancelRef}
-				itemToDelete={userToDelete}
-				deleteAction={deleteUser}
-			  />
-			  <Modal isOpen={isModalOpen} onClose={closeImageModal} size='xl'>
-				<ModalOverlay />
-				<ModalContent>
-				  <ModalHeader>{headerModal}</ModalHeader>
-				  <ModalCloseButton />
-				  <ModalBody>
-					<Image src={selectedUserImage} alt='Powiększone zdjęcie' />
-				  </ModalBody>
-				  <ModalFooter>
-					<Button colorScheme='blue' onClick={closeImageModal}>
-					  Zamknij
-					</Button>
-				  </ModalFooter>
-				</ModalContent>
-			  </Modal>
+				{error && (
+					<Alert status='error'>
+						<AlertIcon></AlertIcon>
+						<AlertTitle>Upps!</AlertTitle>
+						<AlertDescription>{error}</AlertDescription>
+					</Alert>
+				)}
+				{loading ? (
+					<Wrap justify='center'>
+						<Stack direction='row' spacing='4'>
+							<Spinner mt='20' thickness='2px' speed='0.65s' emptyColor='gray.200' color='orange.500' size='xl' />
+						</Stack>
+					</Wrap>
+				) : (
+					<Box>
+						<TableContainer>
+							<Table variant='simple'>
+								<Thead>
+									<Tr>
+										<Th>Zdjęcie</Th>
+										<Th textAlign='center'>Imię</Th>
+										<Th textAlign='center'>Nazwisko</Th>
+										<Th textAlign='center'>Data rejestracji</Th>
+										<Th textAlign='center'>Email</Th>
+										<Th textAlign='center'>Zweryfikowany</Th>
+										<Th textAlign='center'>Admin</Th>
+										<Th textAlign='center'>Actions</Th>
+										{/* <Th>Nr telefonu</Th> */}
+									</Tr>
+								</Thead>
+								<Tbody className=''>
+									{sortedUserList &&
+										currentUsers.map((user) => {
+											return (
+												<Tr key={user._id}>
+													<Td textAlign='center'>
+														<Image
+															rounded='full'
+															w='55px'
+															h='55px'
+															objectFit='cover'
+															src={user?.image?.filePath}
+															onClick={() => openImageModal(user?.image?.filePath, user.firstName)}
+															cursor='pointer'
+														/>
+													</Td>
+													<Td textAlign='center'>
+														{user.firstName}
+														{user._id === userInfo._id ? ' (Ty)' : ''}
+													</Td>
+													<Td textAlign='center'>{user.lastName}</Td>
+													<Td textAlign='center'>{new Date(user.createdAt).toLocaleDateString('pl-PL')}</Td>
+													<Td textAlign='center'>{user.email}</Td>
+													<Td textAlign='center'>
+														{user?.isVerified === true ? (
+															<CheckCircleIcon color='green.500' />
+														) : (
+															<CheckCircleIcon color='red.500' />
+														)}
+													</Td>
+
+													<Td textAlign='center'>
+														{user.isAdmin === 'true' ? <CheckCircleIcon color='orange.500' /> : ''}
+													</Td>
+													<Td textAlign='center'>
+														<Button
+															isDisabled={user._id === userInfo._id}
+															variant='outline'
+															onClick={() => openDeleteConfirmBox(user)}
+														>
+															<DeleteIcon mr='5px' /> Usuń{' '}
+														</Button>
+													</Td>
+												</Tr>
+											);
+										})}
+								</Tbody>
+							</Table>
+							<Text marginTop={6}>
+								Liczba użytkowników{' '}
+								<Text color='orange' fontWeight='bold' as='span'>
+									{userList?.length}
+								</Text>
+							</Text>
+						</TableContainer>
+						<ConfirmRemovalAlert
+							isOpen={isOpen}
+							onOpen={onOpen}
+							onClose={onClose}
+							cancelRef={cancelRef}
+							itemToDelete={userToDelete}
+							deleteAction={deleteUser}
+						/>
+						<Modal isOpen={isModalOpen} onClose={closeImageModal} size='xl'>
+							<ModalOverlay />
+							<ModalContent>
+								<ModalHeader>{headerModal}</ModalHeader>
+								<ModalCloseButton />
+								<ModalBody>
+									<Image src={selectedUserImage} alt='Powiększone zdjęcie' />
+								</ModalBody>
+								<ModalFooter>
+									<Button colorScheme='blue' onClick={closeImageModal}>
+										Zamknij
+									</Button>
+								</ModalFooter>
+							</ModalContent>
+						</Modal>
+					</Box>
+				)}
 			</Box>
-		  )}
-		</Box>
-		<Stack direction='row' spacing={2} mt={4} mb={4} justify='center'>
-		  {Array.from({ length: totalPages }, (_, index) => (
-			<Button
-			  key={index}
-			  onClick={() => handlePageChange(index + 1)}
-			  colorScheme={currentPage === index + 1 ? 'orange' : 'gray'}
-			>
-			  {index + 1}
-			</Button>
-		  ))}
-		</Stack>
-	  </>
+			<Stack direction='row' spacing={2} mt={4} mb={4} justify='center'>
+				{Array.from({ length: totalPages }, (_, index) => (
+					<Button
+						key={index}
+						onClick={() => handlePageChange(index + 1)}
+						colorScheme={currentPage === index + 1 ? 'orange' : 'gray'}
+					>
+						{index + 1}
+					</Button>
+				))}
+			</Stack>
+		</>
 	);
   };
   
