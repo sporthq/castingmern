@@ -17,11 +17,11 @@ import AdminConsole from './screens/AdminConsole';
 import ConfirmEmailScreen from './screens/ConfirmEmailScreen';
 import CookieConsent from './components/CookieConsent';
 import { useCookies } from 'react-cookie';
-import TestDisclaimer from './components/TestDisclaimer';
+
 import NotFound from './screens/NotFound';
 import { Helmet } from 'react-helmet';
 import PrivacyPolicy from './screens/PrivacyPolicy.jsx';
-import Terms from './screens/Terms.jsx';
+
 const breakpoints = {
 	sml: '580px',
 };

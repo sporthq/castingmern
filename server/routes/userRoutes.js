@@ -17,8 +17,6 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-
-
 import upload from '../utils/fileUpload.js';
 import multer from 'multer';
 const userRoutes = express.Router();
@@ -31,7 +29,7 @@ const genToken = (id) => {
 const loginUser = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
 	const user = await User.findOne({ email });
-	
+
 	if (!user) {
 		return res.status(401).json({ message: 'Nie ma takiego użytkownika.' });
 	}
@@ -105,7 +103,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
 	if (userExist) {
 		const tokenExist = await Token.findOne({ userId: userExist._id });
-		
 	}
 
 	if (userExist?.isVerified === false) {
@@ -204,7 +201,6 @@ const verifyUser = asyncHandler(async (req, res) => {
 	}
 
 	if (verificationToken.expiresAt < Date.now()) {
-		
 		// Usunięcie wygasłego tokenu z bazy danych
 		await Token.deleteOne({ token: verificationToken.token });
 
@@ -284,7 +280,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 			if (user.image && user.image.filePath) {
 				try {
 					await cloudinary.uploader.destroy(user.image.publicId);
-					
 				} catch (error) {
 					console.error('Błąd usuwania starego zdjęcia z Cloudinary:', error);
 				}
@@ -344,7 +339,6 @@ const getUserCastings = asyncHandler(async (req, res) => {
 });
 
 const forgotPassword = asyncHandler(async (req, res) => {
-
 	const { email } = req.body;
 	const user = await User.findOne({ email });
 
@@ -444,8 +438,26 @@ const deleteUser = asyncHandler(async (req, res) => {
 	}
 });
 
+// google login
+const googleLogin = asyncHandler(async (req, res) => {
+	const { googleId, email, name, googleImage } = req.body;
+
+	try {
+		const user = await User.findOne({ googleId: googleId });
+		if (user) {
+			user.firstLogin = false;
+			await user.save();
+			res.json({
+				_id: user._id,
+				name: user.name,
+				email: user.email,
+			});
+		}
+	} catch (error) {}
+});
+
 userRoutes.route('/login').post(loginUser);
-userRoutes.route('/register').post( registerUser);
+userRoutes.route('/register').post(registerUser);
 userRoutes.route('/profile/:id').put(protectRoute, updateUserProfile);
 userRoutes.route('/:id').get(protectRoute, getUserCastings);
 userRoutes.route('/forgotpassword').post(forgotPassword);
