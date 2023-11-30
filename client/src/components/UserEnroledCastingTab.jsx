@@ -196,15 +196,34 @@ const UserEnroledCastingTab = () => {
 				)}
 			</Box>
 			<Stack direction='row' spacing={2} mt={4} mb={4} justify='center'>
-				{Array.from({ length: totalPages }, (_, index) => (
-					<Button
-						key={index}
-						onClick={() => handlePageChange(index + 1)}
-						colorScheme={currentPage === index + 1 ? 'orange' : 'gray'}
-					>
-						{index + 1}
-					</Button>
-				))}
+				{Array.from({ length: totalPages }, (_, index) => {
+					console.log(index);
+					// Warunki do wyrenderowania przycisku, kropek lub nic
+					if (
+						index < 3 || // Trzy pierwsze strony
+						(currentPage === 1 && index >= currentPage - 1 && index <= currentPage + 1) || // Dla strony 1
+						(currentPage > 1 && index >= currentPage - 2 && index <= currentPage) || // Aktualna strona oraz dwie poprzednie dla stron większych niż 1
+						index === totalPages - 1 // Ostatnia strona
+					) {
+						return (
+							<Button
+								key={index}
+								onClick={() => handlePageChange(index + 1)}
+								colorScheme={currentPage === index + 1 ? 'orange' : 'gray'}
+							>
+								{index + 1}
+							</Button>
+						);
+					} else if (index === totalPages - 2) {
+						// Kropki po trzech pierwszych stronach
+						return (
+							<span style={{ alignSelf: 'flex-end' }} key='dots'>
+								...
+							</span>
+						);
+					}
+					return null; // Pomijaj pozostałe strony
+				})}
 			</Stack>
 		</>
 	);
