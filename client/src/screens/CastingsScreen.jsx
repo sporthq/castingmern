@@ -3,7 +3,7 @@ import {
   Center,
   WrapItem,
   Wrap,
-  Box,
+
   Spinner,
   Stack,
   Alert,
@@ -98,6 +98,9 @@ const CastingsScreen = () => {
           </>
         )}
       </Wrap>
+
+
+
       {/* Paginacja */}
       <Stack direction='row' spacing={2} mt={4} mb={4} justify='center'>
         {Array.from({ length: totalPages }, (_, index) => (

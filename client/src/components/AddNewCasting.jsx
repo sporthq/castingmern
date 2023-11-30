@@ -24,7 +24,6 @@ const AddNewCasting = () => {
 
 	const { error } = useSelector((state) => state.admin);
 
-	
 	const [movieName, setMovieName] = useState('');
 	const [town, setTown] = useState('');
 	const [image, setImage] = useState('');
@@ -35,8 +34,6 @@ const AddNewCasting = () => {
 	const [isCastingEdited, setIsCastingEdited] = useState(false);
 
 	const createNewCasting = () => {
-
-
 		dispatch(uploadCasting(movieName, image, town, description, isNewCasting, isCastingEdited, resetFormValues));
 	};
 	const resetFormValues = () => {
@@ -58,7 +55,7 @@ const AddNewCasting = () => {
 					file: file,
 					preview: reader.result,
 				};
-				
+
 				setImage(file);
 				setImagePreview(newImage.preview);
 			};
@@ -69,59 +66,80 @@ const AddNewCasting = () => {
 		document.getElementById(`image`).click();
 	};
 	return (
-		<Tr className='mdMax:flex mdMax:flex-col '>
-			<Td bg='' className='mdMax:flex mdMax:flex-col mdMax:justify-center mdMax:items-center'>
-				<Text className=' ' display={imagePreview ? 'none' : 'inline-block'} fontSize='sm'>
-					Dodaj Zdjęcie
-				</Text>
-				<Tooltip label={'Ustaw nazwę zdjęcia'} fontSize='sm'>
-					<Input id='image' display='none'	accept='image/jpeg, image/png, image/jpg' name='image' type='file' size='sm' onChange={hadnleImageChange}></Input>
-				</Tooltip>
-				<Box
-					onClick={handleImageClick}
-					boxSize={{ base: '130px', md: '100px' }}
-					fit='contain'
-					className='flex items-center justify-center text-center'
-				>
-					{imagePreview ? (
-						<img src={imagePreview} alt='Preview' />
+		<>
+			<Tr className='mdMax:flex mdMax:flex-col '>
+				<Td bg='' className='mdMax:flex mdMax:flex-col mdMax:justify-center mdMax:items-center'>
+					<Text className=' ' display={imagePreview ? 'none' : 'inline-block'} fontSize='sm'>
+						Dodaj Zdjęcie
+					</Text>
+					<Tooltip label={'Ustaw nazwę zdjęcia'} fontSize='sm'>
+						<Input
+							id='image'
+							display='none'
+							accept='image/jpeg, image/png, image/jpg'
+							name='image'
+							type='file'
+							size='sm'
+							onChange={hadnleImageChange}
+						></Input>
+					</Tooltip>
+					<Box
+						onClick={handleImageClick}
+						boxSize={{ base: '130px', md: '100px' }}
+						fit='contain'
+						className='flex items-center justify-center text-center'
+					>
+						{imagePreview ? (
+							<img src={imagePreview} alt='Preview' />
 						) : (
 							<Box as={MdOutlineAddPhotoAlternate} textAlign={'center'} size={80} />
-							)}
-				</Box>
-							<Text fontSize={'sm'}>Dozwolone formaty:<p><strong>png,jpg,jpeg</strong></p> </Text>
-			</Td>
-			<Td bg={''}>
-				<Text fontSize='sm'>Opis</Text>
-				<Textarea value={description} w='270px' h='120px' size='sm' onChange={(e) => setDescription(e.target.value)} />
-			</Td>
-			<Td>
-				<Text fontSize='sm'>Nazwa filmu</Text>
-				<Input size='sm' value={movieName} onChange={(e) => setMovieName(e.target.value)}></Input>
-				<Text fontSize='sm'>Miasto</Text>
-				<Input size='sm' value={town} onChange={(e) => setTown(e.target.value)}></Input>
-			</Td>
-			<Td>
-				<FormControl display='flex' alignItems='center'>
-					<FormLabel htmlFor='castingIsNewFlag' mb='0' fontSize='sm'>
-						Dodaj{' '}
-						<Badge rounded='full' px='1' mx='1' fontSize='0.8em' colorScheme='green'>
-							New
-						</Badge>
-						do castingu
-					</FormLabel>
-					<Switch id='castingIsNewFlag' onChange={() => setIsNewCasting(!isNewCasting)} isChecked={isNewCasting} />
-				</FormControl>
-			</Td>
-			<Td>
-				<VStack>
-					<Button variant='outline' w='160px' colorScheme='green' onClick={() => createNewCasting()}>
-						<MdDriveFolderUpload />
-						<Text ml='2'>Zapisz Casting</Text>
-					</Button>
-				</VStack>
-			</Td>
-		</Tr>
+						)}
+					</Box>
+					<Text fontSize={'sm'}>
+						Dozwolone formaty:
+						<span className='block'>
+							<strong>png,jpg,jpeg</strong>
+						</span>{' '}
+					</Text>
+				</Td>
+				<Td bg={''}>
+					<Text fontSize='sm'>Opis</Text>
+					<Textarea
+						value={description}
+						w='270px'
+						h='120px'
+						size='sm'
+						onChange={(e) => setDescription(e.target.value)}
+					/>
+				</Td>
+				<Td>
+					<Text fontSize='sm'>Nazwa filmu</Text>
+					<Input size='sm' value={movieName} onChange={(e) => setMovieName(e.target.value)}></Input>
+					<Text fontSize='sm'>Miasto</Text>
+					<Input size='sm' value={town} onChange={(e) => setTown(e.target.value)}></Input>
+				</Td>
+				<Td>
+					<FormControl display='flex' alignItems='center'>
+						<FormLabel htmlFor='castingIsNewFlag' mb='0' fontSize='sm'>
+							Dodaj{' '}
+							<Badge rounded='full' px='1' mx='1' fontSize='0.8em' colorScheme='green'>
+								New
+							</Badge>
+							do castingu
+						</FormLabel>
+						<Switch id='castingIsNewFlag' onChange={() => setIsNewCasting(!isNewCasting)} isChecked={isNewCasting} />
+					</FormControl>
+				</Td>
+				<Td>
+					<VStack>
+						<Button variant='outline' w='160px' colorScheme='green' onClick={() => createNewCasting()}>
+							<MdDriveFolderUpload />
+							<Text ml='2'>Zapisz Casting</Text>
+						</Button>
+					</VStack>
+				</Td>
+			</Tr>
+		</>
 	);
 };
 

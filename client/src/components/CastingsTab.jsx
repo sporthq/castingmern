@@ -4,13 +4,10 @@ import {
 	AlertIcon,
 	AlertTitle,
 	Box,
-	Button,
 	Spinner,
 	Stack,
 	Table,
-	TableContainer,
 	Tbody,
-	Td,
 	Th,
 	Thead,
 	Tr,
@@ -23,17 +20,15 @@ import {
 	Text,
 	AccordionPanel,
 } from '@chakra-ui/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCastings, resetCastingError } from '../redux/actions/castingActions';
 
 import CastingTableItem from './CastingTableItem';
 import AddNewCasting from './AddNewCasting';
 
-
 const CastingsTab = () => {
-	const { isOpen, onOpen, onClose } = useDisclosure();
-	const cancelRef = useRef();
+	
 
 	const dispatch = useDispatch();
 	const { error, loading } = useSelector((state) => state.admin);
@@ -47,7 +42,7 @@ const CastingsTab = () => {
 		if (castingUpdate) {
 			toast({ description: 'Casting został zaktualizowany', status: 'success', isClosable: true });
 		}
-	}, [, dispatch, toast, castingUpdate]);
+	}, [dispatch, toast, castingUpdate]);
 
 	useEffect(() => {
 		if (castings.length > 0) {
@@ -109,8 +104,8 @@ const CastingsTab = () => {
 							</Tr>
 						</Thead>
 						<Tbody>
-							{sortedCastings.map((casting,index) => (
-								<CastingTableItem  key={casting._id} casting={casting} index={index} />
+							{sortedCastings.map((casting, index) => (
+								<CastingTableItem key={casting._id} casting={casting} index={index} />
 							))}
 						</Tbody>
 					</Table>

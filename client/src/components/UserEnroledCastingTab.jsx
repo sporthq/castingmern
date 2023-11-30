@@ -151,8 +151,8 @@ const UserEnroledCastingTab = () => {
 								</Thead>
 								<Tbody>
 									{currentCastings.map((user) => (
-										<Tr  key={user._id}>
-											<Td >
+										<Tr key={user._id}>
+											<Td>
 												<Image
 													rounded='full'
 													w='55px'
