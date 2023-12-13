@@ -17,13 +17,14 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+console.log(process.env.CLOUDINARY_API_KEY);
 import upload from '../utils/fileUpload.js';
 import multer from 'multer';
 const userRoutes = express.Router();
 
 // TODO: redefine expiresIn
 const genToken = (id) => {
-	return jwt.sign({ id }, process.env.TOKEN_SECRET, { expiresIn: '1d' });
+	return jwt.sign({ id }, process.env.TOKEN_SECRET, { expiresIn: '365d' });
 };
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -127,14 +128,17 @@ const registerUser = asyncHandler(async (req, res) => {
 				folder: 'Casting user images',
 				resource_type: 'image',
 			});
+
+			console.log(uploadedFile);
 		} catch (error) {
+			console.error('Cloudinary upload error:', error);
 			res.status(500).json({ message: 'Zdjęcie nie zostało dodane' });
 		}
 
 		fileData = {
 			fileName: req.file.originalname,
-			filePath: uploadedFile.secure_url,
-			fileType: req.file.mimetype,
+			filePath: uploadedFile.secure_url,           
+			fileType: req.file.mimetype,   
 			fileSize: req.file.size,
 		};
 	}
@@ -155,7 +159,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		userId: user._id,
 		token: confirmToken,
 		createdAt: Date.now(),
-		expiresAt: Date.now() + 24 * 60 * 60 * 1000, // dodajemy 24 godziny do aktualnego czasu
+		expiresAt: Date.now() + 240 * 60 * 60 * 1000, // dodajemy 24 godziny do aktualnego czasu
 	});
 
 	try {
@@ -165,12 +169,12 @@ const registerUser = asyncHandler(async (req, res) => {
 		const verificationUrl = `${process.env.FRONTEND_URL}/verify/${token.token}`;
 
 		// Construct verification email
-		const emailSubject = 'Potwierdzenie rejestracji';
+		const emailSubject = 'Potwierdzenie rejestracji w serwisie castingi.com.pl';
 		const emailMessage = `
 		  <h2>Cześć ${user.firstName}</h2>
 		  <p>Dziękujemy za rejestrację. Kliknij poniższy link, aby potwierdzić swoje konto:</p>
 		  <a href="${verificationUrl}">${verificationUrl}</a>
-		  <p>Link jest ważny przez 24h od daty</p>
+		  <p>castingi.com.pl</p>
 		`;
 
 		// Send verification email

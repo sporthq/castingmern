@@ -11,7 +11,6 @@ import {
 	FormLabel,
 	Heading,
 	HStack,
-	Input,
 	Stack,
 	Text,
 	useBreakpointValue,
@@ -19,9 +18,8 @@ import {
 	FormErrorMessage,
 	useDisclosure,
 } from '@chakra-ui/react';
-
 import { Link as ReactLink, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Field, Formik } from 'formik';
 import * as Yup from 'yup';
 import { register } from '../redux/actions/userActions';
@@ -35,9 +33,12 @@ import PasswordTextField from '../components/PasswordTextField';
 import { Helmet } from 'react-helmet-async';
 
 const RegistrationScreen = () => {
+	
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { error, loading, userInfo, sendConfirmMail } = useSelector((state) => state.user);
+	console.log(sendConfirmMail);
 	const redirect = '/castingi';
 	const toast = useToast();
 	const headingBR = useBreakpointValue({ base: '2xl', md: '3xl', lg: '4xl' });
@@ -56,7 +57,6 @@ const RegistrationScreen = () => {
 	}, [userInfo, redirect, error, navigate, toast]);
 
 	const handleTermsLinkClick = () => {
-		console.log('123');
 		onOpen(); // Otwórz modal po kliknięciu w link do regulaminu
 	};
 	return (
@@ -129,57 +129,7 @@ const RegistrationScreen = () => {
 											<AlertDescription>{error}</AlertDescription>
 										</Alert>
 									)}
-									<Stack spacing='6'>
-										<FormControl>
-											<TextField type='text' name='firstName' placeholder='Twoje imię' label='Twoje imię' />
-											<TextField type='text' name='lastName' placeholder='Twoje nazwisko' label='Twoje nazwisko' />
-											<TextField type='text' name='email' placeholder='Email' label='Email' />
-
-											<TextField type='number' name='phoneNumber' placeholder='Numer Telefonu' label='Numer Telefou' />
-
-											<FormLabel htmlFor='image'>Zdjęcie</FormLabel>
-											<Field name='image'>
-												{({ form }) => (
-													<CustomFileButton
-														onChange={(file) => form.setFieldValue('image', file)}
-														previewImage={formik.values.image}
-													/>
-												)}
-											</Field>
-
-											<PasswordTextField type='password' name='password' placeholder='Hasło' label='Hasło' />
-											<PasswordTextField
-												type='password'
-												name='confirmPassword'
-												placeholder='Powtórz hasło'
-												label='Powtórz hasło'
-											/>
-										</FormControl>
-										<FormControl id='acceptTerms' isInvalid={formik.touched.acceptTerms && formik.errors.acceptTerms}>
-											<Checkbox
-												name='acceptTerms'
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												isChecked={formik.values.acceptTerms}
-											>
-												Akceptuję{' '}
-												<Button variant={'link'} colorScheme='orange' onClick={handleTermsLinkClick}>
-													regulamin
-												</Button>
-											</Checkbox>
-
-											{formik.touched.acceptTerms && formik.errors.acceptTerms && (
-												<FormErrorMessage>{formik.errors.acceptTerms}</FormErrorMessage>
-											)}
-										</FormControl>
-									</Stack>
-									<Stack spacing='6'>
-										<Button colorScheme='orange' size='lg' fontSize='md' isLoading={loading} type='submit'>
-											Zarejestruj
-										</Button>
-									</Stack>
-
-									{sendConfirmMail && (
+									{sendConfirmMail ? (
 										<Alert
 											status='info'
 											flexDirection='column'
@@ -193,6 +143,62 @@ const RegistrationScreen = () => {
 												Sprawdź pocztę i klknij w link powierdzający aby dokończyć rejestrację.
 											</AlertDescription>
 										</Alert>
+									) : (
+										<Stack spacing='6'>
+											<FormControl>
+												<TextField type='text' name='firstName' placeholder='Twoje imię' label='Twoje imię' />
+												<TextField type='text' name='lastName' placeholder='Twoje nazwisko' label='Twoje nazwisko' />
+												<TextField type='text' name='email' placeholder='Email' label='Email' />
+
+												<TextField
+													type='number'
+													name='phoneNumber'
+													placeholder='Numer Telefonu'
+													label='Numer Telefou'
+												/>
+
+												<FormLabel htmlFor='image'>Zdjęcie</FormLabel>
+
+												<Field name='image'>
+													{({ form }) => (
+														<CustomFileButton
+															onChange={(file) => form.setFieldValue('image', file)}
+															previewImage={formik.values.image}
+														/>
+													)}
+												</Field>
+
+												<PasswordTextField type='password' name='password' placeholder='Hasło' label='Hasło' />
+												<PasswordTextField
+													type='password'
+													name='confirmPassword'
+													placeholder='Powtórz hasło'
+													label='Powtórz hasło'
+												/>
+											</FormControl>
+											<FormControl id='acceptTerms' isInvalid={formik.touched.acceptTerms && formik.errors.acceptTerms}>
+												<Checkbox
+													name='acceptTerms'
+													onChange={formik.handleChange}
+													onBlur={formik.handleBlur}
+													isChecked={formik.values.acceptTerms}
+												>
+													Akceptuję{' '}
+													<Button variant={'link'} colorScheme='orange' onClick={handleTermsLinkClick}>
+														regulamin
+													</Button>
+												</Checkbox>
+
+												{formik.touched.acceptTerms && formik.errors.acceptTerms && (
+													<FormErrorMessage>{formik.errors.acceptTerms}</FormErrorMessage>
+												)}
+											</FormControl>
+											<Stack spacing='6'>
+												<Button colorScheme='orange' size='lg' fontSize='md' isLoading={loading} type='submit'>
+													Zarejestruj
+												</Button>
+											</Stack>
+										</Stack>
 									)}
 								</Stack>
 							</Box>

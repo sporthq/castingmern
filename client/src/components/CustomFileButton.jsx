@@ -65,7 +65,7 @@ const CustomFileButton = ({ onChange }) => {
 						Kliknij na zdjęcie, jeśli chcesz je zmienić
 					</Text>
 				)}
-				<Text mb={4} fontSize={'sm'}>
+				<Text as='span' mb={4} fontSize={'sm'}>
 					Dozwolone formaty:
 					<p>
 						<strong>png,jpg,jpeg</strong>

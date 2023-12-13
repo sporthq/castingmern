@@ -38,7 +38,7 @@ const theme = extendTheme({
 
 function App() {
 	const [cookies] = useCookies(['cookieConsent']);
-	console.log(cookies);
+	
 	return (
 		<ChakraProvider theme={theme}>
 			<Helmet></Helmet>
